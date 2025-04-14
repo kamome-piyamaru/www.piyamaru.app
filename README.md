@@ -1,3 +1,3 @@
 # dev-piyamaru.github.io
 
-www.dev-piyamaru
+www.piyamaru.app
