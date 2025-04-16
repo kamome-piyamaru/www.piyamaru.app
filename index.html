@@ -1,6 +1,119 @@
-<html>
-  <body>
-    piyamaru app
-    <div>2025-04-14</div>
-  </body>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>あなたのウェブページタイトル</title>
+  <style>
+    /* リセット・ベーススタイル */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      background-color: #f8f8f8;
+      line-height: 1.6;
+    }
+
+    /* ヘッダー */
+    .site-header {
+      width: 100%;
+      background-color: #fff;
+      border-bottom: 0px solid #ddd;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ロゴ */
+    .logo img {
+      max-height: 50px;
+      width: auto;
+    }
+
+    /* ナビゲーション */
+    .main-nav ul {
+      list-style: none;
+      display: flex;
+    }
+
+    .main-nav ul li {
+      margin-left: 20px;
+    }
+
+    .main-nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    /* メインコンテンツ */
+    main {
+      padding: 20px;
+      /* 最大幅を指定し、中央寄せ */
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+
+ 
+
+    /* セクション見出し */
+    section h2 {
+      margin-bottom: 10px;
+    }
+
+    /* フッター */
+    footer {
+      width: 100%;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header class="site-header">
+    <div class="logo">
+      <a href="https://www.piyamaru.com/">
+        <!-- 横長ロゴ画像。実際のファイルパスに合わせて変更してください。 -->
+        <img src="ぴやまる_ロゴ（カラー横キャラあり）.png" alt="ロゴ">
+      </a>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main>
+    <section id="section1">
+      <h2>セクション1</h2>
+      <p>セクション1のコンテンツをここに記述します。</p>
+    </section>
+
+    <section id="section2">
+      <h2>セクション2</h2>
+      <p>セクション2のコンテンツをここに記述します。</p>
+    </section>
+
+    <section id="section3">
+      <h2>セクション3</h2>
+      <p>セクション3のコンテンツをここに記述します。</p>
+    </section>
+  </main>
+
+  <!-- フッター -->
+  <footer>
+    <p>&copy; 2025 PIYAMARU Company. All Rights Reserved.</p>
+  </footer>
+</body>
 </html>
