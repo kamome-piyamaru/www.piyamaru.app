@@ -201,16 +201,18 @@
   height: auto;
   display: block;
 }
+
 @media (max-width: 600px) {
   .app-links.app-overlay {
-    flex-direction: column;
-    gap: 15px;
+    /* flex-direction: column; */ /* これを削除またはコメントアウト */
+    gap: 10px; /* 間隔だけ調整 */
   }
 
   .app-links.app-overlay a {
-    width: 70%;
+    width: 100px; /* 少し小さめに調整 */
   }
 }
+
 
   </style>
 </head>
