@@ -125,6 +125,92 @@
       font-size: 12px;
     }
 
+    .app-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+
+.app-links img {
+    width: 30%; /* 基本サイズ */
+    margin: 5px;
+}
+
+/* スマートフォン（幅600px以下）向け */
+@media (max-width: 600px) {
+    .app-links img {
+        width: 80%; /* より大きく表示 */
+    }
+}
+
+/* タブレット（幅900px以下）向け */
+@media (max-width: 900px) {
+    .app-links img {
+        width: 45%; /* 少し大きく表示 */
+    }
+}
+
+.app-links a {
+  display: inline-block;
+  width: 30%;
+  text-align: center;
+}
+
+.app-links img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  .app-links a {
+    width: 80%;
+  }
+}
+@media (max-width: 900px) {
+  .app-links a {
+    width: 45%;
+  }
+}
+.banner-container {
+  position: relative;
+}
+.app-links.app-overlay {
+  position: absolute;
+  bottom: -2%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 45px; /* 画像同士の間隔を狭く */
+  flex-wrap: nowrap;
+  z-index: 2;
+}
+
+.app-links.app-overlay a {
+  display: block;
+  width: 160px; /* 固定幅にすることで間延び防止 */
+}
+
+.app-links.app-overlay img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media (max-width: 600px) {
+  .app-links.app-overlay {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .app-links.app-overlay a {
+    width: 70%;
+  }
+}
 
   </style>
 </head>
@@ -140,20 +226,30 @@
 
   <!-- メインコンテンツ -->
   <main>
-<!-- ポケットルーレット 新アプリ追加の場合は編集ここから-->
-    <section id="section1">
+<!-- ポケットルーレット 新アプリ追加の場合コピー:ここから-->
+   <section id="section1">
+  <div class="banner-container">
     <img src="アプリwebバナー.png" alt="ルーレットアプリバナー" class="banner" />
-    <div class="banner-container">
-      <a href="https://apps.apple.com/jp/app/id6744516750" class="link-button">アプリを開く</a>
-    </section>
-<!-- ポケットルーレット 新アプリ追加の場合は編集ここまで-->
+
+    <!-- アプリDL：画像にかぶせる配置にする -->
+    <div class="app-links app-overlay">
+      <a href="https://apps.apple.com/jp/app/id6744516750" target="_blank" rel="noopener noreferrer">
+        <img src="https://static.wixstatic.com/media/6efd04_71fe4068f62c47e29961e391600956a3~mv2.png" alt="App Store Download" />
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.piyamaru.rouletteapp&hl=ja" target="_blank" rel="noopener noreferrer">
+        <img src="https://static.wixstatic.com/media/6efd04_96d1343e7857423b8c9b57245facf927~mv2.png" alt="Google Play Download" />
+      </a>
+    </div>
+    <!-- /アプリDL -->
+  </div>
+</section>
+
+<!-- ポケットルーレット 新アプリ追加の場合は編集コピー:ここまで-->
  
-
-
-
-    </section>
   </main>
 
+
+  
   <!-- フッター -->
   <footer>
     <p>&copy; 2025 PIYAMARU Company. All Rights Reserved.</p>
