@@ -1,3 +1,100 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>子どもの安全基準に関するポリシー | xross.club</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SNSアプリ xross.club における子どもの安全基準に関するポリシー（Child Safety Policy）のページです。" />
+
+  <style>
+    :root { color-scheme: light dark; }
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif; line-height: 1.75; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 20px 16px 64px; }
+    .toolbar { position: sticky; top: 0; background: rgba(255,255,255,.8); backdrop-filter: blur(8px); border-bottom: 1px solid #e5e7eb; padding: 10px 16px; }
+    .back-btn { appearance: none; border: 1px solid #d1d5db; background: #f9fafb; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 14px; }
+    .back-btn:hover { background: #eef2ff; }
+    h1 { 
+      font-size: clamp(1.4rem, 2.2vw + 1rem, 2rem); 
+      margin: 16px 0; 
+      text-align: center;  
+    }
+    h2 { font-size: clamp(1.1rem, 1.2vw + 1rem, 1.4rem); margin: 28px 0 10px; }
+    p { margin: 0 0 12px; }
+    ul { margin: 8px 0 16px 1.2em; padding: 0; }
+    li { margin: 6px 0; }
+    hr { border: none; border-top: 1px solid #e5e7eb; margin: 20px 0; }
+    a { color: #0b65c2; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .small { color: #6b7280; }
+  </style>
+</head>
 <body>
-  子どもの安全基準に関するポリシー
+  <div class="toolbar" role="navigation" aria-label="ページ操作">
+    <button class="back-btn" type="button" onclick="history.length > 1 ? history.back() : location.href='/'" aria-label="前のページに戻る">← 前の画面に戻る</button>
+    <noscript><a href="/" class="back-btn" style="margin-left:8px;">← トップへ</a></noscript>
+  </div>
+  <main class="wrap">
+    <h1>子どもの安全基準に関するポリシー</h1>
+    <p>株式会社ぴやまる（以下「当社」といいます。）は、当社が運営するソーシャルアプリ「xross.club」（以下「本サービス」といいます。）において、子どもおよび未成年者の安全を確保し、健全なコミュニティ環境を維持することを重要な責務と考えています。本ポリシーは、Google Play の「子どもの安全に関するポリシー」要件に準拠し、本サービスにおける子どもの保護方針を明確に示すものです。</p>
+
+    <h2>1. 対象年齢と利用制限</h2>
+    <p>xross.clubは、13歳以上の方を対象とするソーシャルメディアサービスです。本サービスは13歳未満の児童による利用を想定しておらず、13歳未満の方が利用することはできません。</p>
+    <ul>
+      <li>未成年者が本サービスを利用する場合は、必ず親権者等の同意を得る必要があります。</li>
+      <li>13歳未満の利用が確認された場合、当社は該当アカウントを削除または利用停止することがあります。</li>
+      <li>年齢確認機能や保護者同意取得の自動システムは現時点で実装していませんが、運営上の方針として児童の利用は想定しておらず、運営監視による安全管理の徹底に努めています。</li>
+    </ul>
+
+    <h2>2. 不適切な行為・コンテンツへの対応</h2>
+    <p>本サービスでは、すべての利用者が安心して交流できるよう、以下の禁止事項を明確に定めています。</p>
+    <ul>
+      <li>性的・わいせつ的・暴力的な内容の投稿</li>
+      <li>差別的、脅迫的、侮辱的な表現</li>
+      <li>出会い・交際等を目的とする利用行為</li>
+      <li>児童の搾取や危険行為を助長する内容</li>
+      <li>他者のプライバシー侵害や個人情報の開示</li>
+    </ul>
+    <p>違反が確認された場合、当社は投稿の削除、利用停止、または永久的な利用禁止等の措置を行います。</p>
+
+    <h2>3. コミュニティの安全管理</h2>
+    <p>xross.clubでは、児童や未成年者を含むすべての利用者の安全を守るために、以下の対策を実施しています。</p>
+    <ul>
+      <li>NGワード検出システムによる不適切表現の自動検出</li>
+      <li>通報機能・ブロック機能による利用者間トラブルの防止</li>
+      <li>運営チームによるモデレーション（投稿監視・削除対応）</li>
+      <li>出会い目的の投稿や危険行為の監視・排除</li>
+      <li>不適切な利用を検知した場合の迅速な対応体制</li>
+    </ul>
+    <p>当社はこれらを通じて、児童が有害なコンテンツや他者からの不当な接触にさらされないよう努めます。</p>
+
+    <hr />
+
+    <h2>4. 個人情報および位置情報の取り扱い</h2>
+    <ul>
+      <li>本サービスでは Firebase Authentication および Firestore を利用してユーザー情報を管理しています。</li>
+      <li>登録時に年齢確認機能や保護者同意の確認は行っていませんが、13歳未満の情報収集は行わない方針です。</li>
+      <li>投稿への位置情報の付与は任意設定であり、ユーザーの選択に基づいて行われます。</li>
+      <li>Android の <code>android.permission.ACTIVITY_RECOGNITION</code> 等の身体活動データ関連権限は使用していません。</li>
+      <li>収集した個人情報や位置情報を第三者に販売・提供することはありません。</li>
+    </ul>
+    <p>個人情報の詳細な取り扱いについては、<a href="https://www.piyamaru.com/privacy-piyamaru" target="_blank" rel="noopener">プライバシーポリシー</a>をご参照ください。</p>
+
+    <hr />
+
+    <h2>5. 保護者・教育関係者への配慮</h2>
+    <ul>
+      <li>13歳未満の利用が判明した場合、アカウント削除を行います。</li>
+      <li>保護者からの削除依頼・通報には迅速に対応いたします。</li>
+      <li>不適切なユーザーまたは投稿を報告できる通報機能を設置しています。</li>
+    </ul>
+
+    <h2>6. 違反報告・お問い合わせ</h2>
+    <p>児童の安全に関わる問題や不適切なコンテンツを発見された場合は、アプリ内の通報機能、または以下の連絡先へご連絡ください。</p>
+    <p>連絡先Eメールアドレス：info@piyamaru.com</p>
+
+    <h2>7. 本ポリシーの改訂について</h2>
+    <p>当社は、社会情勢や法令、プラットフォームポリシーの変更に応じて、本ポリシーを改訂する場合があります。改訂後は本ウェブサイトに掲載し、最新の内容を適切に告知いたします。</p>
+    <p class="small">制定：2025年10月9日</p>
+  </main>
 </body>
+</html>
