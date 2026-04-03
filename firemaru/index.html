@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firemaru | Firebase Admin Tool</title>
+  <meta name="description" content="Firestore・Storage・Authentication・Cloud Functions Logs をひとつのデスクトップアプリで管理できる Firebase Admin Tool『Firemaru』のLPです。" />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #121a30;
+      --card: rgba(18, 26, 48, 0.8);
+      --line: rgba(255, 255, 255, 0.12);
+      --text: #edf2ff;
+      --muted: #b8c2dd;
+      --accent: #6ea8ff;
+      --accent-2: #7ef0c2;
+      --danger: #ffb4b4;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(110,168,255,0.18), transparent 28%),
+        radial-gradient(circle at 90% 10%, rgba(126,240,194,0.10), transparent 24%),
+        linear-gradient(180deg, #0a0f1e 0%, #0c1224 100%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 11, 24, 0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #08111f;
+      font-size: 20px;
+      box-shadow: 0 10px 30px rgba(110,168,255,.35);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: .2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #4f7cff);
+      color: white;
+      box-shadow: 0 16px 40px rgba(79,124,255,.35);
+    }
+    .btn-secondary {
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 72px 0 44px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: #dce8ff;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(2.3rem, 5vw, 4.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 660px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      margin-bottom: 22px;
+    }
+
+    .mini-note {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(17,24,39,.92), rgba(15,22,41,.84));
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .window-top {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.28);
+    }
+
+    .ui {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 460px;
+    }
+
+    .sidebar {
+      border-right: 1px solid rgba(255,255,255,0.08);
+      padding: 18px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .sidebar .side-title {
+      font-size: 13px;
+      color: #95a5cb;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 12px;
+    }
+
+    .menu-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #dbe7ff;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid transparent;
+    }
+
+    .menu-item.active {
+      background: linear-gradient(135deg, rgba(110,168,255,.20), rgba(126,240,194,.12));
+      border-color: rgba(110,168,255,.30);
+    }
+
+    .content {
+      padding: 18px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 16px;
+    }
+
+    .panel {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .panel h3 {
+      margin: 0 0 12px;
+      font-size: 15px;
+      letter-spacing: .01em;
+    }
+
+    .fake-toolbar,
+    .fake-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .pill,
+    .fake-cell {
+      min-height: 38px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .table {
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .table .fake-row {
+      grid-template-columns: 1fr 1fr .7fr .6fr;
+    }
+
+    .log-list { display: grid; gap: 10px; }
+
+    .log {
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 13px;
+      color: #dce5fb;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+      margin-bottom: 6px;
+    }
+
+    section {
+      padding: 44px 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+
+    .section-label {
+      color: var(--accent-2);
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .section-desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, rgba(110,168,255,.20), rgba(126,240,194,.15));
+      border: 1px solid rgba(255,255,255,.1);
+      font-size: 22px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .list li {
+      position: relative;
+      padding-left: 22px;
+      color: #dbe6ff;
+      font-size: 14px;
+    }
+
+    .list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent-2);
+      font-weight: 700;
+    }
+
+    .problem .card { min-height: 100%; }
+
+    .shot {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    }
+
+    .shot-body {
+      padding: 18px;
+      min-height: 280px;
+      display: grid;
+      gap: 12px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .shot-toolbar {
+      display: grid;
+      grid-template-columns: 120px 1fr 84px;
+      gap: 10px;
+    }
+
+    .shot-block,
+    .shot-line {
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .shot-block { min-height: 44px; }
+
+    .shot-layout {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .shot-column {
+      display: grid;
+      gap: 10px;
+    }
+
+    .shot-line { min-height: 24px; }
+    .shot-panel { min-height: 100%; }
+
+    .compare {
+      overflow-x: auto;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    th, td {
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      text-align: left;
+    }
+
+    th {
+      color: #dfe8ff;
+      font-size: 14px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    td { color: var(--muted); }
+    .yes { color: var(--accent-2); font-weight: 800; }
+    .no { color: #ff9d9d; font-weight: 800; }
+    .mid { color: #ffe08c; font-weight: 800; }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .price-card {
+      position: relative;
+      padding: 28px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .price-card.featured {
+      background: linear-gradient(180deg, rgba(79,124,255,.18), rgba(255,255,255,.05));
+      border-color: rgba(110,168,255,.32);
+      box-shadow: 0 26px 70px rgba(79,124,255,.15);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(126,240,194,.12);
+      color: #baf7df;
+      border: 1px solid rgba(126,240,194,.24);
+      margin-bottom: 14px;
+    }
+
+    .price-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .price-amount {
+      font-size: 2.3rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .price-amount small {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .faq {
+      display: grid;
+      gap: 16px;
+    }
+
+    details {
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      padding: 18px 20px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+
+    details p {
+      color: var(--muted);
+      margin: 12px 0 0;
+    }
+
+    .cta {
+      padding: 60px 0 84px;
+    }
+
+    .cta-box {
+      padding: 36px;
+      border-radius: 30px;
+      text-align: center;
+      background:
+        radial-gradient(circle at top center, rgba(110,168,255,.18), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      max-width: 760px;
+      margin: 0 auto 22px;
+    }
+
+    footer {
+      padding: 22px 0 40px;
+      color: #92a3c8;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .grid-3,
+      .grid-2,
+      .pricing,
+      .stats,
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ui {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding-top: 40px; }
+      section { padding: 34px 0; }
+      .container { width: min(var(--max), calc(100% - 20px)); }
+      .card, .price-card, .cta-box { padding: 20px; }
+      .hero-actions { flex-direction: column; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#top">
+        <span class="brand-badge">🔥</span>
+        <span>Firemaru</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">機能</a>
+        <a href="#screenshots">画面</a>
+        <a href="#compare">比較</a>
+        <a href="#pricing">価格</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn btn-secondary" href="#pricing">Buy License</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Desktop App for Firebase Teams</div>
+          <h1>Firebase管理を、<br>もっと速く、<br>もっと見やすく。</h1>
+          <p class="lead">
+            Firestore・Storage・Authentication・Cloud Functions Logs を、
+            ひとつのデスクトップアプリでまとめて管理できる Firebase Admin Tool。
+            日々の運用・調査・編集・確認を一気に効率化します。
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#pricing">Download Free Trial</a>
+            <a class="btn btn-secondary" href="#features">See Features</a>
+          </div>
+          <div class="mini-note">Mac / Windows 対応 ・ ローカル保存 ・ 複数プロジェクト切替</div>
+
+          <div class="stats">
+            <div class="stat"><strong>4</strong><span>Core Modules</span></div>
+            <div class="stat"><strong>1</strong><span>Desktop App</span></div>
+            <div class="stat"><strong>AES-256</strong><span>Credential Encryption</span></div>
+            <div class="stat"><strong>Multi</strong><span>Project Support</span></div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="window-top">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <div class="ui">
+            <aside class="sidebar">
+              <div class="side-title">Navigation</div>
+              <div class="menu-item active">🗄 Firestore</div>
+              <div class="menu-item">📦 Storage</div>
+              <div class="menu-item">👤 Authentication</div>
+              <div class="menu-item">⚡ Function Logs</div>
+              <div class="menu-item">🔀 Projects</div>
+            </aside>
+            <div class="content">
+              <div class="content-grid">
+                <div class="panel">
+                  <h3>Firestore Editor</h3>
+                  <div class="fake-toolbar">
+                    <div class="pill"></div>
+                    <div class="pill"></div>
+                    <div class="pill"></div>
+                    <div class="pill"></div>
+                  </div>
+                  <div class="table">
+                    <div class="fake-row">
+                      <div class="fake-cell"></div>
+                      <div class="fake-cell"></div>
+                      <div class="fake-cell"></div>
+                      <div class="fake-cell"></div>
+                    </div>
+                    <div class="fake-row">
+                      <div class="fake-cell"></div>
+                      <div class="fake-cell"></div>
+                      <div class="fake-cell"></div>
+                      <div class="fake-cell"></div>
+                    </div>
+                    <div class="fake-row">
+                      <div class="fake-cell"></div>
+                      <div class="fake-cell"></div>
+                      <div class="fake-cell"></div>
+                      <div class="fake-cell"></div>
+                    </div>
+                    <div class="fake-row">
+                      <div class="fake-cell"></div>
+                      <div class="fake-cell"></div>
+                      <div class="fake-cell"></div>
+                      <div class="fake-cell"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel">
+                  <h3>Function Logs</h3>
+                  <div class="log-list">
+                    <div class="log">INFO&nbsp;&nbsp;User import finished successfully</div>
+                    <div class="log">WARNING&nbsp;&nbsp;Missing index detected</div>
+                    <div class="log">ERROR&nbsp;&nbsp;Storage upload timeout</div>
+                    <div class="log">DEBUG&nbsp;&nbsp;Refreshing logs...</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="problem">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Problem</div>
+          <h2>Firebase管理、<br>こんな不満はありませんか？</h2>
+          <p class="section-desc">日々の運用で時間を奪う「探しづらい・編集しづらい・見づらい」を、Firemaru が解消します。</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="icon">🐢</div>
+            <h3>Console操作が遅い</h3>
+            <p>プロジェクトをまたいだ確認や、複数画面の往復に時間がかかる。</p>
+          </div>
+          <div class="card">
+            <div class="icon">🧩</div>
+            <h3>Firestore編集が大変</h3>
+            <p>差分確認、Timestamp編集、インポート・エクスポートをもっと楽にしたい。</p>
+          </div>
+          <div class="card">
+            <div class="icon">🗂️</div>
+            <h3>Storageを一覧管理しづらい</h3>
+            <p>ファイル構造をまとめて見たい。アップロードや削除もGUIで済ませたい。</p>
+          </div>
+          <div class="card">
+            <div class="icon">👥</div>
+            <h3>Auth運用が面倒</h3>
+            <p>ユーザー検索、無効化、カスタムクレームの確認や編集に手間がかかる。</p>
+          </div>
+          <div class="card">
+            <div class="icon">📉</div>
+            <h3>ログ確認が見づらい</h3>
+            <p>Cloud Functions のログを絞り込みたい。異常時の調査をもっと速くしたい。</p>
+          </div>
+          <div class="card">
+            <div class="icon">🚀</div>
+            <h3>Firemaruで一括解決</h3>
+            <p>Firebaseの主要運用タスクを、一つのデスクトップアプリにまとめました。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Features</div>
+          <h2>運用に必要な機能を、<br>ひとつに集約。</h2>
+          <p class="section-desc">Firestore・Storage・Authentication・Function Logs を横断して扱える、実務向けの管理ツールです。</p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <div class="icon">🗄️</div>
+            <h3>Powerful Firestore Manager</h3>
+            <p>ドキュメント閲覧・編集・削除・作成から、差分確認、Filter、JS Query、CSV / JSON の入出力まで対応。</p>
+            <ul class="list">
+              <li>TABLE / TREE / JSON ビュー</li>
+              <li>差分確認モーダル付き保存</li>
+              <li>Timestamp の安全な編集</li>
+              <li>CSV / JSON / Firefoo JSON インポート対応</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="icon">📦</div>
+            <h3>Storage Explorer</h3>
+            <p>ツリー表示、プレビュー、フォルダ作成、複数アップロード、削除まで、Storageをファイルブラウザのように扱えます。</p>
+            <ul class="list">
+              <li>エクスプローラ形式のツリー表示</li>
+              <li>画像・動画などのプレビュー</li>
+              <li>フォルダ作成と複数ファイルアップロード</li>
+              <li>ファイル・フォルダの一括削除</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="icon">👤</div>
+            <h3>Authentication Manager</h3>
+            <p>Firebase Authユーザーの一覧・検索・詳細確認・編集・無効化・CSV / JSON出力をまとめて提供。</p>
+            <ul class="list">
+              <li>メール / UID / 表示名で検索</li>
+              <li>emailVerified / disabled / 電話番号編集</li>
+              <li>カスタムクレーム編集</li>
+              <li>firebase CLI 互換のエクスポート</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="icon">⚡</div>
+            <h3>Cloud Functions Logs Viewer</h3>
+            <p>関数一覧、ログ表示、重要度フィルター、検索、自動更新で、障害調査や運用確認を効率化します。</p>
+            <ul class="list">
+              <li>v1 / v2 Functions を統合表示</li>
+              <li>DEBUG / INFO / WARNING / ERROR / CRITICAL</li>
+              <li>全文検索とページネーション</li>
+              <li>30秒ごとの自動更新</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="screenshots">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Screenshots</div>
+          <h2>見やすく、触りやすい。<br>デスクトップ前提のUI。</h2>
+          <p class="section-desc">スクリーンショットを差し替えるだけで、そのまま公開用LPとして使える構成です。</p>
+        </div>
+        <div class="grid-3">
+          <div class="shot">
+            <div class="window-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="shot-body">
+              <strong>Firestore Editor</strong>
+              <div class="shot-toolbar">
+                <div class="shot-block"></div>
+                <div class="shot-block"></div>
+                <div class="shot-block"></div>
+              </div>
+              <div class="shot-layout">
+                <div class="shot-column">
+                  <div class="shot-line"></div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line shot-panel"></div>
+                </div>
+                <div class="shot-column">
+                  <div class="shot-line"></div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line shot-panel"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="shot">
+            <div class="window-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="shot-body">
+              <strong>Storage Explorer</strong>
+              <div class="shot-layout">
+                <div class="shot-column">
+                  <div class="shot-line"></div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line shot-panel"></div>
+                </div>
+                <div class="shot-column">
+                  <div class="shot-block"></div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line shot-panel"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="shot">
+            <div class="window-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="shot-body">
+              <strong>Auth & Logs</strong>
+              <div class="shot-toolbar">
+                <div class="shot-block"></div>
+                <div class="shot-block"></div>
+                <div class="shot-block"></div>
+              </div>
+              <div class="shot-column">
+                <div class="shot-line"></div>
+                <div class="shot-line"></div>
+                <div class="shot-line"></div>
+                <div class="shot-line"></div>
+                <div class="shot-line"></div>
+                <div class="shot-line shot-panel"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="compare">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Comparison</div>
+          <h2>Firebase Consoleだけでは足りない運用に。</h2>
+          <p class="section-desc">毎日触る管理ツールだからこそ、操作効率・一覧性・横断性に差が出ます。</p>
+        </div>
+        <div class="compare">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Firebase Console</th>
+                <th>Firemaru</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Firestore GUI 編集</td>
+                <td class="mid">△</td>
+                <td class="yes">◎</td>
+              </tr>
+              <tr>
+                <td>Storage エクスプローラ表示</td>
+                <td class="no">✗</td>
+                <td class="yes">◎</td>
+              </tr>
+              <tr>
+                <td>Auth ユーザー管理</td>
+                <td class="mid">△</td>
+                <td class="yes">◎</td>
+              </tr>
+              <tr>
+                <td>Functions Logs の絞り込み</td>
+                <td class="mid">△</td>
+                <td class="yes">◎</td>
+              </tr>
+              <tr>
+                <td>マルチプロジェクト切替</td>
+                <td class="no">✗</td>
+                <td class="yes">◎</td>
+              </tr>
+              <tr>
+                <td>ローカル暗号化保存</td>
+                <td class="mid">△</td>
+                <td class="yes">◎</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Security</div>
+          <h2>機密情報はローカルで安全に管理。</h2>
+          <p class="section-desc">サービスアカウントキーを扱うツールだからこそ、ローカル保存と暗号化を前提に設計。</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="icon">🔐</div>
+            <h3>AES-256-GCM</h3>
+            <p>サービスアカウントキーは暗号化して保存。設定ファイルだけが漏れても復号できません。</p>
+          </div>
+          <div class="card">
+            <div class="icon">💻</div>
+            <h3>Local-Only Tool</h3>
+            <p>クラウド経由ではなく、ローカルツールとして運用する前提の設計です。</p>
+          </div>
+          <div class="card">
+            <div class="icon">🔀</div>
+            <h3>Multi Project Ready</h3>
+            <p>PROD / STG / DEV など環境ラベル付きで、複数プロジェクトを安全に切り替えられます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Pricing</div>
+          <h2>まずは試して、<br>必要ならすぐ導入。</h2>
+          <p class="section-desc">価格は仮置きです。Lemon Squeezy や Paddle の販売導線にそのまま接続しやすい構成にしています。</p>
+        </div>
+        <div class="pricing">
+          <div class="price-card">
+            <div class="price-name">Free Trial</div>
+            <div class="price-amount">$0</div>
+            <p>まず試したい方向け。基本UIや主要機能の体験に。</p>
+            <ul class="list">
+              <li>基本画面の利用</li>
+              <li>導入検討用の体験版</li>
+              <li>1プロジェクト</li>
+            </ul>
+            <div style="margin-top:20px"><a class="btn btn-secondary" href="#">Download Trial</a></div>
+          </div>
+          <div class="price-card featured">
+            <div class="tag">Recommended</div>
+            <div class="price-name">Pro</div>
+            <div class="price-amount">$29 <small>/ year</small></div>
+            <p>個人開発者・運用担当向け。日常運用に必要な主要機能をすべて利用可能。</p>
+            <ul class="list">
+              <li>Firestore / Storage / Auth / Logs</li>
+              <li>複数プロジェクト切替</li>
+              <li>テーマ切替</li>
+              <li>継続アップデート</li>
+            </ul>
+            <div style="margin-top:20px"><a class="btn btn-primary" href="#">Buy Pro</a></div>
+          </div>
+          <div class="price-card">
+            <div class="price-name">Team</div>
+            <div class="price-amount">$79 <small>/ year</small></div>
+            <p>小規模チーム向け。複数担当で運用する環境に。</p>
+            <ul class="list">
+              <li>複数ライセンス運用</li>
+              <li>優先サポート</li>
+              <li>チーム利用向け</li>
+            </ul>
+            <div style="margin-top:20px"><a class="btn btn-secondary" href="#">Buy Team</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">FAQ</div>
+          <h2>導入前によくある質問</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>Firemaru は Firebase Console の代替ですか？</summary>
+            <p>完全な置き換えではなく、日常運用を大幅に効率化する補完ツールです。Consoleで行っていた多くの確認・編集作業を、より見やすく速く行えます。</p>
+          </details>
+          <details>
+            <summary>サービスアカウントキーの扱いは安全ですか？</summary>
+            <p>ローカル保存前提で、暗号化を前提にした構成です。公開サーバで運用するSaaSではなく、デスクトップアプリとしての安全性を重視しています。</p>
+          </details>
+          <details>
+            <summary>どのOSに対応していますか？</summary>
+            <p>このLPでは Mac / Windows を想定しています。必要なら Linux 対応案内も簡単に追加できます。</p>
+          </details>
+          <details>
+            <summary>このHTMLはそのまま公開できますか？</summary>
+            <p>はい。リンク先やスクリーンショット、価格を差し替えれば、そのまま静的サイトとして公開できます。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div class="section-label">Ready to Launch</div>
+          <h2>Firebase運用を、<br>Firemaruで一段速く。</h2>
+          <p>
+            デスクトップアプリ販売用のLPとして、そのまま使えるHTMLです。
+            ダウンロード導線、購入ボタン、スクリーンショット、価格表を差し替えれば公開できます。
+          </p>
+          <div class="hero-actions" style="justify-content:center; margin-bottom:0;">
+            <a class="btn btn-primary" href="#pricing">Download Free Trial</a>
+            <a class="btn btn-secondary" href="#top">Back to Top</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © Firemaru. All rights reserved.
+  </footer>
+</body>
+</html>
