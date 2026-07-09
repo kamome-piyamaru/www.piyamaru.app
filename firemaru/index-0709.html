@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n-title>firemaru — Firebase管理を、デスクトップの速さで。</title>
+<meta name="description" data-i18n-desc content="firemaruはFirestore・Authentication・Storage・Cloud Functionsをひとつのアプリで扱えるFirebase GUIデスクトップクライアント。Mac / Windows対応、14日間無料トライアル。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:      #E01050;
+    --pink-2:    #FF4E82;
+    --bg:        #121410;
+    --bg-raise:  #181B15;
+    --bg-card:   #1D211A;
+    --line:      #333A2C99;
+    --text:      #F2F5EC;
+    --muted:     #9AA694;
+    --brand-1:   #50B020;
+    --brand-2:   #80C020;
+    --brand-dim: #50B02022;
+    --ok:        #7BC98B;
+    --radius:    14px;
+    --maxw:      1080px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Noto Sans JP',sans-serif;
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.4}
+  a{color:inherit;text-decoration:none}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--brand-2);outline-offset:3px;border-radius:4px}
+  img{max-width:100%}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* ── 共通パーツ ─────────────────── */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.12em;
+    color:var(--brand-2);text-transform:uppercase;margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";width:9px;height:9px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,var(--brand-2),var(--brand-1));
+    box-shadow:0 0 10px var(--brand-1);
+  }
+  .sec-title{font-size:clamp(26px,4vw,36px);font-weight:900;letter-spacing:.01em}
+  .sec-lead{color:var(--muted);margin-top:14px;max-width:640px}
+  section{padding:96px 0}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-weight:700;font-size:15px;border-radius:999px;cursor:pointer;
+    padding:14px 30px;border:none;transition:transform .15s ease,box-shadow .15s ease;
+  }
+  .btn-brand{
+    background:linear-gradient(120deg,var(--brand-1),var(--brand-2));
+    color:#0C1802;
+    box-shadow:0 6px 22px -6px #50B02088;
+  }
+  .btn-brand:hover{transform:translateY(-2px);box-shadow:0 10px 28px -6px #50B020AA}
+  .btn-ghost{
+    background:transparent;color:var(--text);
+    border:1px solid #4A5140;
+  }
+  .btn-ghost:hover{border-color:var(--brand-2);color:var(--brand-2)}
+
+  /* ── ヘッダー ─────────────────── */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:#121410E6;backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    height:64px;
+  }
+  .logo{display:flex;align-items:center;gap:9px}
+  .logo img{height:24px;width:auto;display:block}
+  .logo .logo-chara{height:34px}
+  @media(max-width:820px){.logo img{height:20px}.logo .logo-chara{height:28px}}
+  .nav-links{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:500}
+  .nav-links a:hover{color:var(--brand-2)}
+  .lang{
+    display:flex;border:1px solid #4A5140;border-radius:999px;overflow:hidden;font-size:12px;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .lang button{
+    background:transparent;border:none;color:var(--muted);padding:5px 12px;cursor:pointer;font-family:inherit;font-size:inherit;
+  }
+  .lang button[aria-pressed="true"]{background:var(--brand-dim);color:var(--brand-2)}
+  .nav .btn{padding:9px 20px;font-size:13px}
+  .nav-mobile-hide{display:flex;align-items:center;gap:28px}
+  @media(max-width:820px){
+    .nav-links{display:none}
+    .nav .btn{display:none}
+  }
+
+  /* ── ① ヒーロー ─────────────────── */
+  .hero{padding:88px 0 110px;position:relative;overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;right:-220px;top:-120px;
+    width:640px;height:640px;border-radius:50%;
+    border:2px solid #50B02033;
+    box-shadow:0 0 120px 30px #50B02014, inset 0 0 120px 20px #50B0200D;
+    pointer-events:none;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;position:relative}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
+  .hero h1{
+    font-size:clamp(32px,4.6vw,50px);font-weight:900;letter-spacing:.01em;line-height:1.35;
+  }
+  .hero h1 .accent{
+    background:linear-gradient(100deg,var(--brand-1) 0%,var(--brand-2) 45%,var(--pink) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-sub{color:var(--muted);margin:22px 0 32px;font-size:16px;max-width:520px}
+  .hero-cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .hero-note{font-size:12.5px;color:var(--muted);margin-top:14px;font-family:'JetBrains Mono',monospace}
+  .hero-note .ok{color:var(--ok)}
+
+  /* デモ画面モック */
+  .mock{
+    border-radius:12px;overflow:hidden;
+    border:1px solid #333A2C;
+    background:#0D0F0B;
+    box-shadow:0 30px 60px -20px #000000CC, 0 0 0 1px #50B02011;
+    font-size:11.5px;font-family:'JetBrains Mono',monospace;
+  }
+  .mock-bar{display:flex;align-items:center;gap:6px;padding:10px 12px;background:#14170F;border-bottom:1px solid #333A2C}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .mock-title{margin-left:10px;color:var(--muted);font-size:10.5px}
+  .mock-body{display:grid;grid-template-columns:132px 1fr;min-height:280px}
+  .mock-side{background:#101208;border-right:1px solid #333A2C;padding:12px 0}
+  .mock-side div{padding:7px 14px;color:var(--muted)}
+  .mock-side .active{color:var(--brand-2);background:var(--brand-dim);border-right:2px solid var(--brand-1)}
+  .mock-main{padding:14px 16px;color:#C3CCBC}
+  .mock-path{color:var(--muted);margin-bottom:10px;font-size:10.5px}
+  .mock-table{width:100%;border-collapse:collapse}
+  .mock-table th{color:var(--brand-2);text-align:left;font-weight:600;padding:6px 8px;border-bottom:1px solid #333A2C;font-size:10.5px}
+  .mock-table td{padding:6px 8px;border-bottom:1px solid #242920;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+  .badge-doc{color:var(--ok)}
+
+  /* ── ② 課題 ─────────────────── */
+  .pain{background:var(--bg-raise);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+  @media(max-width:860px){.card-grid{grid-template-columns:1fr}}
+  .card{
+    background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px 26px;
+  }
+  .card h3{font-size:17px;font-weight:700;margin-bottom:10px}
+  .card p{font-size:14px;color:var(--muted)}
+  .pain .card h3::before{content:"✕ ";color:#E01050}
+
+  /* ── ③ 解決 ─────────────────── */
+  .solve .card{background:transparent;border:1px solid #50B02033}
+  .solve .card h3{color:var(--brand-2)}
+  .solve .num{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);
+    display:block;margin-bottom:12px;letter-spacing:.15em;
+  }
+
+  /* ── ④ 主な機能 ─────────────────── */
+  .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:44px}
+  @media(max-width:760px){.feat-grid{grid-template-columns:1fr}}
+  .feat{
+    display:flex;gap:18px;align-items:flex-start;
+    background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px;
+  }
+  .feat-icon{
+    flex:none;width:46px;height:46px;border-radius:50%;
+    display:grid;place-items:center;font-size:20px;
+    background:var(--brand-dim);border:1px solid #50B02044;
+  }
+  .feat h3{font-size:16.5px;margin-bottom:6px}
+  .feat h3 code{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--brand-2)}
+  .feat p{font-size:13.5px;color:var(--muted)}
+
+  /* ── ⑥ 料金 ─────────────────── */
+  .pricing{background:var(--bg-raise);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,420px));gap:24px;margin-top:44px;justify-content:center}
+  @media(max-width:760px){.price-grid{grid-template-columns:1fr}}
+  .plan{
+    background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:34px 30px;display:flex;flex-direction:column;
+  }
+  .plan.pro{border:1px solid #E0105066;position:relative;box-shadow:0 0 40px -12px #E0105033}
+  .plan-tag{
+    position:absolute;top:-13px;left:30px;
+    background:linear-gradient(120deg,var(--pink),var(--pink-2));color:#fff;
+    font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 14px;
+  }
+  .plan h3{font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.1em;color:var(--muted)}
+  .plan .price{font-size:42px;font-weight:900;font-family:'Zen Kaku Gothic New',sans-serif;margin:10px 0 2px}
+  .plan .price small{font-size:14px;font-weight:500;color:var(--muted)}
+  .plan .price-note{font-size:12px;color:var(--muted);margin-bottom:22px}
+  .plan ul{list-style:none;margin-bottom:28px;flex:1}
+  .plan li{font-size:14px;padding:7px 0;color:#CDD5C6}
+  .plan li::before{content:"✓ ";color:var(--ok);font-weight:700}
+  .plan .btn{width:100%}
+
+  /* ── ⑦ ダウンロード ─────────────────── */
+  .dl{text-align:center;position:relative;overflow:hidden}
+  .dl::before{
+    content:"";position:absolute;left:50%;bottom:-340px;transform:translateX(-50%);
+    width:680px;height:680px;border-radius:50%;
+    background:radial-gradient(circle,#50B02022 0%,transparent 65%);
+    pointer-events:none;
+  }
+  .dl-btns{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:40px;position:relative}
+  .dl-btn{
+    display:flex;flex-direction:column;align-items:flex-start;gap:2px;
+    background:var(--bg-card);border:1px solid #4A5140;border-radius:var(--radius);
+    padding:18px 28px;min-width:250px;text-align:left;cursor:pointer;color:var(--text);
+    transition:border-color .15s ease,transform .15s ease;
+  }
+  .dl-btn:hover{border-color:var(--brand-2);transform:translateY(-2px)}
+  .dl-os{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .dl-meta{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+  .dl-cta{margin-top:44px;position:relative}
+
+  /* ── フッター ─────────────────── */
+  footer{border-top:1px solid var(--line);padding:36px 0;font-size:13px;color:var(--muted)}
+  .foot{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+  .foot-links{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+  .foot-copy{font-size:12px;font-family:'JetBrains Mono',monospace}
+  .foot-links a:hover{color:var(--brand-2)}
+</style>
+</head>
+<body>
+
+<!-- ══ ヘッダー ══ -->
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="firemaru">
+      <img class="logo-chara" id="mascot-img" alt="" aria-hidden="true">
+      <img id="logo-img" alt="Firemaru">
+    </a>
+    <div class="nav-mobile-hide">
+      <nav class="nav-links" aria-label="main">
+        <a href="#features" data-i18n="nav_features">機能</a>
+        <a href="#pricing" data-i18n="nav_pricing">料金</a>
+      </nav>
+      <div class="lang" role="group" aria-label="Language">
+        <button data-lang="ja" aria-pressed="true">JA</button>
+        <button data-lang="en" aria-pressed="false">EN</button>
+        <button data-lang="de" aria-pressed="false">DE</button>
+      </div>
+      <a class="btn btn-brand" href="#download" data-i18n="cta_trial">Download Free Trial</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══ ① ヒーロー ══ -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 data-i18n="hero_title">Firebase管理は、<br><span class="accent">デスクトップ</span>が速い。</h1>
+      <p class="hero-sub" data-i18n="hero_sub">firemaruは、Firestore・Authentication・Storage・Cloud Functionsをひとつの画面で操作できるFirebase GUIクライアント。ブラウザのタブ地獄から、そろそろ卒業しませんか。</p>
+      <div class="hero-cta">
+        <a class="btn btn-brand" href="#download" data-i18n="cta_trial">Download Free Trial</a>
+        <a class="btn btn-ghost" href="#features" data-i18n="cta_features">機能を見る</a>
+      </div>
+      <p class="hero-note" data-i18n="hero_note"><span class="ok">✓</span> 14日間無料トライアル　<span class="ok">✓</span> クレジットカード不要　<span class="ok">✓</span> Mac / Windows対応</p>
+    </div>
+
+    <!-- デモ画面（CSSモック：実スクショに差し替え可） -->
+    <div class="mock" role="img" aria-label="firemaru app UI">
+      <div class="mock-bar">
+        <span class="dot" style="background:#E0645A"></span>
+        <span class="dot" style="background:#E8B44E"></span>
+        <span class="dot" style="background:#6BBF73"></span>
+        <span class="mock-title">firemaru — my-project-prod</span>
+      </div>
+      <div class="mock-body">
+        <div class="mock-side">
+          <div class="active">◆ Firestore</div>
+          <div>◇ Authentication</div>
+          <div>◇ Storage</div>
+          <div>◇ Functions</div>
+        </div>
+        <div class="mock-main">
+          <div class="mock-path">/ users / <span class="badge-doc">3,204 docs</span></div>
+          <table class="mock-table">
+            <thead><tr><th>id</th><th>name</th><th>plan</th><th>updatedAt</th></tr></thead>
+            <tbody>
+              <tr><td>u_8f2k1</td><td>sato_dev</td><td>pro</td><td>2026-07-08</td></tr>
+              <tr><td>u_1c9x4</td><td>tanaka.eng</td><td>free</td><td>2026-07-08</td></tr>
+              <tr><td>u_5m2p7</td><td>yuki_flutter</td><td>pro</td><td>2026-07-07</td></tr>
+              <tr><td>u_9a4t2</td><td>k.watanabe</td><td>pro</td><td>2026-07-07</td></tr>
+              <tr><td>u_3z8h6</td><td>dev_maru</td><td>free</td><td>2026-07-06</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ② 課題 ══ -->
+<section class="pain">
+  <div class="wrap">
+    <p class="eyebrow">Problem</p>
+    <h2 class="sec-title" data-i18n="pain_title">Firebaseコンソール、こんなことになっていませんか。</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3 data-i18n="pain1_h">タブが増え続ける</h3>
+        <p data-i18n="pain1_p">Firestore、Auth、Storage…サービスごとにタブを開き、気づけばブラウザはFirebaseだらけ。目当ての画面を探すだけで時間が溶けていきます。</p>
+      </div>
+      <div class="card">
+        <h3 data-i18n="pain2_h">プロジェクト切替が面倒</h3>
+        <p data-i18n="pain2_p">本番・ステージング・開発。複数プロジェクトを行き来するたびに読み込みを待ち、「今どっちの環境だっけ？」と冷や汗をかく日々。</p>
+      </div>
+      <div class="card">
+        <h3 data-i18n="pain3_h">データ確認に手間がかかる</h3>
+        <p data-i18n="pain3_p">Firestoreのドキュメントを1件ずつクリックして開く作業。ちょっと中身を確認したいだけなのに、コンソールでは一覧性が足りません。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ③ 解決 ══ -->
+<section class="solve">
+  <div class="wrap">
+    <p class="eyebrow">Solution</p>
+    <h2 class="sec-title" data-i18n="solve_title">firemaruなら、ぜんぶひとつの画面で。</h2>
+    <p class="sec-lead" data-i18n="solve_lead">ブラウザを開かず、デスクトップアプリとしてFirebaseを操作。サービスアカウントキーを登録するだけで、すぐに使い始められます。</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="num">01</span>
+        <h3 data-i18n="s1_h">ネイティブアプリの速さ</h3>
+        <p data-i18n="s1_p">デスクトップアプリだから起動も画面遷移も軽快。コンソールの読み込みを待つ時間がなくなります。</p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3 data-i18n="s2_h">複数プロジェクトを一元管理</h3>
+        <p data-i18n="s2_p">本番・開発などの複数プロジェクトを登録して、ワンクリックで切り替え。環境の取り違えも防ぎやすくなります。</p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3 data-i18n="s3_h">データが一覧で見える</h3>
+        <p data-i18n="s3_p">Firestoreのコレクションをテーブル表示。全体を眺めながら確認・編集できるので、データ調査がはかどります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ④ 主な機能 ══ -->
+<section id="features">
+  <div class="wrap">
+    <p class="eyebrow">Features</p>
+    <h2 class="sec-title" data-i18n="feat_title">主な機能</h2>
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="feat-icon" aria-hidden="true">🗂</div>
+        <div>
+          <h3 data-i18n="f1_h">Firestore管理 <code>/firestore</code></h3>
+          <p data-i18n="f1_p">コレクション・ドキュメントの閲覧、検索、追加、編集、削除をGUIで。テーブル表示で全体を把握しながら操作できます。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon" aria-hidden="true">👤</div>
+        <div>
+          <h3 data-i18n="f2_h">Authentication管理 <code>/auth</code></h3>
+          <p data-i18n="f2_p">ユーザーの一覧表示・検索・追加・無効化などをアプリ内で完結。ユーザーサポート時の確認作業がスムーズになります。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon" aria-hidden="true">📦</div>
+        <div>
+          <h3 data-i18n="f3_h">Storage管理 <code>/storage</code></h3>
+          <p data-i18n="f3_p">バケット内のファイルをエクスプローラー感覚でブラウズ。アップロード・ダウンロード・削除もドラッグ操作で直感的に。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon" aria-hidden="true">⚡️</div>
+        <div>
+          <h3 data-i18n="f4_h">Cloud Functions管理 <code>/functions</code></h3>
+          <p data-i18n="f4_p">デプロイ済み関数の一覧と状態をひと目で確認。どの関数が動いているか、コンソールを開かずに把握できます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ⑥ 料金 ══ -->
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <p class="eyebrow">Pricing</p>
+    <h2 class="sec-title" data-i18n="price_title">料金</h2>
+    <p class="sec-lead" data-i18n="price_lead">まずは無料で。気に入ったらProへ。</p>
+    <div class="price-grid">
+      <div class="plan">
+        <h3>FREE TRIAL</h3>
+        <p class="price">$0</p>
+        <p class="price-note" data-i18n="free_note">14日間、すべての機能を試せます</p>
+        <ul>
+          <li data-i18n="free_li1">全機能を14日間利用可能</li>
+          <li data-i18n="free_li2">クレジットカード登録不要</li>
+          <li data-i18n="free_li3">Mac / Windows対応</li>
+        </ul>
+        <a class="btn btn-ghost" href="#download" data-i18n="free_btn">無料で試す</a>
+      </div>
+      <div class="plan pro">
+        <span class="plan-tag" data-i18n="pro_tag">おすすめ</span>
+        <h3>PRO</h3>
+        <p class="price" data-i18n="pro_price">$9 <small>/ 月</small></p>
+        <p class="price-note" data-i18n="pro_note">年額プランあり（おトクな割引）</p>
+        <ul>
+          <li data-i18n="pro_li1">Firestore / Auth / Storage / Functions 管理</li>
+          <li data-i18n="pro_li2">複数プロジェクトの一元管理</li>
+          <li data-i18n="pro_li3">複数デバイスでのライセンス利用</li>
+          <li data-i18n="pro_li4">継続的なアップデート</li>
+        </ul>
+        <a class="btn btn-brand" href="#download" data-i18n="pro_btn">Proをはじめる</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ⑦ ダウンロード ══ -->
+<section class="dl" id="download">
+  <div class="wrap">
+    <p class="eyebrow" style="justify-content:center;display:flex">Download</p>
+    <h2 class="sec-title" data-i18n="dl_title">firemaruをダウンロードする</h2>
+    <p class="sec-lead" style="margin-inline:auto" data-i18n="dl_lead">お使いのOSを選んでください。インストールして、サービスアカウントキーを登録すれば準備完了です。</p>
+    <div class="dl-btns">
+      <a class="dl-btn" href="#">
+        <span class="dl-os"> Mac</span>
+        <span class="dl-meta">.dmg — Apple Silicon / Intel</span>
+      </a>
+      <a class="dl-btn" href="#">
+        <span class="dl-os">⊞ Windows</span>
+        <span class="dl-meta">.exe — Windows 10 / 11</span>
+      </a>
+    </div>
+    <div class="dl-cta">
+      <a class="btn btn-brand" href="#" data-i18n="cta_trial">Download Free Trial</a>
+      <p class="hero-note" style="margin-top:16px" data-i18n="dl_note"><span class="ok">✓</span> 14日間無料　<span class="ok">✓</span> クレジットカード不要</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ フッター ══ -->
+<footer>
+  <div class="wrap foot">
+    <nav class="foot-links" aria-label="footer">
+      <a href="#" data-i18n="foot_privacy">プライバシーポリシー</a>
+      <a href="terms-of-use.html" data-i18n="foot_terms">利用規約</a>
+      <a href="#" data-i18n="foot_contact">お問い合わせ</a>
+    </nav>
+    <span class="foot-copy">©2026 PIYAMARU All Rights Reserved.</span>
+  </div>
+</footer>
+
+<script>
+const I18N = {
+  ja: {
+    _title: "firemaru — Firebase管理を、デスクトップの速さで。",
+    _desc: "firemaruはFirestore・Authentication・Storage・Cloud Functionsをひとつのアプリで扱えるFirebase GUIデスクトップクライアント。Mac / Windows対応、14日間無料トライアル。",
+    nav_features: "機能",
+    nav_pricing: "料金",
+    cta_trial: "Download Free Trial",
+    hero_title: 'Firebase管理は、<br><span class="accent">デスクトップ</span>が速い。',
+    hero_sub: "firemaruは、Firestore・Authentication・Storage・Cloud Functionsをひとつの画面で操作できるFirebase GUIクライアント。ブラウザのタブ地獄から、そろそろ卒業しませんか。",
+    cta_features: "機能を見る",
+    hero_note: '<span class="ok">✓</span> 14日間無料トライアル　<span class="ok">✓</span> クレジットカード不要　<span class="ok">✓</span> Mac / Windows対応',
+    pain_title: "Firebaseコンソール、こんなことになっていませんか。",
+    pain1_h: "タブが増え続ける",
+    pain1_p: "Firestore、Auth、Storage…サービスごとにタブを開き、気づけばブラウザはFirebaseだらけ。目当ての画面を探すだけで時間が溶けていきます。",
+    pain2_h: "プロジェクト切替が面倒",
+    pain2_p: "本番・ステージング・開発。複数プロジェクトを行き来するたびに読み込みを待ち、「今どっちの環境だっけ？」と冷や汗をかく日々。",
+    pain3_h: "データ確認に手間がかかる",
+    pain3_p: "Firestoreのドキュメントを1件ずつクリックして開く作業。ちょっと中身を確認したいだけなのに、コンソールでは一覧性が足りません。",
+    solve_title: "firemaruなら、ぜんぶひとつの画面で。",
+    solve_lead: "ブラウザを開かず、デスクトップアプリとしてFirebaseを操作。サービスアカウントキーを登録するだけで、すぐに使い始められます。",
+    s1_h: "ネイティブアプリの速さ",
+    s1_p: "デスクトップアプリだから起動も画面遷移も軽快。コンソールの読み込みを待つ時間がなくなります。",
+    s2_h: "複数プロジェクトを一元管理",
+    s2_p: "本番・開発などの複数プロジェクトを登録して、ワンクリックで切り替え。環境の取り違えも防ぎやすくなります。",
+    s3_h: "データが一覧で見える",
+    s3_p: "Firestoreのコレクションをテーブル表示。全体を眺めながら確認・編集できるので、データ調査がはかどります。",
+    feat_title: "主な機能",
+    f1_h: 'Firestore管理 <code>/firestore</code>',
+    f1_p: "コレクション・ドキュメントの閲覧、検索、追加、編集、削除をGUIで。テーブル表示で全体を把握しながら操作できます。",
+    f2_h: 'Authentication管理 <code>/auth</code>',
+    f2_p: "ユーザーの一覧表示・検索・追加・無効化などをアプリ内で完結。ユーザーサポート時の確認作業がスムーズになります。",
+    f3_h: 'Storage管理 <code>/storage</code>',
+    f3_p: "バケット内のファイルをエクスプローラー感覚でブラウズ。アップロード・ダウンロード・削除もドラッグ操作で直感的に。",
+    f4_h: 'Cloud Functions管理 <code>/functions</code>',
+    f4_p: "デプロイ済み関数の一覧と状態をひと目で確認。どの関数が動いているか、コンソールを開かずに把握できます。",
+    price_title: "料金",
+    price_lead: "まずは無料で。気に入ったらProへ。",
+    free_note: "14日間、すべての機能を試せます",
+    free_li1: "全機能を14日間利用可能",
+    free_li2: "クレジットカード登録不要",
+    free_li3: "Mac / Windows対応",
+    free_btn: "無料で試す",
+    pro_tag: "おすすめ",
+    pro_price: '$9 <small>/ 月</small>',
+    pro_note: "年額プランあり（おトクな割引）",
+    pro_li1: "Firestore / Auth / Storage / Functions 管理",
+    pro_li2: "複数プロジェクトの一元管理",
+    pro_li3: "複数デバイスでのライセンス利用",
+    pro_li4: "継続的なアップデート",
+    pro_btn: "Proをはじめる",
+    dl_title: "firemaruをダウンロードする",
+    dl_lead: "お使いのOSを選んでください。インストールして、サービスアカウントキーを登録すれば準備完了です。",
+    dl_note: '<span class="ok">✓</span> 14日間無料　<span class="ok">✓</span> クレジットカード不要',
+    foot_privacy: "プライバシーポリシー",
+    foot_terms: "利用規約",
+    foot_contact: "お問い合わせ"
+  },
+  en: {
+    _title: "firemaru — Firebase management at desktop speed.",
+    _desc: "firemaru is a Firebase GUI desktop client for managing Firestore, Authentication, Storage, and Cloud Functions in one app. Mac & Windows. 14-day free trial.",
+    nav_features: "Features",
+    nav_pricing: "Pricing",
+    cta_trial: "Download Free Trial",
+    hero_title: 'Firebase management<br>is faster on the <span class="accent">desktop</span>.',
+    hero_sub: "firemaru is a Firebase GUI client that puts Firestore, Authentication, Storage, and Cloud Functions in a single window. Time to graduate from browser-tab chaos.",
+    cta_features: "See features",
+    hero_note: '<span class="ok">✓</span> 14-day free trial　<span class="ok">✓</span> No credit card required　<span class="ok">✓</span> Mac & Windows',
+    pain_title: "Does your Firebase Console look like this?",
+    pain1_h: "Tabs keep piling up",
+    pain1_p: "Firestore, Auth, Storage… one tab per service, and before you know it your browser is all Firebase. Just finding the right window eats up your day.",
+    pain2_h: "Switching projects is a chore",
+    pain2_p: "Production, staging, development. Every switch means waiting for a reload — and that nervous thought: \"wait, which environment am I in right now?\"",
+    pain3_h: "Checking data takes forever",
+    pain3_p: "Clicking Firestore documents open one by one just to peek at the contents. The Console simply doesn't give you an overview.",
+    solve_title: "With firemaru, it's all in one window.",
+    solve_lead: "Skip the browser and manage Firebase as a native desktop app. Register a service account key and you're ready to go.",
+    s1_h: "Native-app speed",
+    s1_p: "As a desktop app, firemaru launches fast and navigates instantly. No more waiting for Console pages to load.",
+    s2_h: "All your projects in one place",
+    s2_p: "Register production, development, and more — then switch with a single click. Fewer mixed-up environments, fewer mistakes.",
+    s3_h: "See your data at a glance",
+    s3_p: "Firestore collections rendered as tables. Review and edit while keeping the big picture in view — data digging just got faster.",
+    feat_title: "Key features",
+    f1_h: 'Firestore management <code>/firestore</code>',
+    f1_p: "Browse, search, add, edit, and delete collections and documents through a GUI. The table view keeps the whole dataset in sight.",
+    f2_h: 'Authentication management <code>/auth</code>',
+    f2_p: "List, search, add, and disable users without leaving the app. User-support lookups become quick and painless.",
+    f3_h: 'Storage management <code>/storage</code>',
+    f3_p: "Browse bucket files like a file explorer. Upload, download, and delete with intuitive drag-and-drop.",
+    f4_h: 'Cloud Functions management <code>/functions</code>',
+    f4_p: "See deployed functions and their status at a glance — know what's running without ever opening the Console.",
+    price_title: "Pricing",
+    price_lead: "Start free. Upgrade when you love it.",
+    free_note: "Try every feature, free for 14 days",
+    free_li1: "Full access for 14 days",
+    free_li2: "No credit card required",
+    free_li3: "Mac & Windows",
+    free_btn: "Try for free",
+    pro_tag: "Recommended",
+    pro_price: '$9 <small>/ month</small>',
+    pro_note: "Annual plan available at a discount",
+    pro_li1: "Firestore / Auth / Storage / Functions",
+    pro_li2: "Manage multiple projects in one place",
+    pro_li3: "Use your license on multiple devices",
+    pro_li4: "Continuous updates",
+    pro_btn: "Get Pro",
+    dl_title: "Download firemaru",
+    dl_lead: "Pick your OS, install, register a service account key — and you're all set.",
+    dl_note: '<span class="ok">✓</span> Free for 14 days　<span class="ok">✓</span> No credit card required',
+    foot_privacy: "Privacy Policy",
+    foot_terms: "Terms of Service",
+    foot_contact: "Contact"
+  },
+  de: {
+    _title: "firemaru — Firebase-Verwaltung in Desktop-Geschwindigkeit.",
+    _desc: "firemaru ist ein Firebase-GUI-Desktop-Client für Firestore, Authentication, Storage und Cloud Functions in einer App. Für Mac & Windows. 14 Tage kostenlos testen.",
+    nav_features: "Funktionen",
+    nav_pricing: "Preise",
+    cta_trial: "Kostenlos testen",
+    hero_title: 'Firebase-Verwaltung ist auf dem <span class="accent">Desktop</span> schneller.',
+    hero_sub: "firemaru ist ein Firebase-GUI-Client, der Firestore, Authentication, Storage und Cloud Functions in einem einzigen Fenster vereint. Zeit, dem Tab-Chaos im Browser zu entkommen.",
+    cta_features: "Funktionen ansehen",
+    hero_note: '<span class="ok">✓</span> 14 Tage kostenlos　<span class="ok">✓</span> Keine Kreditkarte nötig　<span class="ok">✓</span> Mac & Windows',
+    pain_title: "Firebase Console: Kommt Ihnen das bekannt vor?",
+    pain1_h: "Immer mehr Tabs",
+    pain1_p: "Firestore, Auth, Storage … für jeden Dienst ein eigener Tab, und plötzlich besteht der Browser nur noch aus Firebase. Allein die Suche nach dem richtigen Fenster kostet Zeit.",
+    pain2_h: "Lästiger Projektwechsel",
+    pain2_p: "Produktion, Staging, Entwicklung: Bei jedem Wechsel heißt es warten — und dann die bange Frage: „In welcher Umgebung bin ich gerade?“",
+    pain3_h: "Datenprüfung kostet Zeit",
+    pain3_p: "Firestore-Dokumente einzeln anklicken, nur um kurz den Inhalt zu prüfen? Der Console fehlt schlicht die Übersicht.",
+    solve_title: "Mit firemaru: alles in einem Fenster.",
+    solve_lead: "Kein Browser nötig — verwalten Sie Firebase direkt als Desktop-App. Einfach den Service-Account-Key registrieren und loslegen.",
+    s1_h: "Die Geschwindigkeit einer nativen App",
+    s1_p: "Als Desktop-App startet firemaru blitzschnell und reagiert sofort. Kein Warten mehr auf ladende Console-Seiten.",
+    s2_h: "Mehrere Projekte zentral verwalten",
+    s2_p: "Produktion, Entwicklung und mehr registrieren und mit einem Klick wechseln. So vermeiden Sie Verwechslungen zwischen Umgebungen.",
+    s3_h: "Daten auf einen Blick",
+    s3_p: "Firestore-Collections als Tabelle: Prüfen und bearbeiten Sie Ihre Daten, ohne den Überblick zu verlieren.",
+    feat_title: "Hauptfunktionen",
+    f1_h: 'Firestore-Verwaltung <code>/firestore</code>',
+    f1_p: "Collections und Dokumente per GUI durchsuchen, anlegen, bearbeiten und löschen — mit Tabellenansicht für den vollen Überblick.",
+    f2_h: 'Authentication-Verwaltung <code>/auth</code>',
+    f2_p: "Nutzer auflisten, suchen, anlegen und deaktivieren — direkt in der App. Ideal für schnellen User-Support.",
+    f3_h: 'Storage-Verwaltung <code>/storage</code>',
+    f3_p: "Dateien im Bucket wie im Datei-Explorer durchstöbern. Hochladen, Herunterladen und Löschen per Drag & Drop.",
+    f4_h: 'Cloud-Functions-Verwaltung <code>/functions</code>',
+    f4_p: "Bereitgestellte Funktionen und ihren Status auf einen Blick erfassen — ganz ohne Console.",
+    price_title: "Preise",
+    price_lead: "Kostenlos starten. Bei Gefallen auf Pro upgraden.",
+    free_note: "14 Tage lang alle Funktionen testen",
+    free_li1: "Voller Funktionsumfang für 14 Tage",
+    free_li2: "Keine Kreditkarte erforderlich",
+    free_li3: "Für Mac & Windows",
+    free_btn: "Kostenlos testen",
+    pro_tag: "Empfohlen",
+    pro_price: '$9 <small>/ Monat</small>',
+    pro_note: "Jahresplan mit Rabatt verfügbar",
+    pro_li1: "Firestore / Auth / Storage / Functions",
+    pro_li2: "Mehrere Projekte zentral verwalten",
+    pro_li3: "Lizenz auf mehreren Geräten nutzbar",
+    pro_li4: "Laufende Updates",
+    pro_btn: "Pro starten",
+    dl_title: "firemaru herunterladen",
+    dl_lead: "Betriebssystem wählen, installieren, Service-Account-Key registrieren — fertig.",
+    dl_note: '<span class="ok">✓</span> 14 Tage kostenlos　<span class="ok">✓</span> Keine Kreditkarte nötig',
+    foot_privacy: "Datenschutzerklärung",
+    foot_terms: "Nutzungsbedingungen",
+    foot_contact: "Kontakt"
+  }
+};
+
+function setLang(lang){
+  const dict = I18N[lang];
+  if(!dict) return;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+  document.title = dict._title;
+  const meta = document.querySelector('meta[name="description"]');
+  if(meta) meta.setAttribute('content', dict._desc);
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang button').forEach(btn => {
+    btn.setAttribute('aria-pressed', btn.dataset.lang === lang ? 'true' : 'false');
+  });
+}
+
+document.querySelectorAll('.lang button').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+
+/* ── 埋め込み画像(ロゴ・マスコット) ── */
+const LOGO_B64 =
+  "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";
+const MASCOT_B64 =
+  "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";
+document.getElementById("logo-img").src = "data:image/png;base64," + LOGO_B64;
+document.getElementById("mascot-img").src = "data:image/png;base64," + MASCOT_B64;
+</script>
+
+</body>
+</html>
