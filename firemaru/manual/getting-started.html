@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Firemaru</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body data-title-key="page_title">
+  <header class="site-header">
+    <div class="header-left">
+      <button type="button" class="menu-button" aria-label="Toggle navigation" onclick="toggleSidebar()">☰</button>
+      <a class="brand" href="./index.html">
+        <img class="brand-logo" src="./assets/logo.png" alt="Firemaru logo" />
+        <div class="brand-copy">
+          <strong>Firemaru</strong>
+          <span data-key="manual_label"></span>
+        </div>
+      </a>
+    </div>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <button type="button" onclick="setLang('ja')" id="btn-ja">JA</button>
+        <button type="button" onclick="setLang('en')" id="btn-en">EN</button>
+        <button type="button" onclick="setLang('de')" id="btn-de">DE</button>
+      </div>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <p class="sidebar-label" data-key="sidebar_title"></p>
+        <nav>
+          <a class="" href="./index.html"><span data-key="nav_home"></span></a>
+          <a class="active" href="./getting-started.html"><span data-key="nav_getting_started"></span></a>
+          <a class="" href="./firestore.html"><span data-key="nav_firestore"></span></a>
+          <a class="" href="./storage.html"><span data-key="nav_storage"></span></a>
+          <a class="" href="./backup.html"><span data-key="nav_backup"></span></a>
+          <a class="" href="./functions.html"><span data-key="nav_functions"></span></a>
+          <a class="" href="./license.html"><span data-key="nav_license"></span></a>
+          <a class="" href="./settings.html"><span data-key="nav_settings"></span></a>
+        </nav>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <main class="page-content">
+      <section class="hero-card"><div class="eyebrow" data-key="hero_badge"></div><h1 data-key="page_title"></h1><p class="lead" data-key="page_desc"></p></section>
+<div class="section-stack">
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_install"></h2></div></div><p data-key="install_desc"></p><figure class="screenshot" data-fig="fig1-1.png"><img src="./img/ja/fig1-1.png" alt="" onload="this.classList.add('loaded')" onerror="this.closest('figure').classList.add('has-error')"><div class="fig-placeholder"><span class="fig-name">fig1-1.png</span><span class="fig-desc" data-key="shot_install"></span></div><figcaption><span class="fig-name">fig1-1.png</span> — <span data-key="shot_install"></span></figcaption></figure></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_login"></h2></div></div><p data-key="login_desc"></p></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_add_project"></h2></div></div><ol class="steps"><li data-key="add_project_step1"></li><li data-key="add_project_step2"></li><li data-key="add_project_step3"></li><li data-key="add_project_step4"></li></ol><figure class="screenshot" data-fig="fig1-2.png"><img src="./img/ja/fig1-2.png" alt="" onload="this.classList.add('loaded')" onerror="this.closest('figure').classList.add('has-error')"><div class="fig-placeholder"><span class="fig-name">fig1-2.png</span><span class="fig-desc" data-key="shot_project"></span></div><figcaption><span class="fig-name">fig1-2.png</span> — <span data-key="shot_project"></span></figcaption></figure></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_switch_project"></h2></div></div><p data-key="switch_desc"></p></section>
+</div>
+      
+    </main>
+  </div>
+  <script>
+    const TEXTS = {
+  "ja": {
+    "nav_home": "ホーム",
+    "nav_getting_started": "はじめに",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Storage",
+    "nav_backup": "バックアップ",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "ライセンス",
+    "nav_settings": "設定",
+    "manual_label": "Webマニュアル",
+    "sidebar_title": "ページ一覧",
+    "hero_badge": "Desktop Manual",
+    "page_title": "はじめに",
+    "page_desc": "Firemaru の初期設定を行います。",
+    "section_install": "ダウンロード・インストール",
+    "install_desc": "公式サイトから macOS (DMG) または Windows (EXE) インストーラーをダウンロードして実行してください。",
+    "section_login": "ログイン",
+    "login_desc": "アプリを起動すると、ログイン画面が表示されます。Firebase アカウント（メール/パスワード または Google）でサインインしてください。",
+    "section_add_project": "Firebase プロジェクトを追加する",
+    "add_project_step1": "Settings（歯車アイコン）を開きます。",
+    "add_project_step2": "「＋ プロジェクトを追加」をクリックします。",
+    "add_project_step3": "Firebase Console → プロジェクト設定 → サービスアカウント → 「新しい秘密鍵を生成」で JSON ファイルをダウンロードします。",
+    "add_project_step4": "ダウンロードした JSON ファイルを選択すると、プロジェクト ID・名称が自動入力されます。「保存」をクリックして完了です。",
+    "section_switch_project": "プロジェクトの切り替え",
+    "switch_desc": "ヘッダーのプロジェクトセレクターから、登録済みの Firebase プロジェクトをすぐに切り替えることができます。",
+    "shot_install": "Screenshot: インストーラーのダウンロード画面",
+    "shot_project": "Screenshot: Firebase プロジェクト追加ダイアログ"
+  },
+  "en": {
+    "nav_home": "Home",
+    "nav_getting_started": "Getting Started",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Storage",
+    "nav_backup": "Backup",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "License",
+    "nav_settings": "Settings",
+    "manual_label": "Web Manual",
+    "sidebar_title": "Pages",
+    "hero_badge": "Desktop Manual",
+    "page_title": "Getting Started",
+    "page_desc": "Set up Firemaru for the first time.",
+    "section_install": "Download & Install",
+    "install_desc": "Download the macOS (DMG) or Windows (EXE) installer from the official website and run it.",
+    "section_login": "Login",
+    "login_desc": "When the app starts, the login screen is displayed. Sign in with your Firebase account (email/password or Google).",
+    "section_add_project": "Add a Firebase Project",
+    "add_project_step1": "Open Settings (gear icon).",
+    "add_project_step2": "Click \"+ Add Project\".",
+    "add_project_step3": "In Firebase Console → Project Settings → Service Accounts → Generate a new private key to download the JSON file.",
+    "add_project_step4": "Select the downloaded JSON file — the project ID and name are filled in automatically. Click \"Save\" to finish.",
+    "section_switch_project": "Switch Projects",
+    "switch_desc": "Use the project selector in the header to quickly switch between registered Firebase projects.",
+    "shot_install": "Screenshot: Installer download page",
+    "shot_project": "Screenshot: Add Firebase project dialog"
+  },
+  "de": {
+    "nav_home": "Startseite",
+    "nav_getting_started": "Erste Schritte",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Speicher",
+    "nav_backup": "Sicherung",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "Lizenz",
+    "nav_settings": "Einstellungen",
+    "manual_label": "Web-Handbuch",
+    "sidebar_title": "Seiten",
+    "hero_badge": "Desktop-Handbuch",
+    "page_title": "Erste Schritte",
+    "page_desc": "Richten Sie Firemaru zum ersten Mal ein.",
+    "section_install": "Herunterladen & Installieren",
+    "install_desc": "Laden Sie den macOS (DMG)- oder Windows (EXE)-Installer von der offiziellen Website herunter und führen Sie ihn aus.",
+    "section_login": "Anmelden",
+    "login_desc": "Wenn die App startet, wird der Anmeldebildschirm angezeigt. Melden Sie sich mit Ihrem Firebase-Konto (E-Mail/Passwort oder Google) an.",
+    "section_add_project": "Firebase-Projekt hinzufügen",
+    "add_project_step1": "Öffnen Sie die Einstellungen (Zahnrad-Symbol).",
+    "add_project_step2": "Klicken Sie auf „+ Projekt hinzufügen“.",
+    "add_project_step3": "In der Firebase Console → Projekteinstellungen → Dienstkonten → Neuen privaten Schlüssel generieren, um die JSON-Datei herunterzuladen.",
+    "add_project_step4": "Wählen Sie die heruntergeladene JSON-Datei aus — Projekt-ID und Name werden automatisch ausgefüllt. Klicken Sie auf „Speichern“, um abzuschließen.",
+    "section_switch_project": "Projekte wechseln",
+    "switch_desc": "Verwenden Sie die Projektauswahl in der Kopfzeile, um schnell zwischen registrierten Firebase-Projekten zu wechseln.",
+    "shot_install": "Screenshot: Download-Seite des Installers",
+    "shot_project": "Screenshot: Dialog zum Hinzufügen eines Firebase-Projekts"
+  }
+};
+    const LANGS = ['ja', 'en', 'de'];
+    function applyTexts(lang) {
+      const dict = TEXTS[lang] || TEXTS.ja;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-key]').forEach((element) => {
+        const key = element.dataset.key;
+        if (Object.prototype.hasOwnProperty.call(dict, key)) element.textContent = dict[key];
+      });
+      // Update figure image sources for current language
+      document.querySelectorAll('figure[data-fig]').forEach((fig) => {
+        const name = fig.dataset.fig;
+        const img = fig.querySelector('img');
+        if (img) {
+          fig.classList.remove('has-error');
+          img.classList.remove('loaded');
+          img.src = `./img/${lang}/${name}`;
+        }
+      });
+      const titleKey = document.body.dataset.titleKey;
+      if (titleKey && dict[titleKey]) document.title = `${dict[titleKey]} | Firemaru`;
+      LANGS.forEach((code) => {
+        const button = document.getElementById(`btn-${code}`);
+        if (button) button.classList.toggle('active', code === lang);
+      });
+    }
+    function setLang(lang) { if (!TEXTS[lang]) return; localStorage.setItem('lang', lang); applyTexts(lang); }
+    function toggleSidebar() { document.body.classList.toggle('sidebar-open'); }
+    function closeSidebar() { document.body.classList.remove('sidebar-open'); }
+    document.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem('lang');
+      applyTexts(TEXTS[stored] ? stored : 'ja');
+      document.querySelectorAll('.sidebar a, .brand').forEach((link) => link.addEventListener('click', () => { if (window.innerWidth <= 960) closeSidebar(); }));
+      window.addEventListener('resize', () => { if (window.innerWidth > 960) closeSidebar(); });
+    });
+  </script>
+</body>
+</html>

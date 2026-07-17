@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Firemaru</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body data-title-key="hero_title">
+  <header class="site-header">
+    <div class="header-left">
+      <button type="button" class="menu-button" aria-label="Toggle navigation" onclick="toggleSidebar()">☰</button>
+      <a class="brand" href="./index.html">
+        <img class="brand-logo" src="./assets/logo.png" alt="Firemaru logo" />
+        <div class="brand-copy">
+          <strong>Firemaru</strong>
+          <span data-key="manual_label"></span>
+        </div>
+      </a>
+    </div>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <button type="button" onclick="setLang('ja')" id="btn-ja">JA</button>
+        <button type="button" onclick="setLang('en')" id="btn-en">EN</button>
+        <button type="button" onclick="setLang('de')" id="btn-de">DE</button>
+      </div>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <p class="sidebar-label" data-key="sidebar_title"></p>
+        <nav>
+          <a class="active" href="./index.html"><span data-key="nav_home"></span></a>
+          <a class="" href="./getting-started.html"><span data-key="nav_getting_started"></span></a>
+          <a class="" href="./firestore.html"><span data-key="nav_firestore"></span></a>
+          <a class="" href="./storage.html"><span data-key="nav_storage"></span></a>
+          <a class="" href="./backup.html"><span data-key="nav_backup"></span></a>
+          <a class="" href="./functions.html"><span data-key="nav_functions"></span></a>
+          <a class="" href="./license.html"><span data-key="nav_license"></span></a>
+          <a class="" href="./settings.html"><span data-key="nav_settings"></span></a>
+        </nav>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <main class="page-content">
+      <section class="hero-card">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow" data-key="hero_badge"></div>
+      <h1 data-key="hero_title"></h1>
+      <p class="lead" data-key="hero_desc"></p>
+    </div>
+    <figure class="screenshot compact" data-fig="fig0-1.png"><img src="./img/ja/fig0-1.png" alt="" onload="this.classList.add('loaded')" onerror="this.closest('figure').classList.add('has-error')"><div class="fig-placeholder"><span class="fig-name">fig0-1.png</span><span class="fig-desc" data-key="hero_shot"></span></div><figcaption><span class="fig-name">fig0-1.png</span> — <span data-key="hero_shot"></span></figcaption></figure>
+  </div>
+</section>
+<section class="content-section" style="margin-top: 24px;">
+  <div class="section-header">
+    <div>
+      <p class="section-label" data-key="sidebar_title"></p>
+      <h2 data-key="cards_heading"></h2>
+    </div>
+  </div>
+  <p class="lead" data-key="cards_desc"></p>
+  <div class="card-grid">
+    <a class="card" href="./getting-started.html"><h3 data-key="card_getting_started_title"></h3><p data-key="card_getting_started_desc"></p></a>
+    <a class="card" href="./firestore.html"><h3 data-key="card_firestore_title"></h3><p data-key="card_firestore_desc"></p></a>
+    <a class="card" href="./storage.html"><h3 data-key="card_storage_title"></h3><p data-key="card_storage_desc"></p></a>
+    <a class="card" href="./backup.html"><h3 data-key="card_backup_title"></h3><p data-key="card_backup_desc"></p></a>
+    <a class="card" href="./functions.html"><h3 data-key="card_functions_title"></h3><p data-key="card_functions_desc"></p></a>
+    <a class="card" href="./license.html"><h3 data-key="card_license_title"></h3><p data-key="card_license_desc"></p></a>
+    <a class="card" href="./settings.html"><h3 data-key="card_settings_title"></h3><p data-key="card_settings_desc"></p></a>
+  </div>
+</section>
+      
+    </main>
+  </div>
+  <script>
+    const TEXTS = {
+  "ja": {
+    "nav_home": "ホーム",
+    "nav_getting_started": "はじめに",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Storage",
+    "nav_backup": "バックアップ",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "ライセンス",
+    "nav_settings": "設定",
+    "manual_label": "Webマニュアル",
+    "sidebar_title": "ページ一覧",
+    "hero_badge": "Desktop Manual",
+    "hero_title": "Firemaru ユーザーマニュアル",
+    "hero_desc": "Firebase プロジェクトをローカルで管理するデスクトップツール",
+    "hero_shot": "Screenshot: Firemaru ダッシュボード概要",
+    "cards_heading": "マニュアル一覧",
+    "cards_desc": "Firemaru の主要機能と運用フローを、セクションごとに確認できます。",
+    "card_getting_started_title": "はじめに",
+    "card_getting_started_desc": "インストール・初期設定・プロジェクト追加",
+    "card_firestore_title": "Firestore",
+    "card_firestore_desc": "ドキュメント閲覧・編集・フィルター・クエリ",
+    "card_storage_title": "Storage",
+    "card_storage_desc": "ファイル一覧・ダウンロード・プレビュー",
+    "card_backup_title": "バックアップ / リストア",
+    "card_backup_desc": "コレクションのバックアップと復元",
+    "card_functions_title": "Functions & Auth",
+    "card_functions_desc": "ログ閲覧・ユーザー管理",
+    "card_license_title": "ライセンス",
+    "card_license_desc": "サブスクリプション・デバイス管理",
+    "card_settings_title": "設定",
+    "card_settings_desc": "テーマ・言語・プロジェクト管理"
+  },
+  "en": {
+    "nav_home": "Home",
+    "nav_getting_started": "Getting Started",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Storage",
+    "nav_backup": "Backup",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "License",
+    "nav_settings": "Settings",
+    "manual_label": "Web Manual",
+    "sidebar_title": "Pages",
+    "hero_badge": "Desktop Manual",
+    "hero_title": "Firemaru User Manual",
+    "hero_desc": "A desktop tool for managing Firebase projects locally",
+    "hero_shot": "Screenshot: Firemaru dashboard overview",
+    "cards_heading": "Manual Sections",
+    "cards_desc": "Browse Firemaru core features and workflows section by section.",
+    "card_getting_started_title": "Getting Started",
+    "card_getting_started_desc": "Installation, initial setup, and adding projects",
+    "card_firestore_title": "Firestore",
+    "card_firestore_desc": "Browse, edit, filter, and query documents",
+    "card_storage_title": "Storage",
+    "card_storage_desc": "File listing, download, and preview",
+    "card_backup_title": "Backup / Restore",
+    "card_backup_desc": "Backup and restore collections",
+    "card_functions_title": "Functions & Auth",
+    "card_functions_desc": "View logs and manage users",
+    "card_license_title": "License",
+    "card_license_desc": "Subscription and device management",
+    "card_settings_title": "Settings",
+    "card_settings_desc": "Theme, language, and project management"
+  },
+  "de": {
+    "nav_home": "Startseite",
+    "nav_getting_started": "Erste Schritte",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Speicher",
+    "nav_backup": "Sicherung",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "Lizenz",
+    "nav_settings": "Einstellungen",
+    "manual_label": "Web-Handbuch",
+    "sidebar_title": "Seiten",
+    "hero_badge": "Desktop-Handbuch",
+    "hero_title": "Firemaru Benutzerhandbuch",
+    "hero_desc": "Ein Desktop-Tool zur lokalen Verwaltung von Firebase-Projekten",
+    "hero_shot": "Screenshot: Überblick über das Firemaru-Dashboard",
+    "cards_heading": "Handbuchbereiche",
+    "cards_desc": "Durchsuchen Sie die wichtigsten Firemaru-Funktionen und Arbeitsabläufe Abschnitt für Abschnitt.",
+    "card_getting_started_title": "Erste Schritte",
+    "card_getting_started_desc": "Installation, Ersteinrichtung und Projekte hinzufügen",
+    "card_firestore_title": "Firestore",
+    "card_firestore_desc": "Dokumente anzeigen, bearbeiten, filtern und abfragen",
+    "card_storage_title": "Speicher",
+    "card_storage_desc": "Dateiliste, Download und Vorschau",
+    "card_backup_title": "Sicherung / Wiederherstellung",
+    "card_backup_desc": "Sammlungen sichern und wiederherstellen",
+    "card_functions_title": "Functions & Auth",
+    "card_functions_desc": "Protokolle anzeigen und Benutzer verwalten",
+    "card_license_title": "Lizenz",
+    "card_license_desc": "Abonnement und Geräteverwaltung",
+    "card_settings_title": "Einstellungen",
+    "card_settings_desc": "Design, Sprache und Projektverwaltung"
+  }
+};
+    const LANGS = ['ja', 'en', 'de'];
+    function applyTexts(lang) {
+      const dict = TEXTS[lang] || TEXTS.ja;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-key]').forEach((element) => {
+        const key = element.dataset.key;
+        if (Object.prototype.hasOwnProperty.call(dict, key)) element.textContent = dict[key];
+      });
+      // Update figure image sources for current language
+      document.querySelectorAll('figure[data-fig]').forEach((fig) => {
+        const name = fig.dataset.fig;
+        const img = fig.querySelector('img');
+        if (img) {
+          fig.classList.remove('has-error');
+          img.classList.remove('loaded');
+          img.src = `./img/${lang}/${name}`;
+        }
+      });
+      const titleKey = document.body.dataset.titleKey;
+      if (titleKey && dict[titleKey]) document.title = `${dict[titleKey]} | Firemaru`;
+      LANGS.forEach((code) => {
+        const button = document.getElementById(`btn-${code}`);
+        if (button) button.classList.toggle('active', code === lang);
+      });
+    }
+    function setLang(lang) { if (!TEXTS[lang]) return; localStorage.setItem('lang', lang); applyTexts(lang); }
+    function toggleSidebar() { document.body.classList.toggle('sidebar-open'); }
+    function closeSidebar() { document.body.classList.remove('sidebar-open'); }
+    document.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem('lang');
+      applyTexts(TEXTS[stored] ? stored : 'ja');
+      document.querySelectorAll('.sidebar a, .brand').forEach((link) => link.addEventListener('click', () => { if (window.innerWidth <= 960) closeSidebar(); }));
+      window.addEventListener('resize', () => { if (window.innerWidth > 960) closeSidebar(); });
+    });
+  </script>
+</body>
+</html>

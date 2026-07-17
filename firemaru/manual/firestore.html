@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Firemaru</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body data-title-key="page_title">
+  <header class="site-header">
+    <div class="header-left">
+      <button type="button" class="menu-button" aria-label="Toggle navigation" onclick="toggleSidebar()">☰</button>
+      <a class="brand" href="./index.html">
+        <img class="brand-logo" src="./assets/logo.png" alt="Firemaru logo" />
+        <div class="brand-copy">
+          <strong>Firemaru</strong>
+          <span data-key="manual_label"></span>
+        </div>
+      </a>
+    </div>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <button type="button" onclick="setLang('ja')" id="btn-ja">JA</button>
+        <button type="button" onclick="setLang('en')" id="btn-en">EN</button>
+        <button type="button" onclick="setLang('de')" id="btn-de">DE</button>
+      </div>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <p class="sidebar-label" data-key="sidebar_title"></p>
+        <nav>
+          <a class="" href="./index.html"><span data-key="nav_home"></span></a>
+          <a class="" href="./getting-started.html"><span data-key="nav_getting_started"></span></a>
+          <a class="active" href="./firestore.html"><span data-key="nav_firestore"></span></a>
+          <a class="" href="./storage.html"><span data-key="nav_storage"></span></a>
+          <a class="" href="./backup.html"><span data-key="nav_backup"></span></a>
+          <a class="" href="./functions.html"><span data-key="nav_functions"></span></a>
+          <a class="" href="./license.html"><span data-key="nav_license"></span></a>
+          <a class="" href="./settings.html"><span data-key="nav_settings"></span></a>
+        </nav>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <main class="page-content">
+      <section class="hero-card"><div class="eyebrow" data-key="hero_badge"></div><h1 data-key="page_title"></h1><p class="lead" data-key="page_desc"></p></section>
+<div class="section-stack">
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_layout"></h2></div></div><p data-key="layout_desc"></p><figure class="screenshot" data-fig="fig2-1.png"><img src="./img/ja/fig2-1.png" alt="" onload="this.classList.add('loaded')" onerror="this.closest('figure').classList.add('has-error')"><div class="fig-placeholder"><span class="fig-name">fig2-1.png</span><span class="fig-desc" data-key="shot_layout"></span></div><figcaption><span class="fig-name">fig2-1.png</span> — <span data-key="shot_layout"></span></figcaption></figure></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_views"></h2></div></div><div class="table-wrap"><table class="feature-table"><thead><tr><th data-key="view_col_mode"></th><th data-key="view_col_desc"></th></tr></thead><tbody><tr><td><strong>TABLE</strong></td><td data-key="view_table_desc"></td></tr><tr><td><strong>TREE</strong></td><td data-key="view_tree_desc"></td></tr><tr><td><strong>JSON</strong></td><td data-key="view_json_desc"></td></tr></tbody></table></div></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_doc_ops"></h2></div></div><ul class="info-list"><li data-key="doc_create"></li><li data-key="doc_edit"></li><li data-key="doc_delete"></li></ul></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_filter"></h2></div></div><p data-key="filter_desc"></p><p class="section-label" data-key="filter_operator_label" style="margin-top: 18px;"></p><div class="tag-list"><span class="tag">==</span><span class="tag">!=</span><span class="tag">&lt;</span><span class="tag">&lt;=</span><span class="tag">&gt;</span><span class="tag">&gt;=</span><span class="tag">in</span><span class="tag">not-in</span><span class="tag">array-contains</span><span class="tag">array-contains-any</span></div></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_js_query"></h2></div></div><p data-key="js_query_desc"></p><p class="section-label" data-key="query_vars_label" style="margin-top: 18px;"></p><pre class="code-block">db
+Timestamp
+GeoPoint
+FieldValue
+
+const snapshot = await db.collection('users')
+  .where('status', '==', 'active')
+  .limit(20)
+  .get();</pre><figure class="screenshot" data-fig="fig2-2.png"><img src="./img/ja/fig2-2.png" alt="" onload="this.classList.add('loaded')" onerror="this.closest('figure').classList.add('has-error')"><div class="fig-placeholder"><span class="fig-name">fig2-2.png</span><span class="fig-desc" data-key="shot_query"></span></div><figcaption><span class="fig-name">fig2-2.png</span> — <span data-key="shot_query"></span></figcaption></figure></section>
+  <section class="content-section"><div class="two-column"><div class="mini-card"><h3 data-key="section_export"></h3><p data-key="export_formats"></p></div><div class="mini-card"><h3 data-key="section_monitor"></h3><p data-key="monitor_desc"></p></div></div></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_subcollections"></h2></div></div><p data-key="subcol_desc"></p></section>
+</div>
+      
+    </main>
+  </div>
+  <script>
+    const TEXTS = {
+  "ja": {
+    "nav_home": "ホーム",
+    "nav_getting_started": "はじめに",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Storage",
+    "nav_backup": "バックアップ",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "ライセンス",
+    "nav_settings": "設定",
+    "manual_label": "Webマニュアル",
+    "sidebar_title": "ページ一覧",
+    "hero_badge": "Desktop Manual",
+    "page_title": "Firestore ビューアー",
+    "page_desc": "Firestore の閲覧、編集、検索、監視機能を紹介します。",
+    "section_layout": "画面構成",
+    "layout_desc": "左パネル: コレクション一覧 / 中央パネル: ドキュメント一覧 / 右パネル: ドキュメントエディタ",
+    "section_views": "ビューモード",
+    "view_col_mode": "ビュー",
+    "view_col_desc": "説明",
+    "view_table_desc": "フィールドを表形式で表示。ダブルクリックでインライン編集",
+    "view_tree_desc": "ネストしたオブジェクトをツリー形式で表示",
+    "view_json_desc": "フィールド全体を JSON テキストとして編集",
+    "section_doc_ops": "ドキュメント操作",
+    "doc_create": "ドキュメント新規作成: 一覧パネルの「＋」ボタン → ID 空欄で自動 ID",
+    "doc_edit": "フィールド編集: TABLE ビューでダブルクリック → 値を変更 → 「差分を確認」で保存前に変更内容を比較",
+    "doc_delete": "複数選択削除: チェックボックスで選択 → 削除ボタン",
+    "section_filter": "フィルター",
+    "filter_desc": "複数条件（AND）でドキュメントを絞り込めます。「＋」ボタンで条件を追加し、フィールド名・演算子・値を指定してください。",
+    "filter_operator_label": "利用できる演算子",
+    "section_js_query": "JS Query",
+    "js_query_desc": "Monaco Editor（VS Code と同じエンジン）で JavaScript クエリを直接記述して実行できます。⌘+Enter（macOS）または Ctrl+Enter（Windows）でクエリを実行します。",
+    "query_vars_label": "JS Query で利用できる注入変数",
+    "section_export": "エクスポート / インポート",
+    "export_formats": "JSON（firemaru形式 / Firefoo形式）・CSV の入出力に対応しています。",
+    "section_monitor": "監視モード",
+    "monitor_desc": "SSE（Server-Sent Events）でFirestoreの変更をリアルタイムに受信します。更新されたフィールドがフラッシュ表示されます。",
+    "section_subcollections": "サブコレクション",
+    "subcol_desc": "ドキュメントエディタ下部のパネルでサブコレクションをインライン展開できます。外部リンクアイコンでフルビューに遷移します。",
+    "shot_layout": "Screenshot: Firestore 3ペインレイアウト",
+    "shot_query": "Screenshot: JS Query エディタと実行結果"
+  },
+  "en": {
+    "nav_home": "Home",
+    "nav_getting_started": "Getting Started",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Storage",
+    "nav_backup": "Backup",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "License",
+    "nav_settings": "Settings",
+    "manual_label": "Web Manual",
+    "sidebar_title": "Pages",
+    "hero_badge": "Desktop Manual",
+    "page_title": "Firestore Viewer",
+    "page_desc": "Explore Firemaru features for browsing, editing, querying, and monitoring Firestore.",
+    "section_layout": "Screen Layout",
+    "layout_desc": "Left panel: collection list / Center panel: document list / Right panel: document editor",
+    "section_views": "View Modes",
+    "view_col_mode": "View",
+    "view_col_desc": "Description",
+    "view_table_desc": "Displays fields in a table. Double-click to inline-edit",
+    "view_tree_desc": "Displays nested objects in a tree format",
+    "view_json_desc": "Edit all fields as a JSON text",
+    "section_doc_ops": "Document Operations",
+    "doc_create": "Create new document: \"+\" button in the list panel. Leave ID blank for auto-generated ID.",
+    "doc_edit": "Edit fields: Double-click in TABLE view → change the value → \"Review Diff\" to compare changes before saving",
+    "doc_delete": "Multi-select delete: check boxes → delete button",
+    "section_filter": "Filter",
+    "filter_desc": "Filter documents with multiple AND conditions. Click \"+\" to add conditions, then specify field name, operator, and value.",
+    "filter_operator_label": "Available operators",
+    "section_js_query": "JS Query",
+    "js_query_desc": "Write and execute JavaScript queries directly using the Monaco Editor (same engine as VS Code). Run queries with ⌘+Enter (macOS) or Ctrl+Enter (Windows).",
+    "query_vars_label": "Injected variables available in JS Query",
+    "section_export": "Export / Import",
+    "export_formats": "Supports input/output in JSON (firemaru format / Firefoo format) and CSV.",
+    "section_monitor": "Monitor Mode",
+    "monitor_desc": "Receive Firestore changes in real time using SSE (Server-Sent Events). Updated fields are highlighted with a flash.",
+    "section_subcollections": "Subcollections",
+    "subcol_desc": "Expand subcollections inline in the panel at the bottom of the document editor. Use the external link icon to navigate to the full view.",
+    "shot_layout": "Screenshot: Firestore three-pane layout",
+    "shot_query": "Screenshot: JS Query editor and results"
+  },
+  "de": {
+    "nav_home": "Startseite",
+    "nav_getting_started": "Erste Schritte",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Speicher",
+    "nav_backup": "Sicherung",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "Lizenz",
+    "nav_settings": "Einstellungen",
+    "manual_label": "Web-Handbuch",
+    "sidebar_title": "Seiten",
+    "hero_badge": "Desktop-Handbuch",
+    "page_title": "Firestore-Viewer",
+    "page_desc": "Entdecken Sie Firemaru-Funktionen zum Anzeigen, Bearbeiten, Abfragen und Überwachen von Firestore.",
+    "section_layout": "Bildschirmaufbau",
+    "layout_desc": "Linkes Panel: Sammlungsliste / Mittleres Panel: Dokumentliste / Rechtes Panel: Dokumenteditor",
+    "section_views": "Ansichtsmodi",
+    "view_col_mode": "Ansicht",
+    "view_col_desc": "Beschreibung",
+    "view_table_desc": "Felder in Tabellenform. Doppelklick zum Inline-Bearbeiten",
+    "view_tree_desc": "Verschachtelte Objekte als Baumstruktur anzeigen",
+    "view_json_desc": "Alle Felder als JSON-Text bearbeiten",
+    "section_doc_ops": "Dokumentoperationen",
+    "doc_create": "Neues Dokument erstellen: Schaltfläche „+“ im Listenpanel. ID leer lassen für automatische ID.",
+    "doc_edit": "Felder bearbeiten: Doppelklick in der TABLE-Ansicht → Wert ändern → „Diff prüfen“ zum Vergleichen vor dem Speichern",
+    "doc_delete": "Mehrfachauswahl löschen: Kontrollkästchen → Löschen-Schaltfläche",
+    "section_filter": "Filter",
+    "filter_desc": "Dokumente mit mehreren UND-Bedingungen filtern. Klicken Sie auf „+“, um Bedingungen hinzuzufügen, und geben Sie Feldname, Operator und Wert an.",
+    "filter_operator_label": "Verfügbare Operatoren",
+    "section_js_query": "JS-Abfrage",
+    "js_query_desc": "Schreiben und führen Sie JavaScript-Abfragen direkt mit dem Monaco-Editor (gleiche Engine wie VS Code) aus. Abfragen mit ⌘+Enter (macOS) oder Strg+Enter (Windows) ausführen.",
+    "query_vars_label": "Verfügbare injizierte Variablen in JS-Abfragen",
+    "section_export": "Export / Import",
+    "export_formats": "Unterstützt Ein-/Ausgabe in JSON (firemaru-Format / Firefoo-Format) und CSV.",
+    "section_monitor": "Überwachungsmodus",
+    "monitor_desc": "Empfangen Sie Firestore-Änderungen in Echtzeit über SSE (Server-Sent Events). Aktualisierte Felder werden hervorgehoben.",
+    "section_subcollections": "Teilsammlungen",
+    "subcol_desc": "Teilsammlungen im Panel am unteren Rand des Dokumenteditors inline erweitern. Verwenden Sie das externe Link-Symbol, um zur Vollansicht zu navigieren.",
+    "shot_layout": "Screenshot: Firestore-Drei-Spalten-Layout",
+    "shot_query": "Screenshot: JS-Abfrage-Editor und Ergebnisse"
+  }
+};
+    const LANGS = ['ja', 'en', 'de'];
+    function applyTexts(lang) {
+      const dict = TEXTS[lang] || TEXTS.ja;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-key]').forEach((element) => {
+        const key = element.dataset.key;
+        if (Object.prototype.hasOwnProperty.call(dict, key)) element.textContent = dict[key];
+      });
+      // Update figure image sources for current language
+      document.querySelectorAll('figure[data-fig]').forEach((fig) => {
+        const name = fig.dataset.fig;
+        const img = fig.querySelector('img');
+        if (img) {
+          fig.classList.remove('has-error');
+          img.classList.remove('loaded');
+          img.src = `./img/${lang}/${name}`;
+        }
+      });
+      const titleKey = document.body.dataset.titleKey;
+      if (titleKey && dict[titleKey]) document.title = `${dict[titleKey]} | Firemaru`;
+      LANGS.forEach((code) => {
+        const button = document.getElementById(`btn-${code}`);
+        if (button) button.classList.toggle('active', code === lang);
+      });
+    }
+    function setLang(lang) { if (!TEXTS[lang]) return; localStorage.setItem('lang', lang); applyTexts(lang); }
+    function toggleSidebar() { document.body.classList.toggle('sidebar-open'); }
+    function closeSidebar() { document.body.classList.remove('sidebar-open'); }
+    document.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem('lang');
+      applyTexts(TEXTS[stored] ? stored : 'ja');
+      document.querySelectorAll('.sidebar a, .brand').forEach((link) => link.addEventListener('click', () => { if (window.innerWidth <= 960) closeSidebar(); }));
+      window.addEventListener('resize', () => { if (window.innerWidth > 960) closeSidebar(); });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Firemaru</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body data-title-key="page_title">
+  <header class="site-header">
+    <div class="header-left">
+      <button type="button" class="menu-button" aria-label="Toggle navigation" onclick="toggleSidebar()">☰</button>
+      <a class="brand" href="./index.html">
+        <img class="brand-logo" src="./assets/logo.png" alt="Firemaru logo" />
+        <div class="brand-copy">
+          <strong>Firemaru</strong>
+          <span data-key="manual_label"></span>
+        </div>
+      </a>
+    </div>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <button type="button" onclick="setLang('ja')" id="btn-ja">JA</button>
+        <button type="button" onclick="setLang('en')" id="btn-en">EN</button>
+        <button type="button" onclick="setLang('de')" id="btn-de">DE</button>
+      </div>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <p class="sidebar-label" data-key="sidebar_title"></p>
+        <nav>
+          <a class="" href="./index.html"><span data-key="nav_home"></span></a>
+          <a class="" href="./getting-started.html"><span data-key="nav_getting_started"></span></a>
+          <a class="" href="./firestore.html"><span data-key="nav_firestore"></span></a>
+          <a class="active" href="./storage.html"><span data-key="nav_storage"></span></a>
+          <a class="" href="./backup.html"><span data-key="nav_backup"></span></a>
+          <a class="" href="./functions.html"><span data-key="nav_functions"></span></a>
+          <a class="" href="./license.html"><span data-key="nav_license"></span></a>
+          <a class="" href="./settings.html"><span data-key="nav_settings"></span></a>
+        </nav>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <main class="page-content">
+      <section class="hero-card"><div class="eyebrow" data-key="hero_badge"></div><h1 data-key="page_title"></h1><p class="lead" data-key="page_desc"></p></section>
+<div class="section-stack">
+  <section class="content-section"><div class="mini-card-grid"><div class="mini-card"><h2 data-key="section_file_list"></h2><p data-key="file_list_desc"></p></div><div class="mini-card"><h2 data-key="section_download"></h2><p data-key="download_desc"></p></div></div></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_preview"></h2></div></div><p data-key="preview_desc"></p><figure class="screenshot" data-fig="fig3-1.png"><img src="./img/ja/fig3-1.png" alt="" onload="this.classList.add('loaded')" onerror="this.closest('figure').classList.add('has-error')"><div class="fig-placeholder"><span class="fig-name">fig3-1.png</span><span class="fig-desc" data-key="shot_storage"></span></div><figcaption><span class="fig-name">fig3-1.png</span> — <span data-key="shot_storage"></span></figcaption></figure></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_bucket"></h2></div></div><p data-key="bucket_desc"></p></section>
+</div>
+      
+    </main>
+  </div>
+  <script>
+    const TEXTS = {
+  "ja": {
+    "nav_home": "ホーム",
+    "nav_getting_started": "はじめに",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Storage",
+    "nav_backup": "バックアップ",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "ライセンス",
+    "nav_settings": "設定",
+    "manual_label": "Webマニュアル",
+    "sidebar_title": "ページ一覧",
+    "hero_badge": "Desktop Manual",
+    "page_title": "Firebase Storage",
+    "page_desc": "Firebase Storage 内のファイルを閲覧・ダウンロード・プレビューできます。",
+    "section_file_list": "ファイル一覧",
+    "file_list_desc": "バケット内のファイルとフォルダをリスト表示します。フォルダをクリックして中を確認できます。",
+    "section_download": "ダウンロード",
+    "download_desc": "ファイルを選択してダウンロードボタンをクリックします。ネイティブの保存ダイアログが開きます。",
+    "section_preview": "プレビュー",
+    "preview_desc": "ファイルを選択すると、右ペインに画像・動画・その他のプレビューが表示されます。グリッドビューで画像をサムネイル一覧表示もできます。",
+    "section_bucket": "バケット設定",
+    "bucket_desc": "バケット設定エラー時は、アプリが自動的に候補バケット名を検出します。「この設定を保存」ボタンで正しいバケット名を即時反映できます。",
+    "shot_storage": "Screenshot: Storage ファイルブラウザとプレビューペイン"
+  },
+  "en": {
+    "nav_home": "Home",
+    "nav_getting_started": "Getting Started",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Storage",
+    "nav_backup": "Backup",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "License",
+    "nav_settings": "Settings",
+    "manual_label": "Web Manual",
+    "sidebar_title": "Pages",
+    "hero_badge": "Desktop Manual",
+    "page_title": "Firebase Storage",
+    "page_desc": "Browse, download, and preview files in Firebase Storage.",
+    "section_file_list": "File List",
+    "file_list_desc": "Lists files and folders in the bucket. Click a folder to explore its contents.",
+    "section_download": "Download",
+    "download_desc": "Select a file and click the download button. A native save dialog will open.",
+    "section_preview": "Preview",
+    "preview_desc": "Select a file to display a preview (image, video, or other) in the right pane. Use grid view for a thumbnail list of images.",
+    "section_bucket": "Bucket Settings",
+    "bucket_desc": "On bucket configuration errors, the app automatically detects candidate bucket names. Click \"Save this setting\" to immediately apply the correct bucket name.",
+    "shot_storage": "Screenshot: Storage file browser and preview pane"
+  },
+  "de": {
+    "nav_home": "Startseite",
+    "nav_getting_started": "Erste Schritte",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Speicher",
+    "nav_backup": "Sicherung",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "Lizenz",
+    "nav_settings": "Einstellungen",
+    "manual_label": "Web-Handbuch",
+    "sidebar_title": "Seiten",
+    "hero_badge": "Desktop-Handbuch",
+    "page_title": "Firebase Storage",
+    "page_desc": "Dateien in Firebase Storage anzeigen, herunterladen und in der Vorschau anzeigen.",
+    "section_file_list": "Dateiliste",
+    "file_list_desc": "Listet Dateien und Ordner im Bucket auf. Klicken Sie auf einen Ordner, um den Inhalt anzuzeigen.",
+    "section_download": "Herunterladen",
+    "download_desc": "Wählen Sie eine Datei aus und klicken Sie auf die Schaltfläche „Herunterladen“. Ein natives Speicherdialogfeld wird geöffnet.",
+    "section_preview": "Vorschau",
+    "preview_desc": "Wählen Sie eine Datei aus, um eine Vorschau (Bild, Video oder anderes) im rechten Bereich anzuzeigen. Verwenden Sie die Rasteransicht für eine Miniaturansicht der Bilder.",
+    "section_bucket": "Bucket-Einstellungen",
+    "bucket_desc": "Bei Bucket-Konfigurationsfehlern erkennt die App automatisch Kandidaten für Bucket-Namen. Klicken Sie auf „Diese Einstellung speichern“, um den richtigen Bucket-Namen sofort anzuwenden.",
+    "shot_storage": "Screenshot: Storage-Dateibrowser und Vorschaufenster"
+  }
+};
+    const LANGS = ['ja', 'en', 'de'];
+    function applyTexts(lang) {
+      const dict = TEXTS[lang] || TEXTS.ja;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-key]').forEach((element) => {
+        const key = element.dataset.key;
+        if (Object.prototype.hasOwnProperty.call(dict, key)) element.textContent = dict[key];
+      });
+      // Update figure image sources for current language
+      document.querySelectorAll('figure[data-fig]').forEach((fig) => {
+        const name = fig.dataset.fig;
+        const img = fig.querySelector('img');
+        if (img) {
+          fig.classList.remove('has-error');
+          img.classList.remove('loaded');
+          img.src = `./img/${lang}/${name}`;
+        }
+      });
+      const titleKey = document.body.dataset.titleKey;
+      if (titleKey && dict[titleKey]) document.title = `${dict[titleKey]} | Firemaru`;
+      LANGS.forEach((code) => {
+        const button = document.getElementById(`btn-${code}`);
+        if (button) button.classList.toggle('active', code === lang);
+      });
+    }
+    function setLang(lang) { if (!TEXTS[lang]) return; localStorage.setItem('lang', lang); applyTexts(lang); }
+    function toggleSidebar() { document.body.classList.toggle('sidebar-open'); }
+    function closeSidebar() { document.body.classList.remove('sidebar-open'); }
+    document.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem('lang');
+      applyTexts(TEXTS[stored] ? stored : 'ja');
+      document.querySelectorAll('.sidebar a, .brand').forEach((link) => link.addEventListener('click', () => { if (window.innerWidth <= 960) closeSidebar(); }));
+      window.addEventListener('resize', () => { if (window.innerWidth > 960) closeSidebar(); });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Firemaru</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body data-title-key="page_title">
+  <header class="site-header">
+    <div class="header-left">
+      <button type="button" class="menu-button" aria-label="Toggle navigation" onclick="toggleSidebar()">☰</button>
+      <a class="brand" href="./index.html">
+        <img class="brand-logo" src="./assets/logo.png" alt="Firemaru logo" />
+        <div class="brand-copy">
+          <strong>Firemaru</strong>
+          <span data-key="manual_label"></span>
+        </div>
+      </a>
+    </div>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <button type="button" onclick="setLang('ja')" id="btn-ja">JA</button>
+        <button type="button" onclick="setLang('en')" id="btn-en">EN</button>
+        <button type="button" onclick="setLang('de')" id="btn-de">DE</button>
+      </div>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <p class="sidebar-label" data-key="sidebar_title"></p>
+        <nav>
+          <a class="" href="./index.html"><span data-key="nav_home"></span></a>
+          <a class="" href="./getting-started.html"><span data-key="nav_getting_started"></span></a>
+          <a class="" href="./firestore.html"><span data-key="nav_firestore"></span></a>
+          <a class="" href="./storage.html"><span data-key="nav_storage"></span></a>
+          <a class="" href="./backup.html"><span data-key="nav_backup"></span></a>
+          <a class="" href="./functions.html"><span data-key="nav_functions"></span></a>
+          <a class="active" href="./license.html"><span data-key="nav_license"></span></a>
+          <a class="" href="./settings.html"><span data-key="nav_settings"></span></a>
+        </nav>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <main class="page-content">
+      <section class="hero-card"><div class="eyebrow" data-key="hero_badge"></div><h1 data-key="page_title"></h1><p class="lead" data-key="page_desc"></p></section>
+<div class="section-stack">
+  <section class="content-section"><div class="mini-card-grid"><div class="mini-card"><h2 data-key="section_trial"></h2><p data-key="trial_desc"></p></div><div class="mini-card"><h2 data-key="section_plans"></h2><ul class="info-list"><li data-key="plan_monthly"></li><li data-key="plan_annual"></li></ul></div></div></section>
+  <section class="content-section"><div class="mini-card-grid"><div class="mini-card"><h2 data-key="section_subscribe"></h2><p data-key="subscribe_desc"></p></div><div class="mini-card"><h2 data-key="section_devices"></h2><p data-key="devices_desc"></p></div></div></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_account"></h2></div></div><p data-key="account_desc"></p><figure class="screenshot" data-fig="fig6-1.png"><img src="./img/ja/fig6-1.png" alt="" onload="this.classList.add('loaded')" onerror="this.closest('figure').classList.add('has-error')"><div class="fig-placeholder"><span class="fig-name">fig6-1.png</span><span class="fig-desc" data-key="shot_account"></span></div><figcaption><span class="fig-name">fig6-1.png</span> — <span data-key="shot_account"></span></figcaption></figure></section>
+</div>
+      
+    </main>
+  </div>
+  <script>
+    const TEXTS = {
+  "ja": {
+    "nav_home": "ホーム",
+    "nav_getting_started": "はじめに",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Storage",
+    "nav_backup": "バックアップ",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "ライセンス",
+    "nav_settings": "設定",
+    "manual_label": "Webマニュアル",
+    "sidebar_title": "ページ一覧",
+    "hero_badge": "Desktop Manual",
+    "page_title": "ライセンス",
+    "page_desc": "Firemaru のライセンスとサブスクリプションについて説明します。",
+    "section_trial": "トライアル",
+    "trial_desc": "初回起動から 14 日間、全機能を無料でお試しいただけます。",
+    "section_plans": "プラン",
+    "plan_monthly": "月額プラン",
+    "plan_annual": "年額プラン",
+    "section_subscribe": "購入方法",
+    "subscribe_desc": "トライアル期限が近づくと、アプリ内に購入画面が表示されます。「プランを購入」ボタンをクリックすると Lemon Squeezy の決済ページに遷移します。",
+    "section_devices": "デバイス管理",
+    "devices_desc": "1 ライセンスで最大 2 台のデバイスで使用できます。アカウント画面でデバイスの登録状況を確認・削除できます。",
+    "section_account": "アカウント画面",
+    "account_desc": "ヘッダーのアカウントアイコンからアカウント画面を開きます。ステータス・残り日数・購入履歴・カスタマーポータルリンクを確認できます。",
+    "shot_account": "Screenshot: アカウント画面とライセンス状況"
+  },
+  "en": {
+    "nav_home": "Home",
+    "nav_getting_started": "Getting Started",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Storage",
+    "nav_backup": "Backup",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "License",
+    "nav_settings": "Settings",
+    "manual_label": "Web Manual",
+    "sidebar_title": "Pages",
+    "hero_badge": "Desktop Manual",
+    "page_title": "License",
+    "page_desc": "This page explains Firemaru licenses and subscriptions.",
+    "section_trial": "Free Trial",
+    "trial_desc": "You can try all features for free for 14 days from the first launch.",
+    "section_plans": "Plans",
+    "plan_monthly": "Monthly Plan",
+    "plan_annual": "Annual Plan",
+    "section_subscribe": "How to Subscribe",
+    "subscribe_desc": "As the trial period approaches, a purchase screen appears in the app. Click \"Buy Plan\" to go to the Lemon Squeezy payment page.",
+    "section_devices": "Device Management",
+    "devices_desc": "One license can be used on up to 2 devices. You can check and remove device registrations on the Account screen.",
+    "section_account": "Account Screen",
+    "account_desc": "Open the Account screen from the account icon in the header. Check your status, remaining days, purchase history, and customer portal link.",
+    "shot_account": "Screenshot: Account screen and license status"
+  },
+  "de": {
+    "nav_home": "Startseite",
+    "nav_getting_started": "Erste Schritte",
+    "nav_firestore": "Firestore",
+    "nav_storage": "Speicher",
+    "nav_backup": "Sicherung",
+    "nav_functions": "Functions & Auth",
+    "nav_license": "Lizenz",
+    "nav_settings": "Einstellungen",
+    "manual_label": "Web-Handbuch",
+    "sidebar_title": "Seiten",
+    "hero_badge": "Desktop-Handbuch",
+    "page_title": "Lizenz",
+    "page_desc": "Diese Seite erklärt Firemaru-Lizenzen und Abonnements.",
+    "section_trial": "Kostenlose Testversion",
+    "trial_desc": "Sie können alle Funktionen 14 Tage lang kostenlos ab dem ersten Start ausprobieren.",
+    "section_plans": "Pläne",
+    "plan_monthly": "Monatlicher Plan",
+    "plan_annual": "Jahresplan",
+    "section_subscribe": "So abonnieren Sie",
+    "subscribe_desc": "Wenn die Testphase endet, wird in der App ein Kaufbildschirm angezeigt. Klicken Sie auf „Plan kaufen“, um zur Lemon Squeezy-Zahlungsseite zu gelangen.",
+    "section_devices": "Geräteverwaltung",
+    "devices_desc": "Eine Lizenz kann auf bis zu 2 Geräten verwendet werden. Sie können die Geräteregistrierungen im Konto-Bildschirm überprüfen und entfernen.",
+    "section_account": "Konto-Bildschirm",
+    "account_desc": "Öffnen Sie den Konto-Bildschirm über das Konto-Symbol in der Kopfzeile. Überprüfen Sie Ihren Status, die verbleibenden Tage, den Kaufverlauf und den Link zum Kundenportal.",
+    "shot_account": "Screenshot: Konto-Bildschirm und Lizenzstatus"
+  }
+};
+    const LANGS = ['ja', 'en', 'de'];
+    function applyTexts(lang) {
+      const dict = TEXTS[lang] || TEXTS.ja;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-key]').forEach((element) => {
+        const key = element.dataset.key;
+        if (Object.prototype.hasOwnProperty.call(dict, key)) element.textContent = dict[key];
+      });
+      // Update figure image sources for current language
+      document.querySelectorAll('figure[data-fig]').forEach((fig) => {
+        const name = fig.dataset.fig;
+        const img = fig.querySelector('img');
+        if (img) {
+          fig.classList.remove('has-error');
+          img.classList.remove('loaded');
+          img.src = `./img/${lang}/${name}`;
+        }
+      });
+      const titleKey = document.body.dataset.titleKey;
+      if (titleKey && dict[titleKey]) document.title = `${dict[titleKey]} | Firemaru`;
+      LANGS.forEach((code) => {
+        const button = document.getElementById(`btn-${code}`);
+        if (button) button.classList.toggle('active', code === lang);
+      });
+    }
+    function setLang(lang) { if (!TEXTS[lang]) return; localStorage.setItem('lang', lang); applyTexts(lang); }
+    function toggleSidebar() { document.body.classList.toggle('sidebar-open'); }
+    function closeSidebar() { document.body.classList.remove('sidebar-open'); }
+    document.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem('lang');
+      applyTexts(TEXTS[stored] ? stored : 'ja');
+      document.querySelectorAll('.sidebar a, .brand').forEach((link) => link.addEventListener('click', () => { if (window.innerWidth <= 960) closeSidebar(); }));
+      window.addEventListener('resize', () => { if (window.innerWidth > 960) closeSidebar(); });
+    });
+  </script>
+</body>
+</html>
