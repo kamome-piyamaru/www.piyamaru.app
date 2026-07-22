@@ -191,22 +191,33 @@
 
   /* ── ⑥ 料金 ─────────────────── */
   .pricing{background:var(--bg-raise);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,420px));gap:24px;margin-top:44px;justify-content:center}
-  @media(max-width:760px){.price-grid{grid-template-columns:1fr}}
+  .price-grid{
+    display:grid;grid-template-columns:repeat(3,minmax(0,320px));
+    gap:22px;margin-top:52px;justify-content:center;align-items:stretch;
+  }
+  @media(max-width:1040px){
+    .price-grid{grid-template-columns:repeat(2,minmax(0,320px))}
+  }
+  @media(max-width:720px){
+    .price-grid{grid-template-columns:minmax(0,420px)}
+  }
   .plan{
     background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);
-    padding:34px 30px;display:flex;flex-direction:column;
+    padding:34px 28px;display:flex;flex-direction:column;
   }
   .plan.pro{border:1px solid #E0105066;position:relative;box-shadow:0 0 40px -12px #E0105033}
   .plan-tag{
-    position:absolute;top:-13px;left:30px;
+    position:absolute;top:-13px;left:28px;
     background:linear-gradient(120deg,var(--pink),var(--pink-2));color:#fff;
     font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 14px;
   }
-  .plan h3{font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.1em;color:var(--muted)}
-  .plan .price{font-size:42px;font-weight:900;font-family:'Zen Kaku Gothic New',sans-serif;margin:10px 0 2px}
+  .plan h3{
+    font-family:'JetBrains Mono','Zen Kaku Gothic New',sans-serif;
+    font-size:15px;letter-spacing:.1em;color:var(--muted);
+  }
+  .plan .price{font-size:40px;font-weight:900;font-family:'Zen Kaku Gothic New',sans-serif;margin:10px 0 2px;line-height:1.2}
   .plan .price small{font-size:14px;font-weight:500;color:var(--muted)}
-  .plan .price-note{font-size:12px;color:var(--muted);margin-bottom:22px}
+  .plan .price-note{font-size:12px;color:var(--muted);margin-bottom:22px;min-height:2.4em}
   .plan ul{list-style:none;margin-bottom:28px;flex:1}
   .plan li{font-size:14px;padding:7px 0;color:#CDD5C6}
   .plan li::before{content:"✓ ";color:var(--ok);font-weight:700}
@@ -401,10 +412,12 @@
   <div class="wrap">
     <p class="eyebrow">Pricing</p>
     <h2 class="sec-title" data-i18n="price_title">料金</h2>
-    <p class="sec-lead" data-i18n="price_lead">まずは無料で。気に入ったらProへ。</p>
+    <p class="sec-lead" data-i18n="price_lead">まずは無料で。気に入ったら、月額か年間かを選ぶだけ。</p>
     <div class="price-grid">
+
+      <!-- FREE TRIAL -->
       <div class="plan">
-        <h3>FREE TRIAL</h3>
+        <h3 data-i18n="free_name">FREE TRIAL</h3>
         <p class="price">$0</p>
         <p class="price-note" data-i18n="free_note">14日間、すべての機能を試せます</p>
         <ul>
@@ -414,19 +427,36 @@
         </ul>
         <a class="btn btn-ghost" href="#download" data-i18n="free_btn">無料で試す</a>
       </div>
-      <div class="plan pro">
-        <span class="plan-tag" data-i18n="pro_tag">おすすめ</span>
-        <h3>PRO</h3>
-        <p class="price" data-i18n="pro_price">$9 <small>/ 月</small></p>
-        <p class="price-note" data-i18n="pro_note">年額プランあり（おトクな割引）</p>
+
+      <!-- 月額プラン -->
+      <div class="plan">
+        <h3 data-i18n="monthly_name">月額プラン</h3>
+        <p class="price" data-i18n="monthly_price">$12 <small>/ 月</small></p>
+        <p class="price-note" data-i18n="monthly_note">まずは短期間で使ってみたい方に</p>
         <ul>
-          <li data-i18n="pro_li1">Firestore / Auth / Storage / Functions 管理</li>
-          <li data-i18n="pro_li2">複数プロジェクトの一元管理</li>
-          <li data-i18n="pro_li3">複数デバイスでのライセンス利用</li>
-          <li data-i18n="pro_li4">継続的なアップデート</li>
+          <li data-i18n="monthly_li1">Firestore / Auth / Storage / Functions 管理</li>
+          <li data-i18n="monthly_li2">複数プロジェクトの一元管理</li>
+          <li data-i18n="monthly_li3">複数デバイスでのライセンス利用</li>
+          <li data-i18n="monthly_li4">継続的なアップデート</li>
         </ul>
-        <a class="btn btn-brand" href="#download" data-i18n="pro_btn">Proをはじめる</a>
+        <a class="btn btn-ghost" href="#download" data-i18n="monthly_btn">月額ではじめる</a>
       </div>
+
+      <!-- 年間プラン -->
+      <div class="plan pro">
+        <span class="plan-tag" data-i18n="yearly_tag">2ヶ月分お得</span>
+        <h3 data-i18n="yearly_name">年間プラン</h3>
+        <p class="price" data-i18n="yearly_price">$120 <small>/ 年</small></p>
+        <p class="price-note" data-i18n="yearly_note">月額プランより2ヶ月分おトクになります</p>
+        <ul>
+          <li data-i18n="yearly_li1">Firestore / Auth / Storage / Functions 管理</li>
+          <li data-i18n="yearly_li2">複数プロジェクトの一元管理</li>
+          <li data-i18n="yearly_li3">複数デバイスでのライセンス利用</li>
+          <li data-i18n="yearly_li4">継続的なアップデート</li>
+        </ul>
+        <a class="btn btn-brand" href="#download" data-i18n="yearly_btn">年間プランではじめる</a>
+      </div>
+
     </div>
   </div>
 </section>
@@ -439,11 +469,11 @@
     <p class="sec-lead" style="margin-inline:auto" data-i18n="dl_lead">お使いのOSを選んでください。インストールして、サービスアカウントキーを登録すれば準備完了です。</p>
     <div class="dl-btns">
       <a class="dl-btn" href="#">
-        <span class="dl-os"> Mac</span>
+        <span class="dl-os">macOS</span>
         <span class="dl-meta">.dmg — Apple Silicon / Intel</span>
       </a>
       <a class="dl-btn" href="#">
-        <span class="dl-os">⊞ Windows</span>
+        <span class="dl-os">Windows</span>
         <span class="dl-meta">.exe — Windows 10 / 11</span>
       </a>
     </div>
@@ -458,6 +488,7 @@
 <footer>
   <div class="wrap foot">
     <nav class="foot-links" aria-label="footer">
+      <a href="manual/index.html" data-i18n="foot_manual">マニュアル</a>
       <a href="#" data-i18n="foot_privacy">プライバシーポリシー</a>
       <a href="terms-of-use.html" data-i18n="foot_terms">利用規約</a>
       <a href="#" data-i18n="foot_contact">お問い合わせ</a>
@@ -503,23 +534,34 @@ const I18N = {
     f4_h: 'Cloud Functions管理 <code>/functions</code>',
     f4_p: "デプロイ済み関数の一覧と状態をひと目で確認。どの関数が動いているか、コンソールを開かずに把握できます。",
     price_title: "料金",
-    price_lead: "まずは無料で。気に入ったらProへ。",
+    price_lead: "まずは無料で。気に入ったら、月額か年間かを選ぶだけ。",
+    free_name: "FREE TRIAL",
     free_note: "14日間、すべての機能を試せます",
     free_li1: "全機能を14日間利用可能",
     free_li2: "クレジットカード登録不要",
     free_li3: "Mac / Windows対応",
     free_btn: "無料で試す",
-    pro_tag: "おすすめ",
-    pro_price: '$9 <small>/ 月</small>',
-    pro_note: "年額プランあり（おトクな割引）",
-    pro_li1: "Firestore / Auth / Storage / Functions 管理",
-    pro_li2: "複数プロジェクトの一元管理",
-    pro_li3: "複数デバイスでのライセンス利用",
-    pro_li4: "継続的なアップデート",
-    pro_btn: "Proをはじめる",
+    monthly_name: "月額プラン",
+    monthly_price: '$12 <small>/ 月</small>',
+    monthly_note: "まずは短期間で使ってみたい方に",
+    monthly_li1: "Firestore / Auth / Storage / Functions 管理",
+    monthly_li2: "複数プロジェクトの一元管理",
+    monthly_li3: "複数デバイスでのライセンス利用",
+    monthly_li4: "継続的なアップデート",
+    monthly_btn: "月額ではじめる",
+    yearly_tag: "2ヶ月分お得",
+    yearly_name: "年間プラン",
+    yearly_price: '$120 <small>/ 年</small>',
+    yearly_note: "月額プランより2ヶ月分おトクになります",
+    yearly_li1: "Firestore / Auth / Storage / Functions 管理",
+    yearly_li2: "複数プロジェクトの一元管理",
+    yearly_li3: "複数デバイスでのライセンス利用",
+    yearly_li4: "継続的なアップデート",
+    yearly_btn: "年間プランではじめる",
     dl_title: "firemaruをダウンロードする",
     dl_lead: "お使いのOSを選んでください。インストールして、サービスアカウントキーを登録すれば準備完了です。",
     dl_note: '<span class="ok">✓</span> 14日間無料　<span class="ok">✓</span> クレジットカード不要',
+    foot_manual: "マニュアル",
     foot_privacy: "プライバシーポリシー",
     foot_terms: "利用規約",
     foot_contact: "お問い合わせ"
@@ -559,23 +601,34 @@ const I18N = {
     f4_h: 'Cloud Functions management <code>/functions</code>',
     f4_p: "See deployed functions and their status at a glance — know what's running without ever opening the Console.",
     price_title: "Pricing",
-    price_lead: "Start free. Upgrade when you love it.",
+    price_lead: "Start free. Then pick monthly or yearly.",
+    free_name: "FREE TRIAL",
     free_note: "Try every feature, free for 14 days",
     free_li1: "Full access for 14 days",
     free_li2: "No credit card required",
     free_li3: "Mac & Windows",
     free_btn: "Try for free",
-    pro_tag: "Recommended",
-    pro_price: '$9 <small>/ month</small>',
-    pro_note: "Annual plan available at a discount",
-    pro_li1: "Firestore / Auth / Storage / Functions",
-    pro_li2: "Manage multiple projects in one place",
-    pro_li3: "Use your license on multiple devices",
-    pro_li4: "Continuous updates",
-    pro_btn: "Get Pro",
+    monthly_name: "MONTHLY",
+    monthly_price: '$12 <small>/ month</small>',
+    monthly_note: "Good for shorter projects",
+    monthly_li1: "Firestore / Auth / Storage / Functions",
+    monthly_li2: "Manage multiple projects in one place",
+    monthly_li3: "Use your license on multiple devices",
+    monthly_li4: "Continuous updates",
+    monthly_btn: "Start monthly",
+    yearly_tag: "2 months free",
+    yearly_name: "YEARLY",
+    yearly_price: '$120 <small>/ year</small>',
+    yearly_note: "Two months cheaper than paying monthly",
+    yearly_li1: "Firestore / Auth / Storage / Functions",
+    yearly_li2: "Manage multiple projects in one place",
+    yearly_li3: "Use your license on multiple devices",
+    yearly_li4: "Continuous updates",
+    yearly_btn: "Start yearly",
     dl_title: "Download firemaru",
     dl_lead: "Pick your OS, install, register a service account key — and you're all set.",
     dl_note: '<span class="ok">✓</span> Free for 14 days　<span class="ok">✓</span> No credit card required',
+    foot_manual: "Manual",
     foot_privacy: "Privacy Policy",
     foot_terms: "Terms of Service",
     foot_contact: "Contact"
@@ -586,7 +639,7 @@ const I18N = {
     nav_features: "Funktionen",
     nav_pricing: "Preise",
     cta_trial: "Kostenlos testen",
-    hero_title: 'Firebase-Verwaltung ist auf dem <span class="accent">Desktop</span> schneller.',
+    hero_title: 'Firebase-Verwaltung ist auf dem <br><span class="accent">Desktop</span> schneller.',
     hero_sub: "firemaru ist ein Firebase-GUI-Client, der Firestore, Authentication, Storage und Cloud Functions in einem einzigen Fenster vereint. Zeit, dem Tab-Chaos im Browser zu entkommen.",
     cta_features: "Funktionen ansehen",
     hero_note: '<span class="ok">✓</span> 14 Tage kostenlos　<span class="ok">✓</span> Keine Kreditkarte nötig　<span class="ok">✓</span> Mac & Windows',
@@ -615,23 +668,34 @@ const I18N = {
     f4_h: 'Cloud-Functions-Verwaltung <code>/functions</code>',
     f4_p: "Bereitgestellte Funktionen und ihren Status auf einen Blick erfassen — ganz ohne Console.",
     price_title: "Preise",
-    price_lead: "Kostenlos starten. Bei Gefallen auf Pro upgraden.",
+    price_lead: "Kostenlos starten. Danach monatlich oder jährlich.",
+    free_name: "FREE TRIAL",
     free_note: "14 Tage lang alle Funktionen testen",
     free_li1: "Voller Funktionsumfang für 14 Tage",
     free_li2: "Keine Kreditkarte erforderlich",
     free_li3: "Für Mac & Windows",
     free_btn: "Kostenlos testen",
-    pro_tag: "Empfohlen",
-    pro_price: '$9 <small>/ Monat</small>',
-    pro_note: "Jahresplan mit Rabatt verfügbar",
-    pro_li1: "Firestore / Auth / Storage / Functions",
-    pro_li2: "Mehrere Projekte zentral verwalten",
-    pro_li3: "Lizenz auf mehreren Geräten nutzbar",
-    pro_li4: "Laufende Updates",
-    pro_btn: "Pro starten",
+    monthly_name: "MONATLICH",
+    monthly_price: '$12 <small>/ Monat</small>',
+    monthly_note: "Ideal für kürzere Projekte",
+    monthly_li1: "Firestore / Auth / Storage / Functions",
+    monthly_li2: "Mehrere Projekte zentral verwalten",
+    monthly_li3: "Lizenz auf mehreren Geräten nutzbar",
+    monthly_li4: "Laufende Updates",
+    monthly_btn: "Monatlich starten",
+    yearly_tag: "2 Monate geschenkt",
+    yearly_name: "JÄHRLICH",
+    yearly_price: '$120 <small>/ Jahr</small>',
+    yearly_note: "Zwei Monate günstiger als der Monatsplan",
+    yearly_li1: "Firestore / Auth / Storage / Functions",
+    yearly_li2: "Mehrere Projekte zentral verwalten",
+    yearly_li3: "Lizenz auf mehreren Geräten nutzbar",
+    yearly_li4: "Laufende Updates",
+    yearly_btn: "Jährlich starten",
     dl_title: "firemaru herunterladen",
     dl_lead: "Betriebssystem wählen, installieren, Service-Account-Key registrieren — fertig.",
     dl_note: '<span class="ok">✓</span> 14 Tage kostenlos　<span class="ok">✓</span> Keine Kreditkarte nötig',
+    foot_manual: "Handbuch",
     foot_privacy: "Datenschutzerklärung",
     foot_terms: "Nutzungsbedingungen",
     foot_contact: "Kontakt"
@@ -665,7 +729,7 @@ const LOGO_B64 =
   "G1T/AAD/AFV6vTrlG1T/AH5zwyu/AD/kG1TlG1TlG1TkG1T//wBNriyBvieqAFX/AD8A/wB/fwDmGlR//wBuuCiSxCWqqgCSxCWU" +
   "xCWTxiuk0icAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEMtPg" +
   "AAAAQHRSTlManGAOIAT+A8twjxcCAxED1gEDAmUCzwWVA1oFBa8IAP79/f7MAQMHrgL+BE9vjy8B/P4DBAECEgLN0wNOtxL+0puB" +
-  "tQAADsxJREFUeNrtXdl22zgShfbVdhxn6+6ZgWkTpGiJktxcJMta/v+vBqTEBVXY6Emf8YMqfZJOuAYXdVF1q8AQqrS0x38ipN1q" +
+  "tQAADsxJREFUeNrtXdl22zgShbbVdhxn6+6ZgWkTpGiJktxcJMta/v+vBqTEBVXY6Emf8YMqfZJOuAYXdVF1q8AQqrS0x38ipN1q" +
   "DYfDZ25PUnv70aYDerX/hxHVgYQjwpEbZqA95z+URuj2OpCfCj3+56T1LJocu5c3mlzH8VOhd4uxU6LXpv51HD8TeoS2h8+W6F2J" +
   "83Ohl3Dwnp8t0ePEub4O4+dBj8crrWd79K7E+anQ+6oAT8GcPk2vw/hp0OupwJOi99K6gveJ0BvI1zwlelfi/ETopZQosXuRGCfO" +
   "a9DyadBTRCxPT8/Dt1ZubcHIdQg/D3oPUt58eW61yRWnz45ekkh48+m5lZ+VkkGv1/MrGzw8DK6J+udBrydzvQy7tJfqxcxkzS1N" +
