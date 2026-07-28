@@ -76,7 +76,10 @@
     var ua = navigator.userAgent || "";
 
     if (/Mac/i.test(ua)) {
-      /* Chrome/Edge: userAgentData で確実判定（非同期） */
+      /* まず WebGL で同期的に仮セット（クリックタイミング問題を回避） */
+      applyLinks(detectMacArchByWebGL());
+
+      /* Chrome/Edge: userAgentData で確実判定し上書き（非同期） */
       if (navigator.userAgentData && typeof navigator.userAgentData.getHighEntropyValues === "function") {
         navigator.userAgentData.getHighEntropyValues(["architecture"])
           .then(function (d) {
@@ -85,7 +88,7 @@
                   : detectMacArchByWebGL();
             applyLinks(k);
           })
-          .catch(function () { applyLinks(detectMacArchByWebGL()); });
+          .catch(function () { /* WebGL判定のまま */ });
         return;
       }
       /* Safari: WebGL で判定 */
