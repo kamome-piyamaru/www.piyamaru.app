@@ -2,9 +2,19 @@
  * firemaru ダウンロードウィジェット
  * ============================================================
  * 使い方:
- *   1. ページ内に <div id="fm-download"></div> を置く
- *   2. このファイル（またはインライン）で VERSION を更新する
- *   3. あとはスクリプトが自動でリンクを生成する
+ *   既存の <a> タグに data-fm-key 属性を付けるだけ。
+ *   スクリプトが href と download 属性をセットします。
+ *
+ *   <a class="dl-btn" data-fm-key="mac"    href="#">...</a>
+ *   <a class="dl-btn" data-fm-key="win-x64" href="#">...</a>
+ *
+ *   data-fm-key の値:
+ *     "mac"     … macOS（Apple Silicon / Intel を自動判別）
+ *     "mac-arm64" … Apple Silicon 固定
+ *     "mac-x64"   … Intel Mac 固定
+ *     "win-x64"   … Windows 固定
+ *
+ *   アクセス中の OS に合致するボタンに .dl-btn--recommended が付く。
  *
  * リリース時に変更が必要なのは VERSION の1行だけ。
  * ============================================================
@@ -16,146 +26,79 @@
   var VERSION = "1.0.0";
   /* ===================================================== */
 
-  var BASE_URL = "https://firemaru.com/download";
+  var BASE = "https://pub-a9cdd797bae04c95a7f6b89b013b8351.r2.dev";
 
-  var FILES = [
-    {
-      key:      "mac-arm64",
-      url:      BASE_URL + "/firemaru-" + VERSION + "-mac-arm64.dmg",
-      os:       "mac",
-      icon:     "\uD83C\uDF4E", /* 🍎 */
-      label:    "macOS (Apple Silicon)",
-      sublabel: "M1 / M2 / M3 / M4",
-      ext:      ".dmg",
-    },
-    {
-      key:      "mac-x64",
-      url:      BASE_URL + "/firemaru-" + VERSION + "-mac-x64.dmg",
-      os:       "mac",
-      icon:     "\uD83C\uDF4E", /* 🍎 */
-      label:    "macOS (Intel)",
-      sublabel: "Intel Core i5 / i7 / i9",
-      ext:      ".dmg",
-    },
-    {
-      key:      "win-x64",
-      url:      BASE_URL + "/firemaru-" + VERSION + "-win-x64.exe",
-      os:       "win",
-      icon:     "\uD83E\uDEDF", /* 🪟 */
-      label:    "Windows",
-      sublabel: "Windows 10 / 11 (64-bit)",
-      ext:      ".exe",
-    },
-  ];
+  var URLS = {
+    "mac-arm64": BASE + "/firemaru-" + VERSION + "-mac-arm64.dmg",
+    "mac-x64":   BASE + "/firemaru-" + VERSION + "-mac-x64.dmg",
+    "win-x64":   BASE + "/firemaru-" + VERSION + "-win-x64.exe",
+  };
 
-  /* ----------------------------------------------------------------
-     OS・CPU アーキテクチャ自動検出
-     戻り値: "mac-arm64" | "mac-x64" | "win" | null
-     ---------------------------------------------------------------- */
-
-  /** WebGL レンダラ文字列から Mac の CPU を判定（Safari 対応） */
+  /* macOS のアーキテクチャを WebGL レンダラ文字列で判定（Safari 用） */
   function detectMacArchByWebGL() {
     try {
-      var canvas = document.createElement("canvas");
-      var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-      if (!gl) return null;
-      var ext = gl.getExtension("WEBGL_debug_renderer_info");
-      if (!ext) return null;
-      var renderer = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || "";
-      /* Apple M シリーズ GPU は "Apple M1" "Apple M2" "Apple GPU" 等を含む */
-      if (/Apple\s+M\d|Apple GPU/i.test(renderer)) return "mac-arm64";
-      /* Intel / AMD は Intel Mac */
-      if (/Intel|AMD|Radeon/i.test(renderer)) return "mac-x64";
-    } catch (e) { /* ignore */ }
-    return null;
+      var gl = document.createElement("canvas").getContext("webgl");
+      var ext = gl && gl.getExtension("WEBGL_debug_renderer_info");
+      var r = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : "";
+      if (/Apple\s+M\d|Apple GPU/i.test(r)) return "mac-arm64";
+      if (/Intel|AMD|Radeon/i.test(r))       return "mac-x64";
+    } catch (e) {}
+    return "mac-arm64"; /* 判定不能時は Apple Silicon をデフォルト */
   }
 
-  /**
-   * 検出結果を非同期で取得し、render() を呼ぶ。
-   * Chrome/Edge: userAgentData.getHighEntropyValues でアーキ取得 → 即時確定
-   * Safari: WebGL レンダラ文字列で判定 → 同期的に確定
-   * その他: null（どちらの Mac も推奨バッジなし）
-   */
-  function detectKeyAndRender() {
+  /* href・download 属性・推奨クラスをセット */
+  function applyLinks(resolvedMacKey) {
     var ua = navigator.userAgent || "";
     var isMac = /Mac/i.test(ua);
     var isWin = /Win/i.test(ua);
 
-    if (isWin) { render("win"); return; }
+    document.querySelectorAll("[data-fm-key]").forEach(function (el) {
+      var key = el.getAttribute("data-fm-key");
 
-    if (isMac) {
-      /* ① Chrome / Edge: userAgentData (非同期) */
+      /* "mac" は検出結果に置き換え */
+      var resolvedKey = (key === "mac") ? resolvedMacKey : key;
+
+      var url = URLS[resolvedKey];
+      if (!url) return;
+
+      el.href = url;
+      el.setAttribute("download", "");
+
+      /* アクセス中 OS に対応するボタンに推奨クラスを付与 */
+      var isRecommended =
+        (isMac && (resolvedKey === "mac-arm64" || resolvedKey === "mac-x64") && key !== "win-x64") ||
+        (isWin && resolvedKey === "win-x64");
+      if (isRecommended) el.classList.add("dl-btn--recommended");
+    });
+  }
+
+  function start() {
+    var ua = navigator.userAgent || "";
+
+    if (/Mac/i.test(ua)) {
+      /* Chrome/Edge: userAgentData で確実判定（非同期） */
       if (navigator.userAgentData && typeof navigator.userAgentData.getHighEntropyValues === "function") {
         navigator.userAgentData.getHighEntropyValues(["architecture"])
-          .then(function (data) {
-            if (data.architecture === "arm")  { render("mac-arm64"); return; }
-            if (data.architecture === "x86")  { render("mac-x64");   return; }
-            render(detectMacArchByWebGL() || null);
+          .then(function (d) {
+            var k = d.architecture === "arm" ? "mac-arm64"
+                  : d.architecture === "x86" ? "mac-x64"
+                  : detectMacArchByWebGL();
+            applyLinks(k);
           })
-          .catch(function () {
-            render(detectMacArchByWebGL() || null);
-          });
-        return; /* render は Promise 解決後に呼ばれる */
+          .catch(function () { applyLinks(detectMacArchByWebGL()); });
+        return;
       }
-
-      /* ② Safari など: WebGL で判定（同期） */
-      render(detectMacArchByWebGL() || null);
+      /* Safari: WebGL で判定 */
+      applyLinks(detectMacArchByWebGL());
       return;
     }
 
-    render(null); /* Mac でも Win でもない場合 */
+    applyLinks("mac-arm64"); /* Mac 以外でも Mac ボタンには arm64 URL を入れておく */
   }
 
-  /* ウィジェット生成
-     recommendedKey: "mac-arm64" | "mac-x64" | "win" | null */
-  function render(recommendedKey) {
-    var root = document.getElementById("fm-download");
-    if (!root) { console.warn("[firemaru-widget] #fm-download が見つかりません"); return; }
-
-    var rows = FILES.map(function (f) {
-      var recommended = f.key === recommendedKey;
-      var border = recommended ? "#3b82f6" : "#d1d5db";
-      var bg     = recommended ? "#eff6ff"  : "#ffffff";
-      var badge  = recommended
-        ? '<span style="margin-left:8px;font-size:11px;font-weight:700;'
-          + 'color:#fff;background:#3b82f6;padding:1px 8px;border-radius:10px;vertical-align:middle">'
-          + "おすすめ</span>"
-        : "";
-
-      return (
-        '<a href="' + f.url + '" download'
-        + ' style="display:block;text-decoration:none;color:inherit;border-radius:12px;'
-        + 'border:2px solid ' + border + ';background:' + bg + ';margin-bottom:10px;"'
-        + ' onmouseover="this.style.boxShadow=\'0 4px 18px rgba(59,130,246,0.18)\'"'
-        + ' onmouseout="this.style.boxShadow=\'none\'">'
-        + '<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;">'
-        + '<span style="font-size:28px;flex-shrink:0;line-height:1">' + f.icon + "</span>"
-        + '<div style="flex:1;min-width:0">'
-        + '<div style="font-weight:700;font-size:15px;color:#0f172a">' + f.label + badge + "</div>"
-        + '<div style="font-size:12px;color:#64748b;margin-top:3px">' + f.sublabel
-        + " &nbsp;·&nbsp; " + f.ext + "</div>"
-        + "</div>"
-        + '<div style="flex-shrink:0;font-size:13px;font-weight:600;color:#3b82f6">'
-        + "\u2B07 ダウンロード</div>"
-        + "</div></a>"
-      );
-    }).join("");
-
-    root.innerHTML =
-      '<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;'
-      + 'max-width:520px;margin:0 auto">'
-      + '<p style="margin:0 0 14px;font-size:13px;color:#64748b">バージョン v' + VERSION + '</p>'
-      + rows
-      + '<p style="margin:12px 0 0;font-size:11px;color:#94a3b8;text-align:center">'
-      + '<a href="https://firemaru.com" style="color:#94a3b8;text-decoration:none">'
-      + "firemaru.com</a></p>"
-      + "</div>";
-  }
-
-  /* DOM準備完了後に検出・描画 */
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", detectKeyAndRender);
+    document.addEventListener("DOMContentLoaded", start);
   } else {
-    detectKeyAndRender();
+    start();
   }
 })();
