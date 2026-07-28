@@ -467,18 +467,22 @@
     <p class="eyebrow" style="justify-content:center;display:flex">Download</p>
     <h2 class="sec-title" data-i18n="dl_title">firemaruをダウンロードする</h2>
     <p class="sec-lead" style="margin-inline:auto" data-i18n="dl_lead">お使いのOSを選んでください。インストールして、サービスアカウントキーを登録すれば準備完了です。</p>
-    <div class="dl-btns">
-      <a class="dl-btn" href="#">
-        <span class="dl-os">macOS</span>
-        <span class="dl-meta">.dmg — Apple Silicon / Intel</span>
-      </a>
-      <a class="dl-btn" href="#">
-        <span class="dl-os">Windows</span>
-        <span class="dl-meta">.exe — Windows 10 / 11</span>
-      </a>
-    </div>
+ <div class="dl-btns">
+  <a class="dl-btn" data-fm-key="mac-arm64" href="#">
+    <span class="dl-os">macOS (Apple Silicon)</span>
+    <span class="dl-meta">.dmg — M1 / M2 / M3 / M4</span>
+  </a>
+  <a class="dl-btn" data-fm-key="mac-x64" href="#">
+    <span class="dl-os">macOS (Intel)</span>
+    <span class="dl-meta">.dmg — Intel Core</span>
+  </a>
+  <a class="dl-btn" data-fm-key="win-x64" href="#">
+    <span class="dl-os">Windows</span>
+    <span class="dl-meta">.exe — Windows 10 / 11</span>
+  </a>
+</div>
     <div class="dl-cta">
-      <a class="btn btn-brand" href="#" data-i18n="cta_trial">Download Free Trial</a>
+<a class="btn btn-brand" id="dl-auto" href="#" data-i18n="cta_trial">Download Free Trial</a>
       <p class="hero-note" style="margin-top:16px" data-i18n="dl_note"><span class="ok">✓</span> 14日間無料　<span class="ok">✓</span> クレジットカード不要</p>
     </div>
   </div>
@@ -810,6 +814,26 @@ const MASCOT_B64 =
   "IZZmRabwHP6Yy9A/HiMOBwPz7f1tp249jMXKRFsevfjvFvkP2OCNAxyooeAAAAAASUVORK5CYII=";
 document.getElementById("logo-img").src = "data:image/png;base64," + LOGO_B64;
 document.getElementById("mascot-img").src = "data:image/png;base64," + MASCOT_B64;
+
+/* ── ダウンロードURL：バージョン更新時はここだけ直せばOK ── */
+const FIREMARU_DOWNLOADS = {
+  "mac-arm64": "https://pub-a9cdd797bae04c95a7f6b89b013b8351.r2.dev/firemaru-1.0.0-mac-arm64.dmg",
+  "mac-x64":   "https://pub-a9cdd797bae04c95a7f6b89b013b8351.r2.dev/firemaru-1.0.0-mac-x64.dmg",  
+  "win-x64":   "https://pub-a9cdd797bae04c95a7f6b89b013b8351.r2.dev/firemaru-1.0.0-win-x64.exe"   
+};
+// 各OSボタン(data-fm-key)に対応URLを流し込む
+document.querySelectorAll('.dl-btn[data-fm-key]').forEach(a => {
+  const url = FIREMARU_DOWNLOADS[a.dataset.fmKey];
+  if (url) a.setAttribute('href', url);
+});
+// 「Download Free Trial」はOSを簡易判定して既定を選ぶ
+(function(){
+  const btn = document.getElementById('dl-auto');
+  if (!btn) return;
+  const key = /Macintosh|Mac OS X/.test(navigator.userAgent) ? "mac-arm64" : "win-x64";
+  if (FIREMARU_DOWNLOADS[key]) btn.setAttribute('href', FIREMARU_DOWNLOADS[key]);
+})();
+
 </script>
 
 </body>
