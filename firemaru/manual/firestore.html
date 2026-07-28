@@ -37,6 +37,7 @@
           <a class="" href="./storage.html"><span data-key="nav_storage"></span></a>
           <a class="" href="./backup.html"><span data-key="nav_backup"></span></a>
           <a class="" href="./functions.html"><span data-key="nav_functions"></span></a>
+          <a class="" href="./auth.html"><span data-key="nav_auth"></span></a>
           <a class="" href="./license.html"><span data-key="nav_license"></span></a>
           <a class="" href="./settings.html"><span data-key="nav_settings"></span></a>
         </nav>
@@ -59,8 +60,9 @@ const snapshot = await db.collection('users')
   .where('status', '==', 'active')
   .limit(20)
   .get();</pre><figure class="screenshot" data-fig="fig2-2.png"><img src="./img/ja/fig2-2.png" alt="" onload="this.classList.add('loaded')" onerror="this.closest('figure').classList.add('has-error')"><div class="fig-placeholder"><span class="fig-name">fig2-2.png</span><span class="fig-desc" data-key="shot_query"></span></div><figcaption><span class="fig-name">fig2-2.png</span> — <span data-key="shot_query"></span></figcaption></figure></section>
-  <section class="content-section"><div class="two-column"><div class="mini-card"><h3 data-key="section_export"></h3><p data-key="export_formats"></p></div><div class="mini-card"><h3 data-key="section_monitor"></h3><p data-key="monitor_desc"></p></div></div></section>
+  <section class="content-section"><div class="two-column"><div class="mini-card"><h3 data-key="section_export"></h3><p data-key="export_formats"></p><p data-key="export_id_option"></p><p data-key="export_lock_note"></p></div><div class="mini-card"><h3 data-key="section_monitor"></h3><p data-key="monitor_desc"></p><p data-key="monitor_feed_label"></p><div class="table-wrap"><table class="feature-table"><thead><tr><th data-key="monitor_col_symbol"></th><th data-key="monitor_col_event"></th><th data-key="monitor_col_trigger"></th></tr></thead><tbody><tr><td><strong>~</strong></td><td><code>modified</code></td><td data-key="monitor_event_modified"></td></tr><tr><td><strong>+</strong></td><td><code>added</code></td><td data-key="monitor_event_added"></td></tr><tr><td><strong>−</strong></td><td><code>removed</code></td><td data-key="monitor_event_removed"></td></tr></tbody></table></div><p data-key="monitor_field_note"></p></div></div></section>
   <section class="content-section"><div class="section-header"><div><h2 data-key="section_subcollections"></h2></div></div><p data-key="subcol_desc"></p></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_perf_spec"></h2></div></div><p data-key="perf_spec_desc"></p><div class="table-wrap"><table class="feature-table"><thead><tr><th data-key="perf_col_item"></th><th data-key="perf_col_max"></th><th data-key="perf_col_note"></th></tr></thead><tbody><tr><td data-key="perf_docs_label"></td><td><strong>1,000,000</strong></td><td data-key="perf_docs_note"></td></tr><tr><td data-key="perf_subcols_label"></td><td><strong>1,000</strong></td><td data-key="perf_subcols_note"></td></tr><tr><td data-key="perf_depth_label"></td><td><strong>99</strong></td><td data-key="perf_depth_note"></td></tr></tbody></table></div></section>
 </div>
       
     </main>
@@ -73,7 +75,8 @@ const snapshot = await db.collection('users')
     "nav_firestore": "Firestore",
     "nav_storage": "Storage",
     "nav_backup": "バックアップ",
-    "nav_functions": "Functions & Auth",
+    "nav_functions": "Functions",
+    "nav_auth": "Auth",
     "nav_license": "ライセンス",
     "nav_settings": "設定",
     "manual_label": "Webマニュアル",
@@ -101,10 +104,31 @@ const snapshot = await db.collection('users')
     "query_vars_label": "JS Query で利用できる注入変数",
     "section_export": "エクスポート / インポート",
     "export_formats": "JSON（firemaru形式 / Firefoo形式）・CSV の入出力に対応しています。",
+    "export_id_option": "インポート時の「ファイルのドキュメント ID を使用」: チェックあり（デフォルト）は同じ ID で上書き、チェックなしは自動生成 ID で新規追加。",
+    "export_lock_note": "⚠️ 排他制御: 同一Firebaseプロジェクトへのバックアップ・リストア・インポート・エクスポートは同時に1つしか実行できません。",
     "section_monitor": "監視モード",
     "monitor_desc": "SSE（Server-Sent Events）でFirestoreの変更をリアルタイムに受信します。更新されたフィールドがフラッシュ表示されます。",
+    "monitor_feed_label": "フィードのイベント種別と色（ドキュメント単位）：",
+    "monitor_col_symbol": "記号",
+    "monitor_col_event": "イベント",
+    "monitor_col_trigger": "発生タイミング",
+    "monitor_event_modified": "ドキュメントが変更された（フィールドの値変更・追加・削除すべて含む）",
+    "monitor_event_added": "新しいドキュメントが追加された",
+    "monitor_event_removed": "ドキュメントが削除された",
+    "monitor_field_note": "※ フィールドの値変更・フィールドの追加・フィールドの削除はすべて「~（modified）」で表示されます。行の右端に変更フィールド名（最大3件）を表示します。",
     "section_subcollections": "サブコレクション",
     "subcol_desc": "ドキュメントエディタ下部のパネルでサブコレクションをインライン展開できます。外部リンクアイコンでフルビューに遷移します。",
+    "section_perf_spec": "性能仕様（取り扱い参考値）",
+    "perf_spec_desc": "firemaruの設計上の最大値です。",
+    "perf_col_item": "項目",
+    "perf_col_max": "参考 MAX 値",
+    "perf_col_note": "備考",
+    "perf_docs_label": "コレクション内ドキュメント数",
+    "perf_docs_note": "検索・ページングによる任意アクセス対応",
+    "perf_subcols_label": "ドキュメントあたりのサブコレクション数",
+    "perf_subcols_note": "ドロップダウン + フィルタで操作可能",
+    "perf_depth_label": "サブコレクションの深さ（ネスト）",
+    "perf_depth_note": "パス内ドキュメントノード数上限（100）による実質上限",
     "shot_layout": "Screenshot: Firestore 3ペインレイアウト",
     "shot_query": "Screenshot: JS Query エディタと実行結果"
   },
@@ -114,7 +138,8 @@ const snapshot = await db.collection('users')
     "nav_firestore": "Firestore",
     "nav_storage": "Storage",
     "nav_backup": "Backup",
-    "nav_functions": "Functions & Auth",
+    "nav_functions": "Functions",
+    "nav_auth": "Auth",
     "nav_license": "License",
     "nav_settings": "Settings",
     "manual_label": "Web Manual",
@@ -142,10 +167,31 @@ const snapshot = await db.collection('users')
     "query_vars_label": "Injected variables available in JS Query",
     "section_export": "Export / Import",
     "export_formats": "Supports input/output in JSON (firemaru format / Firefoo format) and CSV.",
+    "export_id_option": "\"Use file document IDs\" on import: checked (default) overwrites by same ID; unchecked adds as new documents with auto-generated IDs.",
+    "export_lock_note": "⚠️ Exclusive lock: Only one operation (backup, restore, import, or export) can run at a time per Firebase project.",
     "section_monitor": "Monitor Mode",
     "monitor_desc": "Receive Firestore changes in real time using SSE (Server-Sent Events). Updated fields are highlighted with a flash.",
+    "monitor_feed_label": "Feed event types and colors (per document):",
+    "monitor_col_symbol": "Symbol",
+    "monitor_col_event": "Event",
+    "monitor_col_trigger": "Trigger",
+    "monitor_event_modified": "Document was changed (field value change, field add, or field delete — all included)",
+    "monitor_event_added": "A new document was added to the collection",
+    "monitor_event_removed": "A document was deleted",
+    "monitor_field_note": "Note: Field value changes, field additions, and field deletions are all shown as \"~ (modified)\". Changed field names (up to 3) are shown at the right of each row.",
     "section_subcollections": "Subcollections",
     "subcol_desc": "Expand subcollections inline in the panel at the bottom of the document editor. Use the external link icon to navigate to the full view.",
+    "section_perf_spec": "Performance Specifications (Reference Values)",
+    "perf_spec_desc": "Maximum values based on firemaru's design specifications.",
+    "perf_col_item": "Item",
+    "perf_col_max": "Reference MAX Value",
+    "perf_col_note": "Notes",
+    "perf_docs_label": "Documents per collection",
+    "perf_docs_note": "Random access via search and paging supported",
+    "perf_subcols_label": "Subcollections per document",
+    "perf_subcols_note": "Operable via dropdown + filter",
+    "perf_depth_label": "Subcollection nesting depth",
+    "perf_depth_note": "Actual limit due to Firestore's 100 document-node path limit",
     "shot_layout": "Screenshot: Firestore three-pane layout",
     "shot_query": "Screenshot: JS Query editor and results"
   },
@@ -155,7 +201,8 @@ const snapshot = await db.collection('users')
     "nav_firestore": "Firestore",
     "nav_storage": "Speicher",
     "nav_backup": "Sicherung",
-    "nav_functions": "Functions & Auth",
+    "nav_functions": "Functions",
+    "nav_auth": "Auth",
     "nav_license": "Lizenz",
     "nav_settings": "Einstellungen",
     "manual_label": "Web-Handbuch",
@@ -183,10 +230,31 @@ const snapshot = await db.collection('users')
     "query_vars_label": "Verfügbare injizierte Variablen in JS-Abfragen",
     "section_export": "Export / Import",
     "export_formats": "Unterstützt Ein-/Ausgabe in JSON (firemaru-Format / Firefoo-Format) und CSV.",
+    "export_id_option": "Option \"Dokument-IDs aus Datei verwenden\" beim Import: aktiviert (Standard) überschreibt mit gleicher ID; deaktiviert fügt als neue Dokumente mit automatisch generierten IDs hinzu.",
+    "export_lock_note": "⚠️ Exklusivsperre: Pro Firebase-Projekt kann jeweils nur eine Operation (Sicherung, Wiederherstellung, Import oder Export) gleichzeitig ausgeführt werden.",
     "section_monitor": "Überwachungsmodus",
     "monitor_desc": "Empfangen Sie Firestore-Änderungen in Echtzeit über SSE (Server-Sent Events). Aktualisierte Felder werden hervorgehoben.",
+    "monitor_feed_label": "Ereignistypen und Farben im Feed (pro Dokument):",
+    "monitor_col_symbol": "Symbol",
+    "monitor_col_event": "Ereignis",
+    "monitor_col_trigger": "Auslöser",
+    "monitor_event_modified": "Dokument wurde geändert (Feldwert, Feldzusatz oder Feldlöschung — alles eingeschlossen)",
+    "monitor_event_added": "Ein neues Dokument wurde zur Sammlung hinzugefügt",
+    "monitor_event_removed": "Ein Dokument wurde gelöscht",
+    "monitor_field_note": "Hinweis: Feldwertänderungen, Feldzusätze und Feldlöschungen werden alle als \"~ (modified)\" angezeigt. Geänderte Feldnamen (bis zu 3) werden rechts in jeder Zeile angezeigt.",
     "section_subcollections": "Teilsammlungen",
     "subcol_desc": "Teilsammlungen im Panel am unteren Rand des Dokumenteditors inline erweitern. Verwenden Sie das externe Link-Symbol, um zur Vollansicht zu navigieren.",
+    "section_perf_spec": "Leistungsspezifikationen (Referenzwerte)",
+    "perf_spec_desc": "Maximalwerte gemäß den Designspezifikationen von firemaru.",
+    "perf_col_item": "Element",
+    "perf_col_max": "Referenz-MAX-Wert",
+    "perf_col_note": "Hinweise",
+    "perf_docs_label": "Dokumente pro Sammlung",
+    "perf_docs_note": "Beliebiger Zugriff über Suche und Paginierung unterstützt",
+    "perf_subcols_label": "Teilsammlungen pro Dokument",
+    "perf_subcols_note": "Bedienbar über Dropdown + Filter",
+    "perf_depth_label": "Verschachtelungstiefe der Teilsammlungen",
+    "perf_depth_note": "Effektives Limit durch Firestores 100-Knoten-Pfadbegrenzung",
     "shot_layout": "Screenshot: Firestore-Drei-Spalten-Layout",
     "shot_query": "Screenshot: JS-Abfrage-Editor und Ergebnisse"
   }

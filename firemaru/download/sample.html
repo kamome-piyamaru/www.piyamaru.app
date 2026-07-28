@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>Download sample</title>
+</head>
+<body>
+
+  <!-- =====================================================
+       埋め込みサンプル（firemaru.com のページに貼るコード）
+       ===================================================== -->
+
+  <!-- Step 1: ウィジェットの描画先 -->
+  <div id="fm-download"></div>
+
+  <!-- Step 2: スクリプトを読み込む（外部ファイル版） -->
+  <script src="download-widget.js"></script>
+
+  <!-- ─── または インライン版（下記を <script> タグごとコピー）─── -->
+  <!--
+  <script>
+  (function () {
+    var VERSION = "1.0.0";  // ← リリース時にここだけ変更
+
+    var BASE_URL = "https://firemaru.com/download";
+    var FILES = [
+      { key:"mac-arm64", url:BASE_URL+"/firemaru-"+VERSION+"-mac-arm64.dmg", os:"mac", icon:"\uD83C\uDF4E", label:"macOS (Apple Silicon)", sublabel:"M1 / M2 / M3 / M4",            ext:".dmg" },
+      { key:"mac-x64",   url:BASE_URL+"/firemaru-"+VERSION+"-mac-x64.dmg",   os:"mac", icon:"\uD83C\uDF4E", label:"macOS (Intel)",          sublabel:"Intel Core i5 / i7 / i9",    ext:".dmg" },
+      { key:"win-x64",   url:BASE_URL+"/firemaru-"+VERSION+"-win-x64.exe",   os:"win", icon:"\uD83E\uDEDF", label:"Windows",                sublabel:"Windows 10 / 11 (64-bit)",    ext:".exe" },
+    ];
+    function detectOS(){var ua=navigator.userAgent||"";if(/Win/i.test(ua))return"win";if(/Mac/i.test(ua))return"mac";return null;}
+    var detectedOS=detectOS();
+    function render(){
+      var root=document.getElementById("fm-download");if(!root)return;
+      var rows=FILES.map(function(f){
+        var r=f.os===detectedOS,border=r?"#3b82f6":"#d1d5db",bg=r?"#eff6ff":"#ffffff";
+        var badge=r?'<span style="margin-left:8px;font-size:11px;font-weight:700;color:#fff;background:#3b82f6;padding:1px 8px;border-radius:10px;vertical-align:middle">おすすめ</span>':"";
+        return '<a href="'+f.url+'" download style="display:block;text-decoration:none;color:inherit;border-radius:12px;border:2px solid '+border+';background:'+bg+';margin-bottom:10px;"'
+          +' onmouseover="this.style.boxShadow=\'0 4px 18px rgba(59,130,246,0.18)\'"'
+          +' onmouseout="this.style.boxShadow=\'none\'">'
+          +'<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;">'
+          +'<span style="font-size:28px;flex-shrink:0;line-height:1">'+f.icon+'</span>'
+          +'<div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15px;color:#0f172a">'+f.label+badge+'</div>'
+          +'<div style="font-size:12px;color:#64748b;margin-top:3px">'+f.sublabel+' &nbsp;·&nbsp; '+f.ext+'</div></div>'
+          +'<div style="flex-shrink:0;font-size:13px;font-weight:600;color:#3b82f6">\u2B07 ダウンロード</div>'
+          +'</div></a>';
+      }).join("");
+      root.innerHTML='<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;max-width:520px;margin:0 auto">'
+        +'<p style="margin:0 0 14px;font-size:13px;color:#64748b">バージョン v'+VERSION+'</p>'
+        +rows
+        +'<p style="margin:12px 0 0;font-size:11px;color:#94a3b8;text-align:center">'
+        +'<a href="https://firemaru.com" style="color:#94a3b8;text-decoration:none">firemaru.com</a></p></div>';
+    }
+    if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",render);}else{render();}
+  })();
+  </script>
+  -->
+
+</body>
+</html>

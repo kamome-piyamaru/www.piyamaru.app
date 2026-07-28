@@ -37,22 +37,16 @@
           <a class="" href="./storage.html"><span data-key="nav_storage"></span></a>
           <a class="" href="./backup.html"><span data-key="nav_backup"></span></a>
           <a class="" href="./functions.html"><span data-key="nav_functions"></span></a>
-          <a class="" href="./auth.html"><span data-key="nav_auth"></span></a>
+          <a class="active" href="./auth.html"><span data-key="nav_auth"></span></a>
           <a class="" href="./license.html"><span data-key="nav_license"></span></a>
-          <a class="active" href="./settings.html"><span data-key="nav_settings"></span></a>
+          <a class="" href="./settings.html"><span data-key="nav_settings"></span></a>
         </nav>
       </div>
     </aside>
     <div class="sidebar-overlay" onclick="closeSidebar()"></div>
     <main class="page-content">
       <section class="hero-card"><div class="eyebrow" data-key="hero_badge"></div><h1 data-key="page_title"></h1><p class="lead" data-key="page_desc"></p></section>
-<div class="section-stack">
-  <section class="content-section"><div class="mini-card-grid"><div class="mini-card"><h2 data-key="section_theme"></h2><p data-key="theme_desc"></p></div><div class="mini-card"><h2 data-key="section_language"></h2><p data-key="language_desc"></p></div></div><figure class="screenshot" data-fig="fig7-1.png"><img src="./img/ja/fig7-1.png" alt="" onload="this.classList.add('loaded')" onerror="this.closest('figure').classList.add('has-error')"><div class="fig-placeholder"><span class="fig-name">fig7-1.png</span><span class="fig-desc" data-key="shot_settings"></span></div><figcaption><span class="fig-name">fig7-1.png</span> — <span data-key="shot_settings"></span></figcaption></figure></section>
-  <section class="content-section"><div class="section-header"><div><h2 data-key="section_projects"></h2></div></div><p data-key="projects_desc"></p></section>
-  <section class="content-section"><div class="section-header"><div><h2 data-key="section_data_location"></h2></div></div><p data-key="data_location_desc"></p><pre class="code-block"><span data-key="data_location_mac"></span>
-<span data-key="data_location_win"></span></pre></section>
-</div>
-      
+<div class="section-stack"><section class="content-section"><div class="section-header"><div><h2 data-key="section_auth"></h2></div></div><p data-key="auth_desc"></p><div class="table-wrap"><table class="feature-table"><thead><tr><th data-key="auth_col_feature"></th><th data-key="auth_col_desc"></th></tr></thead><tbody><tr><td data-key="auth_feat_list"></td><td data-key="auth_feat_list_desc"></td></tr><tr><td data-key="auth_feat_create"></td><td data-key="auth_feat_create_desc"></td></tr><tr><td data-key="auth_feat_delete"></td><td data-key="auth_feat_delete_desc"></td></tr><tr><td data-key="auth_feat_detail"></td><td data-key="auth_feat_detail_desc"></td></tr></tbody></table></div></section></div>
     </main>
   </div>
   <script>
@@ -70,19 +64,20 @@
     "manual_label": "Webマニュアル",
     "sidebar_title": "ページ一覧",
     "hero_badge": "Desktop Manual",
-    "page_title": "設定",
-    "page_desc": "アプリの各種設定を管理します。",
-    "section_theme": "テーマ",
-    "theme_desc": "ヘッダーのアイコンから Light・Dark Navy・OLED Black・Dim の 4 テーマを選択できます。",
-    "section_language": "言語",
-    "language_desc": "ヘッダーの言語切り替えから日本語・英語・ドイツ語を選択できます。設定はリロード後も保持されます。",
-    "section_projects": "プロジェクト管理",
-    "projects_desc": "Firebase プロジェクトの追加・編集・削除を行います。プロジェクト設定は暗号化されて Firestore に保存され、端末間で同期されます。",
-    "section_data_location": "データ保存場所",
-    "data_location_desc": "アプリのローカルデータは以下に保存されます。",
-    "data_location_mac": "macOS: ~/Library/Application Support/firemaru/",
-    "data_location_win": "Windows: %APPDATA%\\firemaru\\",
-    "shot_settings": "Screenshot: 設定画面とテーマ選択"
+    "page_title": "Firebase Authentication",
+    "page_desc": "Firebase Authentication に登録されているユーザーを firemaru から管理できます。",
+    "section_auth": "Auth ユーザー管理",
+    "auth_desc": "サイドバーから「Auth」を選択すると、Firebase Authentication に登録されているユーザーの一覧が表示されます。",
+    "auth_col_feature": "機能",
+    "auth_col_desc": "説明",
+    "auth_feat_list": "ユーザー一覧",
+    "auth_feat_list_desc": "UID・メールアドレス・作成日・最終ログイン日などを一覧表示",
+    "auth_feat_create": "ユーザー作成",
+    "auth_feat_create_desc": "メールアドレスとパスワードを指定して新規ユーザーを作成",
+    "auth_feat_delete": "ユーザー削除",
+    "auth_feat_delete_desc": "選択したユーザーを削除（確認ダイアログあり）",
+    "auth_feat_detail": "詳細確認",
+    "auth_feat_detail_desc": "UID・プロバイダー情報・カスタムクレームなどを確認"
   },
   "en": {
     "nav_home": "Home",
@@ -97,19 +92,20 @@
     "manual_label": "Web Manual",
     "sidebar_title": "Pages",
     "hero_badge": "Desktop Manual",
-    "page_title": "Settings",
-    "page_desc": "Manage various app settings.",
-    "section_theme": "Theme",
-    "theme_desc": "Select from 4 themes via the header icon: Light, Dark Navy, OLED Black, and Dim.",
-    "section_language": "Language",
-    "language_desc": "Select Japanese, English, or German from the language switcher in the header. The setting is preserved after reload.",
-    "section_projects": "Project Management",
-    "projects_desc": "Add, edit, and delete Firebase projects. Project settings are encrypted and saved to Firestore, and synced across devices.",
-    "section_data_location": "Data Storage Location",
-    "data_location_desc": "The app's local data is stored in the following location.",
-    "data_location_mac": "macOS: ~/Library/Application Support/firemaru/",
-    "data_location_win": "Windows: %APPDATA%\\firemaru\\",
-    "shot_settings": "Screenshot: Settings screen and theme picker"
+    "page_title": "Firebase Authentication",
+    "page_desc": "Manage users registered in Firebase Authentication directly from firemaru.",
+    "section_auth": "Auth User Management",
+    "auth_desc": "Select \"Auth\" from the sidebar to see a list of users registered in Firebase Authentication.",
+    "auth_col_feature": "Feature",
+    "auth_col_desc": "Description",
+    "auth_feat_list": "User list",
+    "auth_feat_list_desc": "Display UID, email, creation date, last sign-in date, and more",
+    "auth_feat_create": "Create user",
+    "auth_feat_create_desc": "Create a new user with email and password",
+    "auth_feat_delete": "Delete user",
+    "auth_feat_delete_desc": "Delete selected users (with confirmation dialog)",
+    "auth_feat_detail": "View details",
+    "auth_feat_detail_desc": "Inspect UID, provider info, custom claims, and more"
   },
   "de": {
     "nav_home": "Startseite",
@@ -124,19 +120,20 @@
     "manual_label": "Web-Handbuch",
     "sidebar_title": "Seiten",
     "hero_badge": "Desktop-Handbuch",
-    "page_title": "Einstellungen",
-    "page_desc": "Verschiedene App-Einstellungen verwalten.",
-    "section_theme": "Design",
-    "theme_desc": "Wählen Sie über das Kopfzeilen-Symbol aus 4 Designs: Light, Dark Navy, OLED Black und Dim.",
-    "section_language": "Sprache",
-    "language_desc": "Wählen Sie Japanisch, Englisch oder Deutsch aus dem Sprachumschalter in der Kopfzeile. Die Einstellung wird nach dem Neuladen beibehalten.",
-    "section_projects": "Projektverwaltung",
-    "projects_desc": "Firebase-Projekte hinzufügen, bearbeiten und löschen. Projekteinstellungen werden verschlüsselt in Firestore gespeichert und geräteübergreifend synchronisiert.",
-    "section_data_location": "Datenspeicherort",
-    "data_location_desc": "Die lokalen Daten der App werden an folgendem Ort gespeichert.",
-    "data_location_mac": "macOS: ~/Library/Application Support/firemaru/",
-    "data_location_win": "Windows: %APPDATA%\\firemaru\\",
-    "shot_settings": "Screenshot: Einstellungsbildschirm und Designauswahl"
+    "page_title": "Firebase Authentication",
+    "page_desc": "Verwalten Sie in Firebase Authentication registrierte Benutzer direkt aus firemaru.",
+    "section_auth": "Auth-Benutzerverwaltung",
+    "auth_desc": "Wählen Sie \"Auth\" aus der Seitenleiste, um eine Liste der in Firebase Authentication registrierten Benutzer anzuzeigen.",
+    "auth_col_feature": "Funktion",
+    "auth_col_desc": "Beschreibung",
+    "auth_feat_list": "Benutzerliste",
+    "auth_feat_list_desc": "UID, E-Mail, Erstellungsdatum, letztes Anmeldedatum usw. anzeigen",
+    "auth_feat_create": "Benutzer erstellen",
+    "auth_feat_create_desc": "Neuen Benutzer mit E-Mail und Passwort erstellen",
+    "auth_feat_delete": "Benutzer löschen",
+    "auth_feat_delete_desc": "Ausgewählte Benutzer löschen (mit Bestätigungsdialog)",
+    "auth_feat_detail": "Details anzeigen",
+    "auth_feat_detail_desc": "UID, Anbieterinformationen, benutzerdefinierte Claims usw. prüfen"
   }
 };
     const LANGS = ['ja', 'en', 'de'];
@@ -146,16 +143,6 @@
       document.querySelectorAll('[data-key]').forEach((element) => {
         const key = element.dataset.key;
         if (Object.prototype.hasOwnProperty.call(dict, key)) element.textContent = dict[key];
-      });
-      // Update figure image sources for current language
-      document.querySelectorAll('figure[data-fig]').forEach((fig) => {
-        const name = fig.dataset.fig;
-        const img = fig.querySelector('img');
-        if (img) {
-          fig.classList.remove('has-error');
-          img.classList.remove('loaded');
-          img.src = `./img/${lang}/${name}`;
-        }
       });
       const titleKey = document.body.dataset.titleKey;
       if (titleKey && dict[titleKey]) document.title = `${dict[titleKey]} | Firemaru`;

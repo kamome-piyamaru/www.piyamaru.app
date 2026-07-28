@@ -37,6 +37,7 @@
           <a class="" href="./storage.html"><span data-key="nav_storage"></span></a>
           <a class="active" href="./backup.html"><span data-key="nav_backup"></span></a>
           <a class="" href="./functions.html"><span data-key="nav_functions"></span></a>
+          <a class="" href="./auth.html"><span data-key="nav_auth"></span></a>
           <a class="" href="./license.html"><span data-key="nav_license"></span></a>
           <a class="" href="./settings.html"><span data-key="nav_settings"></span></a>
         </nav>
@@ -47,7 +48,8 @@
       <section class="hero-card"><div class="eyebrow" data-key="hero_badge"></div><h1 data-key="page_title"></h1><p class="lead" data-key="page_desc"></p></section>
 <div class="section-stack">
   <section class="content-section"><div class="section-header"><div><h2 data-key="section_backup"></h2></div></div><p data-key="backup_desc"></p><figure class="screenshot" data-fig="fig4-1.png"><img src="./img/ja/fig4-1.png" alt="" onload="this.classList.add('loaded')" onerror="this.closest('figure').classList.add('has-error')"><div class="fig-placeholder"><span class="fig-name">fig4-1.png</span><span class="fig-desc" data-key="shot_backup"></span></div><figcaption><span class="fig-name">fig4-1.png</span> — <span data-key="shot_backup"></span></figcaption></figure></section>
-  <section class="content-section"><div class="section-header"><div><h2 data-key="section_restore"></h2></div></div><div class="mini-card-grid"><div class="mini-card"><p data-key="restore_mode_merge"></p></div><div class="mini-card"><p data-key="restore_mode_overwrite"></p></div></div><div class="warning-box" data-key="restore_warning"></div></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_restore"></h2></div></div><div class="mini-card-grid"><div class="mini-card"><p data-key="restore_mode_merge"></p></div><div class="mini-card"><p data-key="restore_mode_overwrite"></p></div></div><div class="warning-box" data-key="restore_note_no_delete"></div><div class="warning-box" data-key="restore_warning"></div></section>
+  <section class="content-section"><div class="section-header"><div><h2 data-key="section_lock"></h2></div></div><p data-key="lock_desc"></p></section>
 </div>
       
     </main>
@@ -60,7 +62,8 @@
     "nav_firestore": "Firestore",
     "nav_storage": "Storage",
     "nav_backup": "バックアップ",
-    "nav_functions": "Functions & Auth",
+    "nav_functions": "Functions",
+    "nav_auth": "Auth",
     "nav_license": "ライセンス",
     "nav_settings": "設定",
     "manual_label": "Webマニュアル",
@@ -71,9 +74,12 @@
     "section_backup": "バックアップ",
     "backup_desc": "コレクションを選択して「バックアップ」ボタンをクリックします。サブコレクションを含む全ドキュメントがJSON形式でエクスポートされます。総件数に基づいた進捗バーが表示されます。バックアップ中に「キャンセル」ボタンで中断できます。",
     "section_restore": "リストア",
-    "restore_mode_merge": "マージモード: 既存ドキュメントを保持したまま、バックアップデータを追加・上書き",
-    "restore_mode_overwrite": "上書きモード: コレクションを一旦全削除してからバックアップデータを復元",
-    "restore_warning": "上書きモードは元に戻せません。事前にバックアップを取ることをお勧めします。",
+    "restore_mode_merge": "マージ: バックアップにあるドキュメントをフィールド単位でマージ。バックアップ後に追加されたフィールドは保持。",
+    "restore_mode_overwrite": "上書き: バックアップにあるドキュメントをバックアップ時の内容に丸ごと置き換え。バックアップ後に追加されたフィールドは削除。",
+    "restore_note_no_delete": "⚠️ どちらのモードも、バックアップにないドキュメントは削除されません。完全に元の状態に戻すには、コレクションを削除してからリストアしてください。",
+    "restore_warning": "リストアは元に戻せません。事前にバックアップを取ることをお勧めします。",
+    "section_lock": "排他制御",
+    "lock_desc": "同一Firebaseプロジェクトに対して、バックアップ・リストア・インポート・エクスポートは同時に1つしか実行できません。別のウィンドウで操作中の場合はブロックされ、エラーメッセージが表示されます。異なるFirebaseプロジェクトであれば同時実行は許可されます。",
     "shot_backup": "Screenshot: バックアップ進捗ダイアログ"
   },
   "en": {
@@ -82,7 +88,8 @@
     "nav_firestore": "Firestore",
     "nav_storage": "Storage",
     "nav_backup": "Backup",
-    "nav_functions": "Functions & Auth",
+    "nav_functions": "Functions",
+    "nav_auth": "Auth",
     "nav_license": "License",
     "nav_settings": "Settings",
     "manual_label": "Web Manual",
@@ -93,9 +100,12 @@
     "section_backup": "Backup",
     "backup_desc": "Select a collection and click \"Backup\". All documents including subcollections are exported in JSON format. A progress bar based on total document count is displayed. Click \"Cancel\" during backup to stop.",
     "section_restore": "Restore",
-    "restore_mode_merge": "Merge mode: Keeps existing documents and adds/overwrites with backup data",
-    "restore_mode_overwrite": "Overwrite mode: Delete the entire collection first, then restore from backup",
-    "restore_warning": "Overwrite mode cannot be undone. It is recommended to take a backup beforehand.",
+    "restore_mode_merge": "Merge: Merges backup documents field by field. Fields added after the backup are preserved.",
+    "restore_mode_overwrite": "Overwrite: Replaces each backup document entirely with its backed-up content. Fields added after the backup are removed.",
+    "restore_note_no_delete": "⚠️ Neither mode deletes documents not present in the backup. To fully restore to the original state, delete the collection first, then restore.",
+    "restore_warning": "Restore cannot be undone. It is recommended to take a backup beforehand.",
+    "section_lock": "Exclusive Lock",
+    "lock_desc": "Only one operation (backup, restore, import, or export) can run at a time per Firebase project. If another window is running an operation on the same project, the new request will be blocked and an error message will be shown. Simultaneous operations on different Firebase projects are allowed.",
     "shot_backup": "Screenshot: Backup progress dialog"
   },
   "de": {
@@ -104,7 +114,8 @@
     "nav_firestore": "Firestore",
     "nav_storage": "Speicher",
     "nav_backup": "Sicherung",
-    "nav_functions": "Functions & Auth",
+    "nav_functions": "Functions",
+    "nav_auth": "Auth",
     "nav_license": "Lizenz",
     "nav_settings": "Einstellungen",
     "manual_label": "Web-Handbuch",
@@ -115,9 +126,12 @@
     "section_backup": "Sicherung",
     "backup_desc": "Wählen Sie eine Sammlung aus und klicken Sie auf „Sicherung“. Alle Dokumente einschließlich Teilsammlungen werden im JSON-Format exportiert. Ein Fortschrittsbalken basierend auf der Gesamtanzahl der Dokumente wird angezeigt. Klicken Sie während der Sicherung auf „Abbrechen“, um zu stoppen.",
     "section_restore": "Wiederherstellung",
-    "restore_mode_merge": "Zusammenführungsmodus: Vorhandene Dokumente beibehalten und Sicherungsdaten hinzufügen/überschreiben",
-    "restore_mode_overwrite": "Überschreibungsmodus: Gesamte Sammlung zuerst löschen, dann aus der Sicherung wiederherstellen",
-    "restore_warning": "Der Überschreibungsmodus kann nicht rückgängig gemacht werden. Es wird empfohlen, vorher eine Sicherung zu erstellen.",
+    "restore_mode_merge": "Zusammenführen: Sicherungsdokumente auf Feldebene zusammenführen. Nach der Sicherung hinzugefügte Felder bleiben erhalten.",
+    "restore_mode_overwrite": "Überschreiben: Jedes Dokument vollständig durch den gesicherten Inhalt ersetzen. Nach der Sicherung hinzugefügte Felder werden entfernt.",
+    "restore_note_no_delete": "⚠️ Keiner der Modi löscht Dokumente, die nicht in der Sicherung vorhanden sind. Um den ursprünglichen Zustand vollständig wiederherzustellen, löschen Sie die Sammlung zuerst und stellen Sie sie dann wieder her.",
+    "restore_warning": "Die Wiederherstellung kann nicht rückgängig gemacht werden. Es wird empfohlen, vorher eine Sicherung zu erstellen.",
+    "section_lock": "Exklusivsperre",
+    "lock_desc": "Pro Firebase-Projekt kann jeweils nur eine Operation (Sicherung, Wiederherstellung, Import oder Export) gleichzeitig ausgeführt werden. Wenn ein anderes Fenster eine Operation am selben Projekt ausführt, wird die neue Anfrage blockiert und eine Fehlermeldung angezeigt. Gleichzeitige Operationen auf verschiedenen Firebase-Projekten sind erlaubt.",
     "shot_backup": "Screenshot: Dialog für den Sicherungsfortschritt"
   }
 };

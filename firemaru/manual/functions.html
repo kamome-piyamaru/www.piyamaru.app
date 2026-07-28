@@ -37,6 +37,7 @@
           <a class="" href="./storage.html"><span data-key="nav_storage"></span></a>
           <a class="" href="./backup.html"><span data-key="nav_backup"></span></a>
           <a class="active" href="./functions.html"><span data-key="nav_functions"></span></a>
+          <a class="" href="./auth.html"><span data-key="nav_auth"></span></a>
           <a class="" href="./license.html"><span data-key="nav_license"></span></a>
           <a class="" href="./settings.html"><span data-key="nav_settings"></span></a>
         </nav>
@@ -45,7 +46,7 @@
     <div class="sidebar-overlay" onclick="closeSidebar()"></div>
     <main class="page-content">
       <section class="hero-card"><div class="eyebrow" data-key="hero_badge"></div><h1 data-key="page_title"></h1><p class="lead" data-key="page_desc"></p></section>
-<div class="section-stack"><section class="content-section"><div class="mini-card-grid"><div class="mini-card"><h2 data-key="section_functions"></h2><p data-key="functions_desc"></p></div><div class="mini-card"><h2 data-key="section_auth"></h2><p data-key="auth_desc"></p></div></div><figure class="screenshot" data-fig="fig5-1.png"><img src="./img/ja/fig5-1.png" alt="" onload="this.classList.add('loaded')" onerror="this.closest('figure').classList.add('has-error')"><div class="fig-placeholder"><span class="fig-name">fig5-1.png</span><span class="fig-desc" data-key="shot_functions"></span></div><figcaption><span class="fig-name">fig5-1.png</span> — <span data-key="shot_functions"></span></figcaption></figure></section></div>
+<div class="section-stack"><section class="content-section"><div class="section-header"><div><h2 data-key="section_setup"></h2><p class="section-note" data-key="setup_note"></p></div></div><ol class="step-list"><li><strong data-key="setup_step1_title"></strong><p data-key="setup_step1_desc"></p><a class="ext-link" data-href-key="setup_step1_url" href="#" target="_blank" rel="noopener noreferrer" data-key="setup_step1_link"></a></li><li><strong data-key="setup_step2_title"></strong><p data-key="setup_step2_desc"></p><a class="ext-link" data-href-key="setup_step2_url" href="#" target="_blank" rel="noopener noreferrer" data-key="setup_step2_link"></a></li><li><strong data-key="setup_step3_title"></strong><p data-key="setup_step3_desc"></p><div class="table-wrap"><table class="feature-table"><thead><tr><th data-key="setup_role_col"></th><th data-key="setup_purpose_col"></th></tr></thead><tbody><tr><td><code>roles/cloudfunctions.viewer</code></td><td data-key="setup_role1_desc"></td></tr><tr><td><code>roles/logging.viewer</code></td><td data-key="setup_role2_desc"></td></tr></tbody></table></div><a class="ext-link" data-href-key="setup_step3_url" href="#" target="_blank" rel="noopener noreferrer" data-key="setup_step3_link"></a></li><li><strong data-key="setup_step4_title"></strong><p data-key="setup_step4_desc"></p></li></ol><div class="info-box"><p data-key="setup_why_title"></p><p data-key="setup_why_desc"></p></div></section><section class="content-section"><div class="section-header"><div><h2 data-key="section_functions"></h2></div></div><p data-key="functions_desc"></p><figure class="screenshot" data-fig="fig5-1.png"><img src="./img/ja/fig5-1.png" alt="" onload="this.classList.add('loaded')" onerror="this.closest('figure').classList.add('has-error')"><div class="fig-placeholder"><span class="fig-name">fig5-1.png</span><span class="fig-desc" data-key="shot_functions"></span></div><figcaption><span class="fig-name">fig5-1.png</span> — <span data-key="shot_functions"></span></figcaption></figure></section></div>
       
     </main>
   </div>
@@ -57,14 +58,37 @@
     "nav_firestore": "Firestore",
     "nav_storage": "Storage",
     "nav_backup": "バックアップ",
-    "nav_functions": "Functions & Auth",
+    "nav_functions": "Functions",
+    "nav_auth": "Auth",
     "nav_license": "ライセンス",
     "nav_settings": "設定",
     "manual_label": "Webマニュアル",
     "sidebar_title": "ページ一覧",
     "hero_badge": "Desktop Manual",
-    "page_title": "Cloud Functions & Auth",
-    "page_desc": "Cloud Functions のログ監視と Firebase Auth 管理機能を説明します。",
+    "page_title": "Cloud Functions",
+    "page_desc": "Cloud Functions のログ監視機能を説明します。",
+    "section_setup": "⚙️ 初回セットアップ（必須）",
+    "setup_note": "Cloud Functions ログは、他の機能と異なり GCP Console 側での IAM 設定が必要です。以下の手順を完了しないとログが表示されません。",
+    "setup_step1_title": "Step 1: Cloud Functions API を有効にする",
+    "setup_step1_desc": "GCP Console の「API とサービス」から「Cloud Functions API」を検索して有効にしてください。",
+    "setup_step1_url": "https://console.cloud.google.com/apis/library/cloudfunctions.googleapis.com",
+    "setup_step1_link": "🔗 Cloud Functions API を有効にする →",
+    "setup_step2_title": "Step 2: Cloud Logging API を有効にする",
+    "setup_step2_desc": "同様に「Cloud Logging API」を有効にしてください。",
+    "setup_step2_url": "https://console.cloud.google.com/apis/library/logging.googleapis.com",
+    "setup_step2_link": "🔗 Cloud Logging API を有効にする →",
+    "setup_step3_title": "Step 3: サービスアカウントに IAM ロールを付与する",
+    "setup_step3_desc": "firemaru に登録したサービスアカウントに、GCP Console の「IAM と管理」で以下の 2 つのロールを付与してください。",
+    "setup_role_col": "ロール",
+    "setup_purpose_col": "用途",
+    "setup_role1_desc": "関数一覧の取得",
+    "setup_role2_desc": "Cloud Logging からのログ閲覧",
+    "setup_step3_url": "https://console.cloud.google.com/iam-admin/iam",
+    "setup_step3_link": "🔗 IAM 設定を開く →",
+    "setup_step4_title": "Step 4: firemaru を再読み込みする",
+    "setup_step4_desc": "IAM 設定保存後、firemaru の Functions ページを再読み込みすると関数一覧とログが表示されます。",
+    "setup_why_title": "💡 なぜ他の機能と違う設定が必要なのか？",
+    "setup_why_desc": "Firestore や Storage は Firebase Admin SDK が自動的に権限を持ちますが、Cloud Functions のログは Google Cloud Logging API（GCP）から取得するため、追加の IAM ロールが必要です。",
     "section_functions": "Cloud Functions ログ",
     "functions_desc": "サイドバーから「Functions」を選択します。デプロイ済みの Cloud Functions の一覧が表示されます。関数を選択すると、リアルタイムでログが表示されます。",
     "section_auth": "Firebase Auth 管理",
@@ -77,14 +101,37 @@
     "nav_firestore": "Firestore",
     "nav_storage": "Storage",
     "nav_backup": "Backup",
-    "nav_functions": "Functions & Auth",
+    "nav_functions": "Functions",
+    "nav_auth": "Auth",
     "nav_license": "License",
     "nav_settings": "Settings",
     "manual_label": "Web Manual",
     "sidebar_title": "Pages",
     "hero_badge": "Desktop Manual",
-    "page_title": "Cloud Functions & Auth",
-    "page_desc": "Manage Cloud Functions logs and Firebase Auth users from one place.",
+    "page_title": "Cloud Functions",
+    "page_desc": "View and stream Cloud Functions logs in real time.",
+    "section_setup": "⚙️ Initial Setup (Required)",
+    "setup_note": "Unlike other features, Cloud Functions logs require IAM configuration in GCP Console. Without completing these steps, logs will not be displayed.",
+    "setup_step1_title": "Step 1: Enable Cloud Functions API",
+    "setup_step1_desc": "In GCP Console, go to \"APIs & Services\" and search for \"Cloud Functions API\" to enable it.",
+    "setup_step1_url": "https://console.cloud.google.com/apis/library/cloudfunctions.googleapis.com",
+    "setup_step1_link": "🔗 Enable Cloud Functions API →",
+    "setup_step2_title": "Step 2: Enable Cloud Logging API",
+    "setup_step2_desc": "Similarly, enable the \"Cloud Logging API\".",
+    "setup_step2_url": "https://console.cloud.google.com/apis/library/logging.googleapis.com",
+    "setup_step2_link": "🔗 Enable Cloud Logging API →",
+    "setup_step3_title": "Step 3: Grant IAM roles to the service account",
+    "setup_step3_desc": "In GCP Console under \"IAM & Admin\", grant the following 2 roles to the service account registered in firemaru.",
+    "setup_role_col": "Role",
+    "setup_purpose_col": "Purpose",
+    "setup_role1_desc": "Retrieve function list",
+    "setup_role2_desc": "View logs from Cloud Logging",
+    "setup_step3_url": "https://console.cloud.google.com/iam-admin/iam",
+    "setup_step3_link": "🔗 Open IAM settings →",
+    "setup_step4_title": "Step 4: Reload firemaru",
+    "setup_step4_desc": "After saving the IAM settings, reload the Functions page in firemaru to see the function list and logs.",
+    "setup_why_title": "💡 Why is extra setup required compared to other features?",
+    "setup_why_desc": "Firestore and Storage work automatically via Firebase Admin SDK, but Cloud Functions logs are fetched from the Google Cloud Logging API (GCP), which requires additional IAM roles.",
     "section_functions": "Cloud Functions Logs",
     "functions_desc": "Select \"Functions\" from the sidebar. A list of deployed Cloud Functions is displayed. Select a function to view its logs in real time.",
     "section_auth": "Firebase Auth Management",
@@ -97,14 +144,37 @@
     "nav_firestore": "Firestore",
     "nav_storage": "Speicher",
     "nav_backup": "Sicherung",
-    "nav_functions": "Functions & Auth",
+    "nav_functions": "Functions",
+    "nav_auth": "Auth",
     "nav_license": "Lizenz",
     "nav_settings": "Einstellungen",
     "manual_label": "Web-Handbuch",
     "sidebar_title": "Seiten",
     "hero_badge": "Desktop-Handbuch",
-    "page_title": "Cloud Functions & Auth",
-    "page_desc": "Verwalten Sie Cloud Functions-Protokolle und Firebase Auth-Benutzer an einem Ort.",
+    "page_title": "Cloud Functions",
+    "page_desc": "Cloud Functions-Protokolle in Echtzeit ansehen und streamen.",
+    "section_setup": "⚙️ Ersteinrichtung (Erforderlich)",
+    "setup_note": "Im Gegensatz zu anderen Funktionen erfordert das Cloud Functions-Protokoll eine IAM-Konfiguration in der GCP Console. Ohne diese Schritte werden keine Protokolle angezeigt.",
+    "setup_step1_title": "Schritt 1: Cloud Functions API aktivieren",
+    "setup_step1_desc": "Suchen Sie in der GCP Console unter \"APIs und Dienste\" nach \"Cloud Functions API\" und aktivieren Sie sie.",
+    "setup_step1_url": "https://console.cloud.google.com/apis/library/cloudfunctions.googleapis.com",
+    "setup_step1_link": "🔗 Cloud Functions API aktivieren →",
+    "setup_step2_title": "Schritt 2: Cloud Logging API aktivieren",
+    "setup_step2_desc": "Aktivieren Sie auf die gleiche Weise die \"Cloud Logging API\".",
+    "setup_step2_url": "https://console.cloud.google.com/apis/library/logging.googleapis.com",
+    "setup_step2_link": "🔗 Cloud Logging API aktivieren →",
+    "setup_step3_title": "Schritt 3: IAM-Rollen dem Dienstkonto zuweisen",
+    "setup_step3_desc": "Weisen Sie in der GCP Console unter \"IAM und Verwaltung\" dem in firemaru registrierten Dienstkonto die folgenden 2 Rollen zu.",
+    "setup_role_col": "Rolle",
+    "setup_purpose_col": "Zweck",
+    "setup_role1_desc": "Funktionsliste abrufen",
+    "setup_role2_desc": "Protokolle aus Cloud Logging anzeigen",
+    "setup_step3_url": "https://console.cloud.google.com/iam-admin/iam",
+    "setup_step3_link": "🔗 IAM-Einstellungen öffnen →",
+    "setup_step4_title": "Schritt 4: firemaru neu laden",
+    "setup_step4_desc": "Nach dem Speichern der IAM-Einstellungen laden Sie die Functions-Seite in firemaru neu, um die Funktionsliste und Protokolle anzuzeigen.",
+    "setup_why_title": "💡 Warum ist eine zusätzliche Einrichtung erforderlich?",
+    "setup_why_desc": "Firestore und Storage funktionieren automatisch über das Firebase Admin SDK, aber Cloud Functions-Protokolle werden über die Google Cloud Logging API (GCP) abgerufen, was zusätzliche IAM-Rollen erfordert.",
     "section_functions": "Cloud Functions-Protokolle",
     "functions_desc": "Wählen Sie „Functions“ aus der Seitenleiste. Eine Liste der bereitgestellten Cloud Functions wird angezeigt. Wählen Sie eine Funktion aus, um ihre Protokolle in Echtzeit anzuzeigen.",
     "section_auth": "Firebase Auth-Verwaltung",
@@ -119,6 +189,11 @@
       document.querySelectorAll('[data-key]').forEach((element) => {
         const key = element.dataset.key;
         if (Object.prototype.hasOwnProperty.call(dict, key)) element.textContent = dict[key];
+      });
+      // Update href for external links with data-href-key
+      document.querySelectorAll('[data-href-key]').forEach((element) => {
+        const key = element.dataset.hrefKey;
+        if (key && Object.prototype.hasOwnProperty.call(dict, key)) element.href = dict[key];
       });
       // Update figure image sources for current language
       document.querySelectorAll('figure[data-fig]').forEach((fig) => {

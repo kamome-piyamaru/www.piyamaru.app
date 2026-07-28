@@ -37,6 +37,7 @@
           <a class="" href="./storage.html"><span data-key="nav_storage"></span></a>
           <a class="" href="./backup.html"><span data-key="nav_backup"></span></a>
           <a class="" href="./functions.html"><span data-key="nav_functions"></span></a>
+          <a class="" href="./auth.html"><span data-key="nav_auth"></span></a>
           <a class="" href="./license.html"><span data-key="nav_license"></span></a>
           <a class="" href="./settings.html"><span data-key="nav_settings"></span></a>
         </nav>
@@ -68,12 +69,12 @@
     <a class="card" href="./storage.html"><h3 data-key="card_storage_title"></h3><p data-key="card_storage_desc"></p></a>
     <a class="card" href="./backup.html"><h3 data-key="card_backup_title"></h3><p data-key="card_backup_desc"></p></a>
     <a class="card" href="./functions.html"><h3 data-key="card_functions_title"></h3><p data-key="card_functions_desc"></p></a>
+    <a class="card" href="./auth.html"><h3 data-key="card_auth_title"></h3><p data-key="card_auth_desc"></p></a>
     <a class="card" href="./license.html"><h3 data-key="card_license_title"></h3><p data-key="card_license_desc"></p></a>
     <a class="card" href="./settings.html"><h3 data-key="card_settings_title"></h3><p data-key="card_settings_desc"></p></a>
   </div>
 </section>
-      
-    </main>
+<section class="content-section"><div class="section-header"><div><h2 data-key="section_toolbar"></h2><p data-key="toolbar_desc"></p></div></div><div class="table-wrap"><table class="feature-table"><thead><tr><th data-key="toolbar_col_icon"></th><th data-key="toolbar_col_name"></th><th data-key="toolbar_col_desc"></th></tr></thead><tbody><tr><td style="font-size:18px;text-align:center">🔥</td><td><strong>Firestore</strong></td><td data-key="toolbar_firestore"></td></tr><tr><td style="font-size:18px;text-align:center">🗄</td><td><strong>Storage</strong></td><td data-key="toolbar_storage"></td></tr><tr><td style="font-size:18px;text-align:center">👤</td><td><strong>Authentication</strong></td><td data-key="toolbar_auth"></td></tr><tr><td style="font-size:18px;text-align:center">☁</td><td><strong>Functions</strong></td><td data-key="toolbar_functions"></td></tr><tr><td style="font-size:18px;text-align:center">🛡</td><td><strong data-key="toolbar_backup_name"></strong></td><td data-key="toolbar_backup"></td></tr><tr><td colspan="3" style="padding:4px 12px;font-size:11px;color:var(--text-dim);background:var(--bg-mid)" data-key="toolbar_right_label"></td></tr><tr><td style="font-size:18px;text-align:center">⚙</td><td><strong data-key="toolbar_settings_name"></strong></td><td data-key="toolbar_settings"></td></tr><tr><td style="font-size:18px;text-align:center">ℹ</td><td><strong data-key="toolbar_about_name"></strong></td><td data-key="toolbar_about"></td></tr><tr><td style="font-size:18px;text-align:center">⊞</td><td><strong data-key="toolbar_newwin_name"></strong></td><td data-key="toolbar_newwin"></td></tr><tr><td style="font-size:18px;text-align:center">🔔</td><td><strong data-key="toolbar_bell_name"></strong></td><td data-key="toolbar_bell"></td></tr><tr><td style="font-size:18px;text-align:center">🧑</td><td><strong data-key="toolbar_account_name"></strong></td><td data-key="toolbar_account"></td></tr></tbody></table></div></section>
   </div>
   <script>
     const TEXTS = {
@@ -83,7 +84,8 @@
     "nav_firestore": "Firestore",
     "nav_storage": "Storage",
     "nav_backup": "バックアップ",
-    "nav_functions": "Functions & Auth",
+    "nav_functions": "Functions",
+    "nav_auth": "Auth",
     "nav_license": "ライセンス",
     "nav_settings": "設定",
     "manual_label": "Webマニュアル",
@@ -102,12 +104,36 @@
     "card_storage_desc": "ファイル一覧・ダウンロード・プレビュー",
     "card_backup_title": "バックアップ / リストア",
     "card_backup_desc": "コレクションのバックアップと復元",
-    "card_functions_title": "Functions & Auth",
-    "card_functions_desc": "ログ閲覧・ユーザー管理",
+    "card_functions_title": "Cloud Functions",
+    "card_functions_desc": "Cloud Functions ログ閲覧",
+    "card_auth_title": "Auth",
+    "card_auth_desc": "Firebase ユーザー管理",
     "card_license_title": "ライセンス",
     "card_license_desc": "サブスクリプション・デバイス管理",
     "card_settings_title": "設定",
-    "card_settings_desc": "テーマ・言語・プロジェクト管理"
+    "card_settings_desc": "テーマ・言語・プロジェクト管理",
+    "section_toolbar": "画面上部のメニューアイコン",
+    "toolbar_desc": "ヘッダーバーのアイコンから各機能に素早くアクセスできます。",
+    "toolbar_col_icon": "アイコン",
+    "toolbar_col_name": "名前",
+    "toolbar_col_desc": "説明",
+    "toolbar_firestore": "Firestoreのコレクション・ドキュメントを閲覧・編集・検索・監視します",
+    "toolbar_storage": "Firebase Storageのファイルを閲覧・アップロード・ダウンロードします",
+    "toolbar_auth": "Firebase Authentication のユーザー一覧を管理します",
+    "toolbar_functions": "デプロイ済みの Cloud Functions のログをリアルタイムで確認します",
+    "toolbar_backup_name": "バックアップ",
+    "toolbar_backup": "Firestoreのバックアップ・リストア・インポート・エクスポートを行います",
+    "toolbar_right_label": "── 右側のアイコン ──",
+    "toolbar_settings_name": "設定",
+    "toolbar_settings": "テーマ・言語・プロジェクト登録などの設定を行います",
+    "toolbar_about_name": "このアプリについて",
+    "toolbar_about": "firemaru のバージョン情報・ライセンス表記を確認します",
+    "toolbar_newwin_name": "新しいウィンドウ",
+    "toolbar_newwin": "アプリのウィンドウを追加で開きます（Electronのみ表示）",
+    "toolbar_bell_name": "お知らせ",
+    "toolbar_bell": "未読のお知らせや更新情報を確認できます",
+    "toolbar_account_name": "アカウント",
+    "toolbar_account": "ログイン中のアカウント情報・デバイス管理・サインアウトを行います"
   },
   "en": {
     "nav_home": "Home",
@@ -115,7 +141,8 @@
     "nav_firestore": "Firestore",
     "nav_storage": "Storage",
     "nav_backup": "Backup",
-    "nav_functions": "Functions & Auth",
+    "nav_functions": "Functions",
+    "nav_auth": "Auth",
     "nav_license": "License",
     "nav_settings": "Settings",
     "manual_label": "Web Manual",
@@ -134,12 +161,36 @@
     "card_storage_desc": "File listing, download, and preview",
     "card_backup_title": "Backup / Restore",
     "card_backup_desc": "Backup and restore collections",
-    "card_functions_title": "Functions & Auth",
-    "card_functions_desc": "View logs and manage users",
+    "card_functions_title": "Cloud Functions",
+    "card_functions_desc": "View Cloud Functions logs",
+    "card_auth_title": "Auth",
+    "card_auth_desc": "Manage Firebase users",
     "card_license_title": "License",
     "card_license_desc": "Subscription and device management",
     "card_settings_title": "Settings",
-    "card_settings_desc": "Theme, language, and project management"
+    "card_settings_desc": "Theme, language, and project management",
+    "section_toolbar": "Top Menu Icons",
+    "toolbar_desc": "Quickly access each feature from the icons in the header bar.",
+    "toolbar_col_icon": "Icon",
+    "toolbar_col_name": "Name",
+    "toolbar_col_desc": "Description",
+    "toolbar_firestore": "Browse, edit, search, and monitor Firestore collections and documents",
+    "toolbar_storage": "Browse, upload, and download files in Firebase Storage",
+    "toolbar_auth": "Manage users registered in Firebase Authentication",
+    "toolbar_functions": "View real-time logs for deployed Cloud Functions",
+    "toolbar_backup_name": "Backup",
+    "toolbar_backup": "Backup, restore, import, and export Firestore data",
+    "toolbar_right_label": "── Right-side icons ──",
+    "toolbar_settings_name": "Settings",
+    "toolbar_settings": "Configure theme, language, and project registration",
+    "toolbar_about_name": "About",
+    "toolbar_about": "View firemaru version info and license details",
+    "toolbar_newwin_name": "New Window",
+    "toolbar_newwin": "Open an additional app window (Electron only)",
+    "toolbar_bell_name": "Announcements",
+    "toolbar_bell": "View unread announcements and update notifications",
+    "toolbar_account_name": "Account",
+    "toolbar_account": "View account info, manage devices, and sign out"
   },
   "de": {
     "nav_home": "Startseite",
@@ -147,7 +198,8 @@
     "nav_firestore": "Firestore",
     "nav_storage": "Speicher",
     "nav_backup": "Sicherung",
-    "nav_functions": "Functions & Auth",
+    "nav_functions": "Functions",
+    "nav_auth": "Auth",
     "nav_license": "Lizenz",
     "nav_settings": "Einstellungen",
     "manual_label": "Web-Handbuch",
@@ -166,12 +218,36 @@
     "card_storage_desc": "Dateiliste, Download und Vorschau",
     "card_backup_title": "Sicherung / Wiederherstellung",
     "card_backup_desc": "Sammlungen sichern und wiederherstellen",
-    "card_functions_title": "Functions & Auth",
-    "card_functions_desc": "Protokolle anzeigen und Benutzer verwalten",
+    "card_functions_title": "Cloud Functions",
+    "card_functions_desc": "Cloud Functions-Protokolle anzeigen",
+    "card_auth_title": "Auth",
+    "card_auth_desc": "Firebase-Benutzer verwalten",
     "card_license_title": "Lizenz",
     "card_license_desc": "Abonnement und Geräteverwaltung",
     "card_settings_title": "Einstellungen",
-    "card_settings_desc": "Design, Sprache und Projektverwaltung"
+    "card_settings_desc": "Design, Sprache und Projektverwaltung",
+    "section_toolbar": "Symbole in der oberen Menüleiste",
+    "toolbar_desc": "Über die Symbole in der Kopfleiste haben Sie schnellen Zugriff auf alle Funktionen.",
+    "toolbar_col_icon": "Symbol",
+    "toolbar_col_name": "Name",
+    "toolbar_col_desc": "Beschreibung",
+    "toolbar_firestore": "Firestore-Sammlungen und -Dokumente anzeigen, bearbeiten, suchen und überwachen",
+    "toolbar_storage": "Dateien in Firebase Storage anzeigen, hochladen und herunterladen",
+    "toolbar_auth": "In Firebase Authentication registrierte Benutzer verwalten",
+    "toolbar_functions": "Echtzeit-Protokolle bereitgestellter Cloud Functions anzeigen",
+    "toolbar_backup_name": "Sicherung",
+    "toolbar_backup": "Firestore-Daten sichern, wiederherstellen, importieren und exportieren",
+    "toolbar_right_label": "── Symbole auf der rechten Seite ──",
+    "toolbar_settings_name": "Einstellungen",
+    "toolbar_settings": "Design, Sprache und Projektregistrierung konfigurieren",
+    "toolbar_about_name": "Über die App",
+    "toolbar_about": "Versionsinformationen und Lizenzdetails von firemaru anzeigen",
+    "toolbar_newwin_name": "Neues Fenster",
+    "toolbar_newwin": "Ein weiteres App-Fenster öffnen (nur Electron)",
+    "toolbar_bell_name": "Ankündigungen",
+    "toolbar_bell": "Ungelesene Ankündigungen und Update-Benachrichtigungen anzeigen",
+    "toolbar_account_name": "Konto",
+    "toolbar_account": "Kontoinformationen anzeigen, Geräte verwalten und abmelden"
   }
 };
     const LANGS = ['ja', 'en', 'de'];
