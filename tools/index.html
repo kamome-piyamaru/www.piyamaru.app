@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitmaru - 便利なVR動画・写真加工ツール集</title>
+    <!-- Exif編集ライブラリ (piexifjs) の読み込み -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/piexifjs/1.0.6/piexif.js"></script>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- ヘッダー領域 --- */
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 32px;
+            width: auto;
+            display: block;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-sub);
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        nav button:hover, nav button.active {
+            color: var(--primary-color);
+            background-color: #eef2ff;
+        }
+
+        /* --- コンテナ --- */
+        main {
+            flex: 1;
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* --- トップメニュー（Dashboard） --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: var(--text-sub);
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-color);
+        }
+
+        .tool-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .tool-card p {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .tool-card .badge {
+            align-self: flex-start;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: #e0e7ff;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .tool-card .badge.coming-soon {
+            background: #f1f5f9;
+            color: #94a3b8;
+        }
+
+        /* --- 各ツール共通スタイル --- */
+        .tool-header {
+            margin-bottom: 24px;
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            color: var(--text-sub);
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-back:hover {
+            color: var(--primary-color);
+        }
+
+        .controls-card {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .label-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        input[type="text"], select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--primary-color);
+        }
+
+        /* アコーディオンパネル */
+        details.exif-panel {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 16px;
+        }
+
+        details.exif-panel summary {
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .exif-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .exif-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .exif-field label {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            font-weight: 600;
+        }
+
+        .instructions {
+            font-size: 0.85em;
+            color: var(--text-sub);
+            margin-top: 15px;
+            line-height: 1.6;
+            background: var(--bg-color);
+            padding: 12px;
+            border-radius: 6px;
+        }
+
+        kbd {
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid #cbd5e1;
+            padding: 1px 5px;
+            font-size: 0.8em;
+        }
+
+        #canvas-container {
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            cursor: grab;
+            overflow: hidden;
+            background-color: #1e293b;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            touch-action: none;
+        }
+
+        #canvas-container:active {
+            cursor: grabbing;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* グリッド線のオーバーレイ表示用 */
+        #canvas-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: none;
+        }
+
+        .grid-line-v {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background-color: rgba(255, 0, 0, 0.7);
+            transform: translateX(-50%);
+        }
+
+        .grid-line-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: rgba(255, 0, 0, 0.7);
+            transform: translateY(-50%);
+        }
+
+        .btn-action {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-action:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e2e8f0;
+        }
+
+        /* フッター */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--card-bg);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="logo" onclick="switchPage('home')">
+            <img src="rogo.png" alt="Kitmaru Logo" class="logo-img">
+            <span>Kitmaru</span>
+        </div>
+        <nav>
+            <button onclick="switchPage('home')" id="nav-home" class="active">ホーム</button>
+            <button onclick="switchPage('shifter')" id="nav-shifter">位置調整</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ==================== トップメニュー画面 ==================== -->
+        <section id="page-home" class="page active">
+            <div class="hero">
+                <h1>VR / 360°コンテンツ 便利ツール集</h1>
+                <p>すべてブラウザ上で安全にローカル処理。サーバーへのデータ送信は一切行われません。</p>
+            </div>
+
+            <div class="tool-grid">
+                <!-- ツール 1 -->
+                <div class="tool-card" onclick="switchPage('shifter')">
+                    <div>
+                        <span class="badge">画像ツール</span>
+                        <h3>VR写真 中心位置調整 & メタデータ編集</h3>
+                        <p>360度パノラマ（Equirectangular）画像の中心位置（Yaw軸）調整、Exif情報および360°認識用XMP(GPano)メタデータの編集を行います。</p>
+                    </div>
+                    <button class="btn-action" style="margin-top: 15px;">ツールを開く</button>
+                </div>
+
+                <!-- ツール 2 -->
+                <div class="tool-card">
+                    <div>
+                        <span class="badge coming-soon">開発予定</span>
+                        <h3>Nadir Patch (ロゴ/合成)</h3>
+                        <p>VR写真の真下（足元・三脚跡）や真上に、独自のウォーターマークやロゴマークを自動補正して合成します。</p>
+                    </div>
+                    <button class="btn-action" style="background:#cbd5e1; cursor:not-allowed;" disabled>準備中</button>
+                </div>
+
+                <!-- ツール 3 -->
+                <div class="tool-card">
+                    <div>
+                        <span class="badge coming-soon">開発予定</span>
+                        <h3>HLS動画 変換ツール</h3>
+                        <p>MP4などのVR動画ファイルを、ブラウザ上でストリーミング配信用のHLS形式（.m3u8 / .ts）に直接エンコード変換します。</p>
+                    </div>
+                    <button class="btn-action" style="background:#cbd5e1; cursor:not-allowed;" disabled>準備中</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ツール1：中心位置調整画面 ==================== -->
+        <section id="page-shifter" class="page">
+            <div class="tool-header">
+                <button class="btn-back" onclick="switchPage('home')">← メニューに戻る</button>
+                <h2>VR写真 中心位置調整 & メタデータ編集ツール</h2>
+            </div>
+
+            <div class="controls-card">
+                <div class="form-group">
+                    <input type="file" id="upload" accept="image/*">
+                </div>
+                
+                <div class="form-group" style="margin-top: 20px;">
+                    <div class="label-group">
+                        <label for="shiftSlider">左右シフト量 (px):</label>
+                        <strong id="shiftValue">0</strong>
+                    </div>
+                    <input type="range" id="shiftSlider" min="0" max="1000" value="0">
+                </div>
+
+                <!-- Exif表示・編集アコーディオンパネル -->
+                <details class="exif-panel">
+                    <summary>📷 Exif詳細情報の確認・編集</summary>
+                    <div class="exif-grid">
+                        <div class="exif-field">
+                            <label for="exifMake">カメラメーカー (Make)</label>
+                            <input type="text" id="exifMake" placeholder="例: RICOH">
+                        </div>
+                        <div class="exif-field">
+                            <label for="exifModel">カメラモデル (Model)</label>
+                            <input type="text" id="exifModel" placeholder="例: RICOH THETA Z1">
+                        </div>
+                        <div class="exif-field">
+                            <label for="exifLensModel">レンズモデル (LensModel)</label>
+                            <input type="text" id="exifLensModel" placeholder="例: THETA Lens">
+                        </div>
+                        <div class="exif-field">
+                            <label for="exifDate">撮影日時 (DateTimeOriginal)</label>
+                            <input type="text" id="exifDate" placeholder="YYYY:MM:DD HH:MM:SS">
+                        </div>
+                        <div class="exif-field">
+                            <label for="exifISO">ISO感度 (ISOSpeed)</label>
+                            <input type="text" id="exifISO" placeholder="例: 100">
+                        </div>
+                        <div class="exif-field">
+                            <label for="exifFNumber">F値 / 絞り (FNumber)</label>
+                            <input type="text" id="exifFNumber" placeholder="例: 2.8">
+                        </div>
+                        <div class="exif-field">
+                            <label for="exifExposureTime">SS (ExposureTime)</label>
+                            <input type="text" id="exifExposureTime" placeholder="例: 1/250">
+                        </div>
+                        <div class="exif-field">
+                            <label for="exifFocalLength">焦点距離 mm (FocalLength)</label>
+                            <input type="text" id="exifFocalLength" placeholder="例: 18">
+                        </div>
+                        <div class="exif-field">
+                            <label for="exifArtist">撮影者 / 作者 (Artist)</label>
+                            <input type="text" id="exifArtist" placeholder="例: PIYAMARU">
+                        </div>
+                        <div class="exif-field">
+                            <label for="exifSoftware">使用ソフト (Software)</label>
+                            <input type="text" id="exifSoftware" placeholder="例: Turumaru App">
+                        </div>
+                    </div>
+                </details>
+
+                <!-- 🌐 XMP (GPano) メタデータ表示・編集アコーディオンパネル -->
+                <details class="exif-panel">
+                    <summary>🌐 360°写真用 XMP (GPano) メタデータの確認・編集</summary>
+                    <div class="exif-grid">
+                        <div class="exif-field">
+                            <label for="xmpUsePanoramaViewer">パノラマビュー表示 (UsePanoramaViewer)</label>
+                            <select id="xmpUsePanoramaViewer">
+                                <option value="">選択してください（元画像に従う）</option>
+                                <option value="True">True (有効)</option>
+                                <option value="False">False (無効)</option>
+                            </select>
+                        </div>
+                        <div class="exif-field">
+                            <label for="xmpProjectionType">投影方式 (ProjectionType)</label>
+                            <input type="text" id="xmpProjectionType" placeholder="例: equirectangular">
+                        </div>
+                        <div class="exif-field">
+                            <label for="xmpFullPanoWidth">全体幅 px (FullPanoWidthPixels)</label>
+                            <input type="text" id="xmpFullPanoWidth" placeholder="例: 6000">
+                        </div>
+                        <div class="exif-field">
+                            <label for="xmpFullPanoHeight">全体高さ px (FullPanoHeightPixels)</label>
+                            <input type="text" id="xmpFullPanoHeight" placeholder="例: 3000">
+                        </div>
+                        <div class="exif-field">
+                            <label for="xmpCroppedWidth">画像幅 px (CroppedAreaImageWidthPixels)</label>
+                            <input type="text" id="xmpCroppedWidth" placeholder="例: 6000">
+                        </div>
+                        <div class="exif-field">
+                            <label for="xmpCroppedHeight">画像高さ px (CroppedAreaImageHeightPixels)</label>
+                            <input type="text" id="xmpCroppedHeight" placeholder="例: 3000">
+                        </div>
+                    </div>
+                </details>
+
+                <div class="instructions">
+                    <strong>操作方法:</strong><br>
+                    ・画像上を <strong>ドラッグ / スワイプ</strong> して直感的に移動<br>
+                    ・キーボードの <kbd>←</kbd> <kbd>→</kbd> キーで 1px ずつ微調整<br>
+                    ・<kbd>Shift</kbd> + 矢印キーで 10px ずつ高速移動
+                </div>
+
+                <div style="margin-top: 20px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <label for="formatSelect" style="font-size: 0.9rem; font-weight: 600;">保存形式:</label>
+                        <select id="formatSelect">
+                            <option value="auto">元のファイル形式（自動）</option>
+                            <option value="image/jpeg">JPEG (.jpg)</option>
+                            <option value="image/png">PNG (.png)</option>
+                            <option value="image/webp">WebP (.webp)</option>
+                        </select>
+                    </div>
+
+                    <button class="btn-action" id="downloadBtn" onclick="downloadImage()">画像を保存する</button>
+                    <button class="btn-action btn-secondary" id="toggleGridBtn" onclick="toggleGrid()">中心線の表示/非表示</button>
+                </div>
+            </div>
+
+            <div id="canvas-container">
+                <canvas id="canvas"></canvas>
+                <!-- グリッド線オーバーレイ -->
+                <div id="canvas-overlay">
+                    <div class="grid-line-v"></div>
+                    <div class="grid-line-h"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy;2026 PIYAMARU All Rights Reserved.</p>
+    </footer>
+
+    <!-- JSファイルの読み込み -->
+    <script src="app.js"></script>
+</body>
+</html>
