@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n-title>利用規約と免責事項 — firemaru</title>
+<meta name="description" content="株式会社ぴやまるが提供するソフトウェア「firemaru」の利用規約および免責事項です。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:      #E01050;
+    --pink-2:    #FF4E82;
+    --bg:        #121410;
+    --bg-raise:  #181B15;
+    --bg-card:   #1D211A;
+    --line:      #333A2C99;
+    --line-solid:#333A2C;
+    --text:      #F2F5EC;
+    --muted:     #9AA694;
+    --brand-1:   #50B020;
+    --brand-2:   #80C020;
+    --brand-dim: #50B02022;
+    --radius:    14px;
+    --measure:   760px;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Noto Sans JP',sans-serif;
+    font-size:16px; line-height:1.95; letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  h1,h2,h3{font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.4;}
+  a{color:var(--brand-2);}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--brand-2);outline-offset:3px;border-radius:4px;}
+
+  /* ---- Header (matches LP) ---- */
+  header{
+    position:sticky; top:0; z-index:20;
+    background:#121410E6; backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{max-width:var(--measure);margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:24px;}
+  .logo{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--text);font-weight:700;}
+  .logo .mark{
+    width:16px;height:16px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,var(--brand-2),var(--brand-1));
+    box-shadow:0 0 10px var(--brand-1);flex:none;
+  }
+  .logo .wordmark{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:18px;letter-spacing:.01em;}
+  .logo .sub{color:var(--muted);font-weight:500;font-size:13px;}
+  .nav .back{margin-left:auto;font-size:13px;color:var(--muted);text-decoration:none;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;}
+  .nav .back:hover{color:var(--brand-2);}
+  @media(max-width:600px){.logo .sub{display:none;}}
+
+  /* ---- Layout ---- */
+  main{max-width:var(--measure);margin:0 auto;padding:0 24px 96px;position:relative;}
+  .glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:560px;height:560px;border-radius:50%;
+    background:radial-gradient(circle,#50B0201F,transparent 62%);pointer-events:none;z-index:-1;filter:blur(10px);}
+
+  /* ---- Masthead ---- */
+  .masthead{padding:72px 0 40px;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.14em;
+    color:var(--brand-2);text-transform:uppercase;margin:0 0 16px;display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:9px;height:9px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,var(--brand-2),var(--brand-1));box-shadow:0 0 8px var(--brand-1);}
+  .masthead h1{font-weight:900;font-size:clamp(1.9rem,5.4vw,2.7rem);line-height:1.4;margin:0 0 18px;letter-spacing:.01em;}
+  .lede{color:var(--muted);font-size:1rem;line-height:2;margin:0;max-width:40rem;}
+  .notice{margin:20px 0 0;padding:12px 16px;font-size:.86rem;line-height:1.8;color:var(--muted);
+    background:var(--brand-dim);border-left:2px solid var(--brand-1);border-radius:6px;}
+  .rule{height:3px;width:100%;margin:34px 0 0;border-radius:2px;
+    background:linear-gradient(90deg,var(--brand-1) 0%,var(--brand-2) 26%,var(--pink) 52%,var(--line-solid) 52%,var(--line-solid) 100%);}
+
+  /* ---- TOC ---- */
+  .toc{margin:40px 0 8px;padding:26px 28px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);}
+  .toc h2{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 18px;}
+  .toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:2px 28px;counter-reset:toc;}
+  .toc li{counter-increment:toc;line-height:1.6;}
+  .toc a{color:var(--text);text-decoration:none;display:flex;gap:.7rem;align-items:baseline;padding:6px 0;font-size:.92rem;
+    border-bottom:1px solid transparent;transition:color .15s ease,border-color .15s ease;}
+  .toc a::before{content:counter(toc,decimal-leading-zero);font-family:'JetBrains Mono',monospace;color:var(--brand-2);
+    font-size:.8rem;flex:none;min-width:1.7rem;}
+  .toc a:hover{color:var(--brand-2);border-bottom-color:var(--brand-dim);}
+
+  /* ---- Articles ---- */
+  article{padding:38px 0;border-top:1px solid var(--line);scroll-margin-top:80px;}
+  article:first-of-type{border-top:none;}
+  .art__no{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--brand-2);font-size:.82rem;letter-spacing:.1em;
+    text-transform:uppercase;margin:0 0 .55rem;display:inline-flex;align-items:center;gap:.6rem;}
+  .art__no .dot{width:7px;height:7px;border-radius:50%;background:var(--brand-2);box-shadow:0 0 8px var(--brand-1);flex:none;}
+  h3.art__title{font-weight:700;font-size:1.3rem;line-height:1.5;margin:0 0 1.15rem;letter-spacing:.01em;color:var(--text);}
+
+  article p{margin:0 0 1rem;color:#DCE3D4;}
+  article p:last-child{margin-bottom:0;}
+
+  ol.clauses{list-style:none;margin:0;padding:0;counter-reset:cl;}
+  ol.clauses > li{counter-increment:cl;position:relative;padding-left:2.4rem;margin:0 0 1.05rem;color:#DCE3D4;}
+  ol.clauses > li:last-child{margin-bottom:0;}
+  ol.clauses > li::before{content:counter(cl)".";position:absolute;left:0;top:0;
+    font-family:'JetBrains Mono',monospace;color:var(--brand-2);font-weight:600;min-width:1.9rem;}
+
+  ul.bullets{list-style:none;margin:.7rem 0 0;padding:0;}
+  ul.bullets li{position:relative;padding-left:1.4rem;margin:0 0 .55rem;color:var(--muted);}
+  ul.bullets li:last-child{margin-bottom:0;}
+  ul.bullets li::before{content:"";position:absolute;left:.2rem;top:.9em;width:5px;height:5px;border-radius:50%;background:#4A5140;}
+  ol.clauses ul.bullets{margin-top:.6rem;}
+
+  /* ---- 附則 ---- */
+  .appendix{margin-top:40px;padding:28px 28px;background:transparent;border:1px solid #50B02033;border-radius:var(--radius);}
+  .appendix h3{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:1.1rem;margin:0 0 1rem;color:var(--brand-2);}
+  .appendix p{margin:0 0 .8rem;color:#CDD5C6;}
+  .appendix p:last-child{margin-bottom:0;}
+  .appendix .rev{font-size:.9rem;line-height:1.85;color:var(--muted);}
+
+  /* ---- Footer (matches LP) ---- */
+  footer{border-top:1px solid var(--line);padding:36px 0;font-size:13px;color:var(--muted);}
+  .foot-inner{max-width:var(--measure);margin:0 auto;padding:0 24px;text-align:center;}
+  .foot-links{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;}
+  .foot-links a{color:var(--muted);text-decoration:none;}
+  .foot-links a:hover{color:var(--brand-2);}
+  .foot-links a[aria-current="page"]{color:var(--brand-2);}
+  .foot-copy{font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--muted);}
+
+  @media(max-width:640px){
+    body{font-size:15px;line-height:1.9;}
+    .toc ol{grid-template-columns:1fr;gap:0;}
+    .masthead{padding:52px 0 32px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important;}}
+
+  /* ---- Print (Save as PDF) — switch to light ---- */
+  @media print{
+    :root{--bg:#fff;--text:#111;--muted:#555;--line:#ccc;--line-solid:#ccc;}
+    header,.glow{display:none;}
+    body{font-size:11pt;line-height:1.7;}
+    a{color:#111;text-decoration:none;}
+    article{break-inside:avoid;border-top:1px solid #ccc;}
+    .toc,.appendix{background:#fff;border:1px solid #ccc;}
+    article p,ol.clauses>li,.appendix p{color:#111;}
+  }
+
+  .lang{display:flex;border:1px solid #4A5140;border-radius:999px;overflow:hidden;font-size:12px;font-family:'JetBrains Mono',monospace;margin-left:auto;}
+  .lang button{background:transparent;border:none;color:var(--muted);padding:5px 12px;cursor:pointer;font-family:inherit;font-size:inherit;}
+  .lang button[aria-pressed="true"]{background:var(--brand-dim);color:var(--brand-2);}
+  .nav .back{margin-left:16px;}
+  @media(max-width:600px){.logo .sub{display:none;}.nav .back{display:none;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="logo" href="index-0709.html#top" aria-label="firemaru">
+      <span class="mark" aria-hidden="true"></span>
+      <span class="wordmark">firemaru</span>
+      <span class="sub" data-i18n="logo_sub">／ 株式会社ぴやまる</span>
+    </a>
+    <div class="lang" role="group" aria-label="Language">
+      <button data-lang="ja" aria-pressed="true">JA</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+      <button data-lang="de" aria-pressed="false">DE</button>
+    </div>
+    <a class="back" href="index-0709.html#top" data-i18n="back">← トップへ戻る</a>
+  </div>
+</header>
+
+<main>
+  <div class="glow" aria-hidden="true"></div>
+  <header class="masthead">
+    <p class="eyebrow" data-i18n="eyebrow">TERMS OF SERVICE</p>
+    <h1 data-i18n="h1">利用規約と免責事項</h1>
+    <p class="lede" data-i18n="lede">本利用規約(以下「本規約」といいます。)は、株式会社ぴやまる(以下「当社」といいます。)が提供するソフトウェア「firemaru」(以下「本サービス」といいます。)の利用条件を定めるものです。ユーザーは、本規約に同意した上で、本サービスを利用するものとします。</p>
+    <p class="notice" data-i18n="notice">日本語版が正式版です。他言語版との間に相違がある場合、日本語版が優先されます。</p>
+    <div class="rule" aria-hidden="true"></div>
+  </header>
+
+  <nav class="toc" aria-label="目次">
+    <h2 data-i18n="toc_h">目次</h2>
+    <ol>
+      <li><a href="#a1" data-i18n="toc_1">適用</a></li>
+      <li><a href="#a2" data-i18n="toc_2">利用登録・ライセンスの取得</a></li>
+      <li><a href="#a3" data-i18n="toc_3">アカウントおよびライセンスキーの管理</a></li>
+      <li><a href="#a4" data-i18n="toc_4">料金および支払方法</a></li>
+      <li><a href="#a5" data-i18n="toc_5">利用許諾</a></li>
+      <li><a href="#a6" data-i18n="toc_6">禁止事項</a></li>
+      <li><a href="#a7" data-i18n="toc_7">サービス内容の変更・利用の制限・停止・終了</a></li>
+      <li><a href="#a8" data-i18n="toc_8">外部サービスとの連携</a></li>
+      <li><a href="#a9" data-i18n="toc_9">データの管理</a></li>
+      <li><a href="#a10" data-i18n="toc_10">免責事項</a></li>
+      <li><a href="#a11" data-i18n="toc_11">責任の制限</a></li>
+      <li><a href="#a12" data-i18n="toc_12">利用停止・アカウント削除</a></li>
+      <li><a href="#a13" data-i18n="toc_13">知的財産権</a></li>
+      <li><a href="#a14" data-i18n="toc_14">個人情報の取扱い</a></li>
+      <li><a href="#a15" data-i18n="toc_15">反社会的勢力の排除</a></li>
+      <li><a href="#a16" data-i18n="toc_16">権利義務の譲渡禁止</a></li>
+      <li><a href="#a17" data-i18n="toc_17">分離可能性</a></li>
+      <li><a href="#a18" data-i18n="toc_18">規約の変更</a></li>
+      <li><a href="#a19" data-i18n="toc_19">準拠法・合意管轄</a></li>
+    </ol>
+  </nav>
+
+  <article id="a1">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a1_no">第1条</span></p>
+    <h3 class="art__title" data-i18n="a1_title">適用</h3>
+    <ol class="clauses">
+      <li data-i18n="a1_c1">本規約は、ユーザーと当社との間の本サービスの利用に関わる一切の関係に適用されます。</li>
+      <li data-i18n="a1_c2">当社が本サービス上で掲載する各種ガイドライン、注意事項その他の利用条件は、本規約の一部を構成するものとします。</li>
+      <li data-i18n="a1_c3">本規約の内容と前項のガイドライン等の内容が異なる場合は、本規約の規定が優先して適用されます。</li>
+    </ol>
+  </article>
+
+  <article id="a2">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a2_no">第2条</span></p>
+    <h3 class="art__title" data-i18n="a2_title">利用登録・ライセンスの取得</h3>
+    <ol class="clauses">
+      <li data-i18n="a2_c1">ユーザーは、本規約に同意の上、当社所定の方法(当社または当社が指定する決済事業者を通じた購入およびライセンスキーの取得を含みます。)により利用登録を行うものとします。</li>
+      <li><span data-i18n="a2_c2">当社は、登録申請者に次のいずれかの事由があると判断した場合、利用登録を拒否することがあります。</span>
+        <ul class="bullets">
+          <li data-i18n="a2_c2b1">虚偽の情報を登録した場合</li>
+          <li data-i18n="a2_c2b2">過去に本規約に違反したことがある場合</li>
+          <li data-i18n="a2_c2b3">その他、当社が登録を適当でないと判断した場合</li>
+        </ul>
+      </li>
+    </ol>
+  </article>
+
+  <article id="a3">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a3_no">第3条</span></p>
+    <h3 class="art__title" data-i18n="a3_title">アカウントおよびライセンスキーの管理</h3>
+    <ol class="clauses">
+      <li data-i18n="a3_c1">ユーザーは、自己の責任においてアカウント情報およびライセンスキーを管理するものとします。</li>
+      <li data-i18n="a3_c2">ユーザーは、アカウントおよびライセンスキーを第三者に譲渡、貸与、共有または利用させてはなりません。</li>
+      <li data-i18n="a3_c3">アカウント情報またはライセンスキーの管理不十分、使用上の過誤または第三者による不正利用により生じた損害について、当社は責任を負いません。ただし、当社に故意または重過失がある場合はこの限りではありません。</li>
+    </ol>
+  </article>
+
+  <article id="a4">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a4_no">第4条</span></p>
+    <h3 class="art__title" data-i18n="a4_title">料金および支払方法</h3>
+    <ol class="clauses">
+      <li data-i18n="a4_c1">本サービスは、有料プランを提供する場合があります。</li>
+      <li data-i18n="a4_c2">ユーザーは、当社が定める方法(当社が指定する決済事業者を通じた決済を含みます。)により利用料金を支払うものとします。</li>
+      <li data-i18n="a4_c3">支払済みの利用料金は、法令に基づき返金が必要となる場合、決済事業者の規約により返金が認められる場合または本規約に別段の定めがある場合を除き、返金いたしません。</li>
+      <li data-i18n="a4_c4">サブスクリプション契約の申込、更新、変更、解約および返金等の手続は、当社または当社が指定する決済事業者が定める手続に従うものとします。</li>
+      <li data-i18n="a4_c5">本サービスの利用に関連してユーザーが利用する第三者サービス(Firebase、Google Cloud等を含みますがこれらに限りません。)の利用料金は、ユーザーが負担するものとします。</li>
+    </ol>
+  </article>
+
+  <article id="a5">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a5_no">第5条</span></p>
+    <h3 class="art__title" data-i18n="a5_title">利用許諾</h3>
+    <ol class="clauses">
+      <li data-i18n="a5_c1">当社は、ユーザーに対し、本規約の遵守を条件として、本サービスを利用するための非独占的、譲渡不能かつ再許諾不能の権利を許諾します。</li>
+      <li data-i18n="a5_c2">前項の許諾は、本サービスの利用に必要な範囲に限られ、ユーザーに本サービスに関する知的財産権その他の権利を移転するものではありません。</li>
+      <li data-i18n="a5_c3">本条の許諾は、利用契約の終了、解約またはアカウント削除により当然に終了します。</li>
+    </ol>
+  </article>
+
+  <article id="a6">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a6_no">第6条</span></p>
+    <h3 class="art__title" data-i18n="a6_title">禁止事項</h3>
+    <p data-i18n="a6_p1">ユーザーは、本サービスの利用にあたり、次の各号に掲げる行為を行ってはなりません。</p>
+    <ul class="bullets">
+      <li data-i18n="a6_topb1">法令または公序良俗に反する行為</li>
+      <li data-i18n="a6_topb2">犯罪行為に関連する行為</li>
+      <li data-i18n="a6_topb3">不正アクセスまたはこれを試みる行為</li>
+      <li data-i18n="a6_topb4">本サービスまたはサーバー等に過度な負荷を与える行為</li>
+      <li data-i18n="a6_topb5">本サービスの運営を妨害する行為</li>
+      <li data-i18n="a6_topb6">本サービスを解析、逆コンパイル、逆アセンブル、リバースエンジニアリングする行為</li>
+      <li data-i18n="a6_topb7">本サービスの複製、改変、翻案、再配布または販売を行う行為(当社が明示的に許諾した場合を除きます。)</li>
+      <li data-i18n="a6_topb8">ライセンスキーの共有、転売または不正な取得を行う行為</li>
+      <li data-i18n="a6_topb9">当社または第三者の知的財産権その他の権利を侵害する行為</li>
+      <li data-i18n="a6_topb10">その他、当社が不適切と判断する行為</li>
+    </ul>
+  </article>
+
+  <article id="a7">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a7_no">第7条</span></p>
+    <h3 class="art__title" data-i18n="a7_title">サービス内容の変更・利用の制限・停止・終了</h3>
+    <ol class="clauses">
+      <li data-i18n="a7_c1">当社は、本サービスの内容を変更または追加することがあります。ユーザーに重大な影響を及ぼす変更を行う場合は、事前に相当な期間をもって周知するよう努めます。</li>
+      <li><span data-i18n="a7_c2">当社は、次の各号のいずれかに該当する場合、ユーザーへの事前通知なく、本サービスの全部または一部を一時的に停止または中断することがあります。</span>
+        <ul class="bullets">
+          <li data-i18n="a7_c2b1">システムの保守点検または更新を行う場合</li>
+          <li data-i18n="a7_c2b2">地震、落雷、火災、停電、天災等の不可抗力により本サービスの提供が困難となった場合</li>
+          <li data-i18n="a7_c2b3">システムまたは通信回線等が事故により停止した場合</li>
+          <li data-i18n="a7_c2b4">その他、当社が停止または中断を必要と判断した場合</li>
+        </ul>
+      </li>
+      <li data-i18n="a7_c3">当社は、本サービスの安定的な運営のため、プランの内容に応じて、本サービスの利用に回数、頻度、機能その他の制限を設けることがあります。</li>
+      <li data-i18n="a7_c4">本サービスのライセンス認証に用いるサーバの保守、障害その他の事由により、一時的にライセンス認証が行えない場合があります。この場合の取扱いは第2項を準用し、当社は速やかな復旧に努めるものとします。</li>
+      <li data-i18n="a7_c5">当社は、本サービスの全部を終了する場合、原則として終了日の相当期間前までに、本サービス上への掲載その他当社が適当と判断する方法によりユーザーに周知します。</li>
+      <li data-i18n="a7_c6">前項の場合において、ユーザーが支払済みの利用料金に未経過期間分があるときは、当社は、日割計算による返金または代替措置を講じるものとします。ただし、ユーザーの本規約違反により利用契約が終了した場合はこの限りではありません。</li>
+    </ol>
+  </article>
+
+  <article id="a8">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a8_no">第8条</span></p>
+    <h3 class="art__title" data-i18n="a8_title">外部サービスとの連携</h3>
+    <ol class="clauses">
+      <li data-i18n="a8_c1">本サービスは、Firebase、Google Cloud、AIサービスその他第三者サービスと連携して動作する場合があります。</li>
+      <li data-i18n="a8_c2">ユーザーは、当該第三者サービスを利用する場合、それぞれの利用規約およびポリシーに従うものとします。</li>
+      <li data-i18n="a8_c3">第三者サービスの仕様変更、障害、停止または終了等により本サービスの全部または一部が利用できなくなった場合であっても、当社は責任を負いません。ただし、当社に故意または重過失がある場合はこの限りではありません。</li>
+      <li data-i18n="a8_c4">本サービスが連携するAIサービスの出力結果について、当社はその正確性、完全性または有用性を保証しません。ユーザーは、自己の責任において出力結果を確認の上、利用するものとします。</li>
+    </ol>
+  </article>
+
+  <article id="a9">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a9_no">第9条</span></p>
+    <h3 class="art__title" data-i18n="a9_title">データの管理</h3>
+    <ol class="clauses">
+      <li data-i18n="a9_c1">ユーザーは、本サービスを通じて操作または保存するデータ(Firebase、Firestore、Storage等に保存されるデータを含みます。)について、自らの責任において管理し、必要に応じてバックアップを行うものとします。</li>
+      <li data-i18n="a9_c2">当社は、ユーザーデータの恒久的な保存または完全性を保証するものではありません。</li>
+      <li data-i18n="a9_c3">ベータ機能または試験提供中の機能については、継続提供、品質、動作または保存性を保証しません。</li>
+    </ol>
+  </article>
+
+  <article id="a10">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a10_no">第10条</span></p>
+    <h3 class="art__title" data-i18n="a10_title">免責事項</h3>
+    <ol class="clauses">
+      <li data-i18n="a10_c1">本サービスは現状有姿(As Is)で提供されるものであり、当社は、本サービスの完全性、有用性、安全性、正確性、特定目的への適合性その他一切について保証しません。</li>
+      <li data-i18n="a10_c2">当社は、データの消失、破損、改ざん、誤削除または予期しない変更により生じた損害について責任を負いません。</li>
+      <li data-i18n="a10_c3">当社は、システム障害、通信障害、第三者による不正アクセス、コンピューターウイルスその他当社の責めによらない事由によって生じた損害について責任を負いません。</li>
+      <li data-i18n="a10_c4">当社は、本サービスの利用または利用不能により生じた間接損害、特別損害、逸失利益その他の損害について責任を負いません。</li>
+      <li data-i18n="a10_c5">前各項の規定にかかわらず、当社に故意または重過失がある場合および消費者契約法その他の法令により免責が認められない場合は、当社は当該法令の定めに従い責任を負うものとします。</li>
+    </ol>
+  </article>
+
+  <article id="a11">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a11_no">第11条</span></p>
+    <h3 class="art__title" data-i18n="a11_title">責任の制限</h3>
+    <p data-i18n="a11_p1">当社が本サービスに関してユーザーに対して損害賠償責任を負う場合であっても、その責任は、当該ユーザーが当社に支払った利用料金の総額を上限とします。ただし、当社に故意または重過失がある場合および法令上この制限が認められない場合は、この限りではありません。</p>
+  </article>
+
+  <article id="a12">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a12_no">第12条</span></p>
+    <h3 class="art__title" data-i18n="a12_title">利用停止・アカウント削除</h3>
+    <ol class="clauses">
+      <li data-i18n="a12_c1">当社は、ユーザーが本規約に違反した場合または本サービスの運営上必要と判断した場合、事前の通知なく、本サービスの利用停止またはアカウント削除を行うことができます。</li>
+      <li data-i18n="a12_c2">前項の措置がユーザーの本規約違反によらない場合において、支払済みの利用料金に未経過期間分があるときは、第7条第6項を準用します。</li>
+      <li data-i18n="a12_c3">ユーザーの本規約違反により当社に損害が生じた場合、当社は、当該ユーザーに対して損害賠償を請求することができます。</li>
+    </ol>
+  </article>
+
+  <article id="a13">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a13_no">第13条</span></p>
+    <h3 class="art__title" data-i18n="a13_title">知的財産権</h3>
+    <p data-i18n="a13_p1">本サービスおよび本サービスに含まれるプログラム、デザイン、文章、画像その他一切の著作権、商標権その他の知的財産権は、当社または正当な権利者に帰属します。本規約に基づく本サービスの利用許諾は、これらの権利をユーザーに移転するものではありません。</p>
+  </article>
+
+  <article id="a14">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a14_no">第14条</span></p>
+    <h3 class="art__title" data-i18n="a14_title">個人情報の取扱い</h3>
+    <p data-i18n="a14_p1">当社は、本サービスの利用によって取得するユーザーの個人情報を、当社が別途定めるプライバシーポリシーに従い、適切に取り扱うものとします。</p>
+  </article>
+
+  <article id="a15">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a15_no">第15条</span></p>
+    <h3 class="art__title" data-i18n="a15_title">反社会的勢力の排除</h3>
+    <ol class="clauses">
+      <li data-i18n="a15_c1">ユーザーは、自らが暴力団、暴力団員、暴力団関係企業その他の反社会的勢力(以下「反社会的勢力」といいます。)に該当しないこと、および反社会的勢力と関係を有しないことを表明し、保証するものとします。</li>
+      <li data-i18n="a15_c2">当社は、ユーザーが前項に違反した場合、事前の通知なく、利用契約を解除しまたは本サービスの利用を停止することができます。この場合、当社は、当該解除または停止によりユーザーに生じた損害について責任を負いません。</li>
+    </ol>
+  </article>
+
+  <article id="a16">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a16_no">第16条</span></p>
+    <h3 class="art__title" data-i18n="a16_title">権利義務の譲渡禁止</h3>
+    <p data-i18n="a16_p1">ユーザーは、当社の書面による事前の承諾なく、利用契約上の地位または本規約に基づく権利もしくは義務を第三者に譲渡し、または担保に供することはできません。</p>
+  </article>
+
+  <article id="a17">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a17_no">第17条</span></p>
+    <h3 class="art__title" data-i18n="a17_title">分離可能性</h3>
+    <p data-i18n="a17_p1">本規約のいずれかの条項またはその一部が、消費者契約法その他の法令により無効または執行不能と判断された場合であっても、本規約の残りの規定は継続して完全に効力を有するものとします。</p>
+  </article>
+
+  <article id="a18">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a18_no">第18条</span></p>
+    <h3 class="art__title" data-i18n="a18_title">規約の変更</h3>
+    <ol class="clauses">
+      <li><span data-i18n="a18_c1">当社は、次の各号のいずれかに該当する場合、民法第548条の4の規定に基づき、本規約を変更することができます。</span>
+        <ul class="bullets">
+          <li data-i18n="a18_c1b1">本規約の変更が、ユーザーの一般の利益に適合する場合</li>
+          <li data-i18n="a18_c1b2">本規約の変更が、利用契約の目的に反せず、かつ、変更の必要性、変更後の内容の相当性その他の変更に係る事情に照らして合理的なものである場合</li>
+        </ul>
+      </li>
+      <li data-i18n="a18_c2">当社は、本規約を変更する場合、変更後の規約の内容および効力発生時期を、効力発生時期の相当期間前までに、本サービス上への掲載その他当社が適当と判断する方法により周知します。</li>
+      <li data-i18n="a18_c3">変更後の規約の効力発生時期以降にユーザーが本サービスを利用した場合、変更後の規約に同意したものとみなします。</li>
+    </ol>
+  </article>
+
+  <article id="a19">
+    <p class="art__no"><span class="dot" aria-hidden="true"></span><span data-i18n="a19_no">第19条</span></p>
+    <h3 class="art__title" data-i18n="a19_title">準拠法・合意管轄</h3>
+    <ol class="clauses">
+      <li data-i18n="a19_c1">本規約は、日本法に準拠し、日本法に従って解釈されます。</li>
+      <li data-i18n="a19_c2">本サービスに関してユーザーと当社との間で紛争が生じた場合は、当社の本店所在地を管轄する地方裁判所を第一審の専属的合意管轄裁判所とします。</li>
+    </ol>
+  </article>
+
+  <section class="appendix" aria-label="附則">
+    <h3 data-i18n="appendix_h">附則</h3>
+    <p data-i18n="appendix_p1">本規約は、2026年4月23日より施行します。</p>
+    <p class="rev" data-i18n="appendix_p2">2026年7月17日　利用許諾条項の新設、利用の制限およびライセンス認証に関する規定の追加、免責事項への法令上の例外規定の追加、サービス終了時の取扱いの明確化。</p>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <nav class="foot-links" aria-label="footer">
+      <a href="index-0709.html#top" data-i18n="foot_home">firemaru トップ</a>
+      <a href="#" aria-disabled="true" data-i18n="foot_privacy">プライバシーポリシー</a>
+      <a href="tos.html" aria-current="page" data-i18n="foot_terms">利用規約</a>
+      <a href="#" aria-disabled="true" data-i18n="foot_contact">お問い合わせ</a>
+    </nav>
+    <span class="foot-copy">©2026 PIYAMARU All Rights Reserved.</span>
+  </div>
+</footer>
+
+<script>
+  const I18N = {
+"ja": {
+"__title": "利用規約と免責事項 — firemaru",
+"logo_sub": "／ 株式会社ぴやまる",
+"back": "← トップへ戻る",
+"eyebrow": "TERMS OF SERVICE",
+"h1": "利用規約と免責事項",
+"lede": "本利用規約(以下「本規約」といいます。)は、株式会社ぴやまる(以下「当社」といいます。)が提供するソフトウェア「firemaru」(以下「本サービス」といいます。)の利用条件を定めるものです。ユーザーは、本規約に同意した上で、本サービスを利用するものとします。",
+"notice": "日本語版が正式版です。他言語版との間に相違がある場合、日本語版が優先されます。",
+"toc_h": "目次",
+"foot_home": "firemaru トップ",
+"foot_privacy": "プライバシーポリシー",
+"foot_terms": "利用規約",
+"foot_contact": "お問い合わせ",
+"a1_no": "第1条",
+"a2_no": "第2条",
+"a3_no": "第3条",
+"a4_no": "第4条",
+"a5_no": "第5条",
+"a6_no": "第6条",
+"a7_no": "第7条",
+"a8_no": "第8条",
+"a9_no": "第9条",
+"a10_no": "第10条",
+"a11_no": "第11条",
+"a12_no": "第12条",
+"a13_no": "第13条",
+"a14_no": "第14条",
+"a15_no": "第15条",
+"a16_no": "第16条",
+"a17_no": "第17条",
+"a18_no": "第18条",
+"a19_no": "第19条",
+"appendix_h": "附則",
+"appendix_p1": "本規約は、2026年4月23日より施行します。",
+"appendix_p2": "2026年7月17日　利用許諾条項の新設、利用の制限およびライセンス認証に関する規定の追加、免責事項への法令上の例外規定の追加、サービス終了時の取扱いの明確化。",
+"a1_title": "適用",
+"toc_1": "適用",
+"a1_c1": "本規約は、ユーザーと当社との間の本サービスの利用に関わる一切の関係に適用されます。",
+"a1_c2": "当社が本サービス上で掲載する各種ガイドライン、注意事項その他の利用条件は、本規約の一部を構成するものとします。",
+"a1_c3": "本規約の内容と前項のガイドライン等の内容が異なる場合は、本規約の規定が優先して適用されます。",
+"a2_title": "利用登録・ライセンスの取得",
+"toc_2": "利用登録・ライセンスの取得",
+"a2_c1": "ユーザーは、本規約に同意の上、当社所定の方法(当社または当社が指定する決済事業者を通じた購入およびライセンスキーの取得を含みます。)により利用登録を行うものとします。",
+"a2_c2": "当社は、登録申請者に次のいずれかの事由があると判断した場合、利用登録を拒否することがあります。",
+"a2_c2b1": "虚偽の情報を登録した場合",
+"a2_c2b2": "過去に本規約に違反したことがある場合",
+"a2_c2b3": "その他、当社が登録を適当でないと判断した場合",
+"a3_title": "アカウントおよびライセンスキーの管理",
+"toc_3": "アカウントおよびライセンスキーの管理",
+"a3_c1": "ユーザーは、自己の責任においてアカウント情報およびライセンスキーを管理するものとします。",
+"a3_c2": "ユーザーは、アカウントおよびライセンスキーを第三者に譲渡、貸与、共有または利用させてはなりません。",
+"a3_c3": "アカウント情報またはライセンスキーの管理不十分、使用上の過誤または第三者による不正利用により生じた損害について、当社は責任を負いません。ただし、当社に故意または重過失がある場合はこの限りではありません。",
+"a4_title": "料金および支払方法",
+"toc_4": "料金および支払方法",
+"a4_c1": "本サービスは、有料プランを提供する場合があります。",
+"a4_c2": "ユーザーは、当社が定める方法(当社が指定する決済事業者を通じた決済を含みます。)により利用料金を支払うものとします。",
+"a4_c3": "支払済みの利用料金は、法令に基づき返金が必要となる場合、決済事業者の規約により返金が認められる場合または本規約に別段の定めがある場合を除き、返金いたしません。",
+"a4_c4": "サブスクリプション契約の申込、更新、変更、解約および返金等の手続は、当社または当社が指定する決済事業者が定める手続に従うものとします。",
+"a4_c5": "本サービスの利用に関連してユーザーが利用する第三者サービス(Firebase、Google Cloud等を含みますがこれらに限りません。)の利用料金は、ユーザーが負担するものとします。",
+"a5_title": "利用許諾",
+"toc_5": "利用許諾",
+"a5_c1": "当社は、ユーザーに対し、本規約の遵守を条件として、本サービスを利用するための非独占的、譲渡不能かつ再許諾不能の権利を許諾します。",
+"a5_c2": "前項の許諾は、本サービスの利用に必要な範囲に限られ、ユーザーに本サービスに関する知的財産権その他の権利を移転するものではありません。",
+"a5_c3": "本条の許諾は、利用契約の終了、解約またはアカウント削除により当然に終了します。",
+"a6_title": "禁止事項",
+"toc_6": "禁止事項",
+"a6_p1": "ユーザーは、本サービスの利用にあたり、次の各号に掲げる行為を行ってはなりません。",
+"a6_topb1": "法令または公序良俗に反する行為",
+"a6_topb2": "犯罪行為に関連する行為",
+"a6_topb3": "不正アクセスまたはこれを試みる行為",
+"a6_topb4": "本サービスまたはサーバー等に過度な負荷を与える行為",
+"a6_topb5": "本サービスの運営を妨害する行為",
+"a6_topb6": "本サービスを解析、逆コンパイル、逆アセンブル、リバースエンジニアリングする行為",
+"a6_topb7": "本サービスの複製、改変、翻案、再配布または販売を行う行為(当社が明示的に許諾した場合を除きます。)",
+"a6_topb8": "ライセンスキーの共有、転売または不正な取得を行う行為",
+"a6_topb9": "当社または第三者の知的財産権その他の権利を侵害する行為",
+"a6_topb10": "その他、当社が不適切と判断する行為",
+"a7_title": "サービス内容の変更・利用の制限・停止・終了",
+"toc_7": "サービス内容の変更・利用の制限・停止・終了",
+"a7_c1": "当社は、本サービスの内容を変更または追加することがあります。ユーザーに重大な影響を及ぼす変更を行う場合は、事前に相当な期間をもって周知するよう努めます。",
+"a7_c2": "当社は、次の各号のいずれかに該当する場合、ユーザーへの事前通知なく、本サービスの全部または一部を一時的に停止または中断することがあります。",
+"a7_c2b1": "システムの保守点検または更新を行う場合",
+"a7_c2b2": "地震、落雷、火災、停電、天災等の不可抗力により本サービスの提供が困難となった場合",
+"a7_c2b3": "システムまたは通信回線等が事故により停止した場合",
+"a7_c2b4": "その他、当社が停止または中断を必要と判断した場合",
+"a7_c3": "当社は、本サービスの安定的な運営のため、プランの内容に応じて、本サービスの利用に回数、頻度、機能その他の制限を設けることがあります。",
+"a7_c4": "本サービスのライセンス認証に用いるサーバの保守、障害その他の事由により、一時的にライセンス認証が行えない場合があります。この場合の取扱いは第2項を準用し、当社は速やかな復旧に努めるものとします。",
+"a7_c5": "当社は、本サービスの全部を終了する場合、原則として終了日の相当期間前までに、本サービス上への掲載その他当社が適当と判断する方法によりユーザーに周知します。",
+"a7_c6": "前項の場合において、ユーザーが支払済みの利用料金に未経過期間分があるときは、当社は、日割計算による返金または代替措置を講じるものとします。ただし、ユーザーの本規約違反により利用契約が終了した場合はこの限りではありません。",
+"a8_title": "外部サービスとの連携",
+"toc_8": "外部サービスとの連携",
+"a8_c1": "本サービスは、Firebase、Google Cloud、AIサービスその他第三者サービスと連携して動作する場合があります。",
+"a8_c2": "ユーザーは、当該第三者サービスを利用する場合、それぞれの利用規約およびポリシーに従うものとします。",
+"a8_c3": "第三者サービスの仕様変更、障害、停止または終了等により本サービスの全部または一部が利用できなくなった場合であっても、当社は責任を負いません。ただし、当社に故意または重過失がある場合はこの限りではありません。",
+"a8_c4": "本サービスが連携するAIサービスの出力結果について、当社はその正確性、完全性または有用性を保証しません。ユーザーは、自己の責任において出力結果を確認の上、利用するものとします。",
+"a9_title": "データの管理",
+"toc_9": "データの管理",
+"a9_c1": "ユーザーは、本サービスを通じて操作または保存するデータ(Firebase、Firestore、Storage等に保存されるデータを含みます。)について、自らの責任において管理し、必要に応じてバックアップを行うものとします。",
+"a9_c2": "当社は、ユーザーデータの恒久的な保存または完全性を保証するものではありません。",
+"a9_c3": "ベータ機能または試験提供中の機能については、継続提供、品質、動作または保存性を保証しません。",
+"a10_title": "免責事項",
+"toc_10": "免責事項",
+"a10_c1": "本サービスは現状有姿(As Is)で提供されるものであり、当社は、本サービスの完全性、有用性、安全性、正確性、特定目的への適合性その他一切について保証しません。",
+"a10_c2": "当社は、データの消失、破損、改ざん、誤削除または予期しない変更により生じた損害について責任を負いません。",
+"a10_c3": "当社は、システム障害、通信障害、第三者による不正アクセス、コンピューターウイルスその他当社の責めによらない事由によって生じた損害について責任を負いません。",
+"a10_c4": "当社は、本サービスの利用または利用不能により生じた間接損害、特別損害、逸失利益その他の損害について責任を負いません。",
+"a10_c5": "前各項の規定にかかわらず、当社に故意または重過失がある場合および消費者契約法その他の法令により免責が認められない場合は、当社は当該法令の定めに従い責任を負うものとします。",
+"a11_title": "責任の制限",
+"toc_11": "責任の制限",
+"a11_p1": "当社が本サービスに関してユーザーに対して損害賠償責任を負う場合であっても、その責任は、当該ユーザーが当社に支払った利用料金の総額を上限とします。ただし、当社に故意または重過失がある場合および法令上この制限が認められない場合は、この限りではありません。",
+"a12_title": "利用停止・アカウント削除",
+"toc_12": "利用停止・アカウント削除",
+"a12_c1": "当社は、ユーザーが本規約に違反した場合または本サービスの運営上必要と判断した場合、事前の通知なく、本サービスの利用停止またはアカウント削除を行うことができます。",
+"a12_c2": "前項の措置がユーザーの本規約違反によらない場合において、支払済みの利用料金に未経過期間分があるときは、第7条第6項を準用します。",
+"a12_c3": "ユーザーの本規約違反により当社に損害が生じた場合、当社は、当該ユーザーに対して損害賠償を請求することができます。",
+"a13_title": "知的財産権",
+"toc_13": "知的財産権",
+"a13_p1": "本サービスおよび本サービスに含まれるプログラム、デザイン、文章、画像その他一切の著作権、商標権その他の知的財産権は、当社または正当な権利者に帰属します。本規約に基づく本サービスの利用許諾は、これらの権利をユーザーに移転するものではありません。",
+"a14_title": "個人情報の取扱い",
+"toc_14": "個人情報の取扱い",
+"a14_p1": "当社は、本サービスの利用によって取得するユーザーの個人情報を、当社が別途定めるプライバシーポリシーに従い、適切に取り扱うものとします。",
+"a15_title": "反社会的勢力の排除",
+"toc_15": "反社会的勢力の排除",
+"a15_c1": "ユーザーは、自らが暴力団、暴力団員、暴力団関係企業その他の反社会的勢力(以下「反社会的勢力」といいます。)に該当しないこと、および反社会的勢力と関係を有しないことを表明し、保証するものとします。",
+"a15_c2": "当社は、ユーザーが前項に違反した場合、事前の通知なく、利用契約を解除しまたは本サービスの利用を停止することができます。この場合、当社は、当該解除または停止によりユーザーに生じた損害について責任を負いません。",
+"a16_title": "権利義務の譲渡禁止",
+"toc_16": "権利義務の譲渡禁止",
+"a16_p1": "ユーザーは、当社の書面による事前の承諾なく、利用契約上の地位または本規約に基づく権利もしくは義務を第三者に譲渡し、または担保に供することはできません。",
+"a17_title": "分離可能性",
+"toc_17": "分離可能性",
+"a17_p1": "本規約のいずれかの条項またはその一部が、消費者契約法その他の法令により無効または執行不能と判断された場合であっても、本規約の残りの規定は継続して完全に効力を有するものとします。",
+"a18_title": "規約の変更",
+"toc_18": "規約の変更",
+"a18_c1": "当社は、次の各号のいずれかに該当する場合、民法第548条の4の規定に基づき、本規約を変更することができます。",
+"a18_c1b1": "本規約の変更が、ユーザーの一般の利益に適合する場合",
+"a18_c1b2": "本規約の変更が、利用契約の目的に反せず、かつ、変更の必要性、変更後の内容の相当性その他の変更に係る事情に照らして合理的なものである場合",
+"a18_c2": "当社は、本規約を変更する場合、変更後の規約の内容および効力発生時期を、効力発生時期の相当期間前までに、本サービス上への掲載その他当社が適当と判断する方法により周知します。",
+"a18_c3": "変更後の規約の効力発生時期以降にユーザーが本サービスを利用した場合、変更後の規約に同意したものとみなします。",
+"a19_title": "準拠法・合意管轄",
+"toc_19": "準拠法・合意管轄",
+"a19_c1": "本規約は、日本法に準拠し、日本法に従って解釈されます。",
+"a19_c2": "本サービスに関してユーザーと当社との間で紛争が生じた場合は、当社の本店所在地を管轄する地方裁判所を第一審の専属的合意管轄裁判所とします。"
+},
+"en": {
+"__title": "Terms of Use and Disclaimer — firemaru",
+"logo_sub": "/ Piyamaru Co., Ltd.",
+"back": "← BACK TO TOP",
+"eyebrow": "TERMS OF SERVICE",
+"h1": "Terms of Use and Disclaimer",
+"lede": "These Terms of Use (the \"Terms\") set forth the conditions for use of the software \"firemaru\" (the \"Service\") provided by Piyamaru Co., Ltd. (the \"Company\"). Users shall use the Service only after agreeing to these Terms.",
+"notice": "The Japanese version is the official version. In the event of any discrepancy between the Japanese version and a version in another language, the Japanese version shall prevail.",
+"toc_h": "Contents",
+"foot_home": "firemaru Home",
+"foot_privacy": "Privacy Policy",
+"foot_terms": "Terms of Use",
+"foot_contact": "Contact",
+"a1_no": "Article 1",
+"a2_no": "Article 2",
+"a3_no": "Article 3",
+"a4_no": "Article 4",
+"a5_no": "Article 5",
+"a6_no": "Article 6",
+"a7_no": "Article 7",
+"a8_no": "Article 8",
+"a9_no": "Article 9",
+"a10_no": "Article 10",
+"a11_no": "Article 11",
+"a12_no": "Article 12",
+"a13_no": "Article 13",
+"a14_no": "Article 14",
+"a15_no": "Article 15",
+"a16_no": "Article 16",
+"a17_no": "Article 17",
+"a18_no": "Article 18",
+"a19_no": "Article 19",
+"appendix_h": "Supplementary Provisions",
+"appendix_p1": "These Terms take effect on April 23, 2026.",
+"appendix_p2": "July 17, 2026 — Addition of a license grant provision; addition of provisions on restriction of use and license authentication; addition of a statutory exception to the disclaimer; clarification of the treatment upon termination of the Service.",
+"a1_title": "Application",
+"toc_1": "Application",
+"a1_c1": "These Terms apply to all relationships between users and the Company relating to the use of the Service.",
+"a1_c2": "Any guidelines, notices and other terms of use posted by the Company on the Service shall constitute a part of these Terms.",
+"a1_c3": "In the event of any inconsistency between these Terms and the guidelines referred to in the preceding paragraph, the provisions of these Terms shall prevail.",
+"a2_title": "Registration and Acquisition of License",
+"toc_2": "Registration and Acquisition of License",
+"a2_c1": "Users shall, after agreeing to these Terms, complete registration by the method prescribed by the Company (including purchase and acquisition of a license key through the Company or a payment processor designated by the Company).",
+"a2_c2": "The Company may refuse registration if it determines that an applicant falls under any of the following:",
+"a2_c2b1": "Where false information was provided.",
+"a2_c2b2": "Where the applicant has previously violated these Terms.",
+"a2_c2b3": "Where the Company otherwise deems the registration inappropriate.",
+"a3_title": "Management of Accounts and License Keys",
+"toc_3": "Management of Accounts and License Keys",
+"a3_c1": "Users shall manage their account information and license keys at their own responsibility.",
+"a3_c2": "Users shall not transfer, lend, share or allow any third party to use their account or license key.",
+"a3_c3": "The Company shall not be liable for any damage arising from inadequate management, erroneous use, or unauthorized use by a third party of account information or a license key; provided, however, that this shall not apply where such damage results from the Company's intent or gross negligence.",
+"a4_title": "Fees and Payment",
+"toc_4": "Fees and Payment",
+"a4_c1": "The Service may offer paid plans.",
+"a4_c2": "Users shall pay fees by the method prescribed by the Company (including payment through a payment processor designated by the Company).",
+"a4_c3": "Fees already paid are non-refundable, except where a refund is required by law, permitted under the terms of the payment processor, or otherwise provided for in these Terms.",
+"a4_c4": "Procedures for the application, renewal, modification, cancellation and refund of subscription contracts shall follow the procedures established by the Company or the payment processor designated by the Company.",
+"a4_c5": "Fees for third-party services used by the user in connection with the Service (including but not limited to Firebase and Google Cloud) shall be borne by the user.",
+"a5_title": "License Grant",
+"toc_5": "License Grant",
+"a5_c1": "The Company grants users a non-exclusive, non-transferable and non-sublicensable right to use the Service, conditional upon compliance with these Terms.",
+"a5_c2": "The license under the preceding paragraph is limited to the scope necessary to use the Service and does not transfer to users any intellectual property or other rights in the Service.",
+"a5_c3": "The license under this Article shall automatically terminate upon expiration or cancellation of the usage contract or deletion of the account.",
+"a6_title": "Prohibited Acts",
+"toc_6": "Prohibited Acts",
+"a6_p1": "In using the Service, users shall not engage in any of the following acts:",
+"a6_topb1": "Acts that violate laws or public order and morals.",
+"a6_topb2": "Acts related to criminal activity.",
+"a6_topb3": "Unauthorized access or attempts thereof.",
+"a6_topb4": "Acts that place an excessive load on the Service or its servers.",
+"a6_topb5": "Acts that interfere with the operation of the Service.",
+"a6_topb6": "Analyzing, decompiling, disassembling or reverse-engineering the Service.",
+"a6_topb7": "Reproducing, modifying, adapting, redistributing or selling the Service (except where expressly permitted by the Company).",
+"a6_topb8": "Sharing, reselling or improperly obtaining a license key.",
+"a6_topb9": "Infringing the intellectual property or other rights of the Company or a third party.",
+"a6_topb10": "Any other act deemed inappropriate by the Company.",
+"a7_title": "Changes to, and Restriction, Suspension or Termination of, the Service",
+"toc_7": "Changes to, and Restriction, Suspension or Termination of, the Service",
+"a7_c1": "The Company may change or add to the content of the Service. Where a change materially affects users, the Company shall endeavor to give notice a reasonable period in advance.",
+"a7_c2": "The Company may temporarily suspend or interrupt all or part of the Service without prior notice to users in any of the following cases:",
+"a7_c2b1": "Where system maintenance, inspection or updates are performed.",
+"a7_c2b2": "Where provision of the Service becomes difficult due to force majeure such as earthquake, lightning, fire, power outage or natural disaster.",
+"a7_c2b3": "Where the system or communication lines stop due to an accident.",
+"a7_c2b4": "Where the Company otherwise deems suspension or interruption necessary.",
+"a7_c3": "To ensure stable operation of the Service, the Company may impose limits on the number of uses, frequency, functions or other aspects of use according to the plan.",
+"a7_c4": "License authentication may temporarily be unavailable due to maintenance of, or a failure in, the server used for the Service's license authentication, or for other reasons. In such cases, Paragraph 2 shall apply mutatis mutandis, and the Company shall endeavor to restore the Service promptly.",
+"a7_c5": "If the Company terminates the entire Service, it shall, in principle, notify users a reasonable period before the termination date by posting on the Service or by other means the Company deems appropriate.",
+"a7_c6": "In the case of the preceding paragraph, if there is an unelapsed portion of the fees already paid by the user, the Company shall provide a pro-rata refund or an alternative measure; provided, however, that this shall not apply where the usage contract is terminated due to the user's violation of these Terms.",
+"a8_title": "Integration with External Services",
+"toc_8": "Integration with External Services",
+"a8_c1": "The Service may operate in conjunction with Firebase, Google Cloud, AI services and other third-party services.",
+"a8_c2": "When using such third-party services, users shall comply with the respective terms of use and policies.",
+"a8_c3": "The Company shall not be liable even if all or part of the Service becomes unavailable due to specification changes, failures, suspension or termination of third-party services; provided, however, that this shall not apply where the Company acts with intent or gross negligence.",
+"a8_c4": "The Company does not warrant the accuracy, completeness or usefulness of the output of any AI service integrated with the Service. Users shall verify the output at their own responsibility before use.",
+"a9_title": "Data Management",
+"toc_9": "Data Management",
+"a9_c1": "Users shall manage, at their own responsibility, the data they operate on or store through the Service (including data stored in Firebase, Firestore, Storage, etc.) and shall make backups as necessary.",
+"a9_c2": "The Company does not guarantee the permanent storage or integrity of user data.",
+"a9_c3": "For beta features or features provided on a trial basis, the Company does not guarantee continued provision, quality, operation or data retention.",
+"a10_title": "Disclaimer",
+"toc_10": "Disclaimer",
+"a10_c1": "The Service is provided \"as is,\" and the Company makes no warranty whatsoever as to its completeness, usefulness, safety, accuracy, fitness for a particular purpose or otherwise.",
+"a10_c2": "The Company shall not be liable for any damage arising from loss, corruption, falsification, erroneous deletion or unexpected alteration of data.",
+"a10_c3": "The Company shall not be liable for any damage arising from system failures, communication failures, unauthorized access by third parties, computer viruses or other causes not attributable to the Company.",
+"a10_c4": "The Company shall not be liable for any indirect damages, special damages, lost profits or other damages arising from the use of, or inability to use, the Service.",
+"a10_c5": "Notwithstanding the preceding paragraphs, where the Company acts with intent or gross negligence, or where exemption from liability is not permitted under the Consumer Contract Act or other laws, the Company shall bear liability in accordance with such laws.",
+"a11_title": "Limitation of Liability",
+"toc_11": "Limitation of Liability",
+"a11_p1": "Even where the Company is liable to a user for damages in connection with the Service, such liability shall be limited to the total amount of fees paid by that user to the Company; provided, however, that this shall not apply where the Company acts with intent or gross negligence, or where such limitation is not permitted by law.",
+"a12_title": "Suspension of Use and Deletion of Account",
+"toc_12": "Suspension of Use and Deletion of Account",
+"a12_c1": "The Company may suspend a user's use of the Service or delete the user's account without prior notice if the user violates these Terms or if the Company deems it necessary for the operation of the Service.",
+"a12_c2": "Where a measure under the preceding paragraph is not due to the user's violation of these Terms and there is an unelapsed portion of the fees already paid, Article 7, Paragraph 6 shall apply mutatis mutandis.",
+"a12_c3": "If the Company suffers damage due to a user's violation of these Terms, the Company may claim damages from that user.",
+"a13_title": "Intellectual Property Rights",
+"toc_13": "Intellectual Property Rights",
+"a13_p1": "All copyrights, trademark rights and other intellectual property rights in the Service and in the programs, designs, text, images and everything else contained in the Service belong to the Company or the rightful right holders. The license to use the Service under these Terms does not transfer any of these rights to users.",
+"a14_title": "Handling of Personal Information",
+"toc_14": "Handling of Personal Information",
+"a14_p1": "The Company shall appropriately handle the personal information of users obtained through the use of the Service in accordance with the privacy policy separately established by the Company.",
+"a15_title": "Exclusion of Anti-Social Forces",
+"toc_15": "Exclusion of Anti-Social Forces",
+"a15_c1": "Users represent and warrant that they are not organized crime groups, members thereof, companies affiliated with such groups or other anti-social forces (hereinafter \"Anti-Social Forces\"), and that they have no relationship with Anti-Social Forces.",
+"a15_c2": "If a user violates the preceding paragraph, the Company may terminate the usage contract or suspend the use of the Service without prior notice. In such case, the Company shall not be liable for any damage caused to the user by such termination or suspension.",
+"a16_title": "Prohibition of Assignment of Rights and Obligations",
+"toc_16": "Prohibition of Assignment of Rights and Obligations",
+"a16_p1": "Users may not assign to any third party, or provide as security, their status under the usage contract or their rights or obligations under these Terms without the prior written consent of the Company.",
+"a17_title": "Severability",
+"toc_17": "Severability",
+"a17_p1": "Even if any provision of these Terms, or part thereof, is held to be invalid or unenforceable under the Consumer Contract Act or other laws, the remaining provisions of these Terms shall continue in full force and effect.",
+"a18_title": "Amendment of the Terms",
+"toc_18": "Amendment of the Terms",
+"a18_c1": "The Company may amend these Terms pursuant to Article 548-4 of the Civil Code in any of the following cases:",
+"a18_c1b1": "Where the amendment conforms to the general interests of users.",
+"a18_c1b2": "Where the amendment does not contravene the purpose of the usage contract and is reasonable in light of the necessity of the amendment, the appropriateness of the amended content and other circumstances relating to the amendment.",
+"a18_c2": "When amending these Terms, the Company shall give notice of the content of the amended Terms and the time at which they take effect, a reasonable period before that time, by posting on the Service or by other means the Company deems appropriate.",
+"a18_c3": "If a user uses the Service on or after the time the amended Terms take effect, the user shall be deemed to have agreed to the amended Terms.",
+"a19_title": "Governing Law and Jurisdiction",
+"toc_19": "Governing Law and Jurisdiction",
+"a19_c1": "These Terms shall be governed by and construed in accordance with the laws of Japan.",
+"a19_c2": "In the event of a dispute between a user and the Company regarding the Service, the district court having jurisdiction over the location of the Company's head office shall be the exclusive agreed court of first instance."
+},
+"de": {
+"__title": "Nutzungsbedingungen und Haftungsausschluss — firemaru",
+"logo_sub": "/ Piyamaru Co., Ltd.",
+"back": "← ZURÜCK",
+"eyebrow": "NUTZUNGSBEDINGUNGEN",
+"h1": "Nutzungsbedingungen und Haftungsausschluss",
+"lede": "Diese Nutzungsbedingungen (die „Bedingungen\") regeln die Bedingungen für die Nutzung der von der Piyamaru Co., Ltd. (das „Unternehmen\") bereitgestellten Software „firemaru\" (der „Dienst\"). Nutzer dürfen den Dienst nur nach Zustimmung zu diesen Bedingungen nutzen.",
+"notice": "Die japanische Fassung ist die offizielle Fassung. Bei Abweichungen zwischen der japanischen Fassung und einer Fassung in einer anderen Sprache ist die japanische Fassung maßgebend.",
+"toc_h": "Inhalt",
+"foot_home": "firemaru Startseite",
+"foot_privacy": "Datenschutzerklärung",
+"foot_terms": "Nutzungsbedingungen",
+"foot_contact": "Kontakt",
+"a1_no": "Artikel 1",
+"a2_no": "Artikel 2",
+"a3_no": "Artikel 3",
+"a4_no": "Artikel 4",
+"a5_no": "Artikel 5",
+"a6_no": "Artikel 6",
+"a7_no": "Artikel 7",
+"a8_no": "Artikel 8",
+"a9_no": "Artikel 9",
+"a10_no": "Artikel 10",
+"a11_no": "Artikel 11",
+"a12_no": "Artikel 12",
+"a13_no": "Artikel 13",
+"a14_no": "Artikel 14",
+"a15_no": "Artikel 15",
+"a16_no": "Artikel 16",
+"a17_no": "Artikel 17",
+"a18_no": "Artikel 18",
+"a19_no": "Artikel 19",
+"appendix_h": "Schlussbestimmungen",
+"appendix_p1": "Diese Bedingungen treten am 23. April 2026 in Kraft.",
+"appendix_p2": "17. Juli 2026 — Aufnahme einer Bestimmung zur Lizenzgewährung; Ergänzung von Bestimmungen zur Nutzungseinschränkung und Lizenzaktivierung; Ergänzung einer gesetzlichen Ausnahme zum Haftungsausschluss; Klarstellung der Behandlung bei Beendigung des Dienstes.",
+"a1_title": "Geltungsbereich",
+"toc_1": "Geltungsbereich",
+"a1_c1": "Diese Bedingungen gelten für sämtliche Beziehungen zwischen dem Nutzer und dem Unternehmen im Zusammenhang mit der Nutzung des Dienstes.",
+"a1_c2": "Sämtliche Richtlinien, Hinweise und sonstige Nutzungsbedingungen, die das Unternehmen im Rahmen des Dienstes veröffentlicht, sind Bestandteil dieser Bedingungen.",
+"a1_c3": "Bei Widersprüchen zwischen diesen Bedingungen und den im vorstehenden Absatz genannten Richtlinien gehen die Bestimmungen dieser Bedingungen vor.",
+"a2_title": "Registrierung und Lizenzerwerb",
+"toc_2": "Registrierung und Lizenzerwerb",
+"a2_c1": "Der Nutzer nimmt die Registrierung nach Zustimmung zu diesen Bedingungen auf die vom Unternehmen vorgesehene Weise vor (einschließlich des Kaufs und des Erwerbs eines Lizenzschlüssels über das Unternehmen oder einen vom Unternehmen benannten Zahlungsdienstleister).",
+"a2_c2": "Das Unternehmen kann die Registrierung ablehnen, wenn es feststellt, dass beim Antragsteller einer der folgenden Gründe vorliegt:",
+"a2_c2b1": "Wenn falsche Angaben gemacht wurden.",
+"a2_c2b2": "Wenn der Antragsteller in der Vergangenheit gegen diese Bedingungen verstoßen hat.",
+"a2_c2b3": "Wenn das Unternehmen die Registrierung anderweitig für ungeeignet hält.",
+"a3_title": "Verwaltung von Konten und Lizenzschlüsseln",
+"toc_3": "Verwaltung von Konten und Lizenzschlüsseln",
+"a3_c1": "Der Nutzer verwaltet seine Kontodaten und Lizenzschlüssel in eigener Verantwortung.",
+"a3_c2": "Der Nutzer darf sein Konto oder seinen Lizenzschlüssel nicht an Dritte übertragen, verleihen, mit ihnen teilen oder Dritten die Nutzung gestatten.",
+"a3_c3": "Das Unternehmen haftet nicht für Schäden, die aus unzureichender Verwaltung, fehlerhafter Nutzung oder missbräuchlicher Nutzung durch Dritte von Kontodaten oder Lizenzschlüsseln entstehen; dies gilt nicht, sofern der Schaden auf Vorsatz oder grober Fahrlässigkeit des Unternehmens beruht.",
+"a4_title": "Gebühren und Zahlung",
+"toc_4": "Gebühren und Zahlung",
+"a4_c1": "Der Dienst kann kostenpflichtige Pläne anbieten.",
+"a4_c2": "Der Nutzer zahlt die Nutzungsgebühren auf die vom Unternehmen festgelegte Weise (einschließlich der Zahlung über einen vom Unternehmen benannten Zahlungsdienstleister).",
+"a4_c3": "Bereits gezahlte Gebühren werden nicht erstattet, es sei denn, eine Erstattung ist gesetzlich vorgeschrieben, nach den Bedingungen des Zahlungsdienstleisters zulässig oder in diesen Bedingungen anderweitig vorgesehen.",
+"a4_c4": "Die Verfahren für Abschluss, Verlängerung, Änderung, Kündigung und Erstattung von Abonnementverträgen richten sich nach den vom Unternehmen oder dem vom Unternehmen benannten Zahlungsdienstleister festgelegten Verfahren.",
+"a4_c5": "Gebühren für Drittdienste, die der Nutzer im Zusammenhang mit dem Dienst nutzt (einschließlich, aber nicht beschränkt auf Firebase und Google Cloud), trägt der Nutzer.",
+"a5_title": "Lizenzgewährung",
+"toc_5": "Lizenzgewährung",
+"a5_c1": "Das Unternehmen gewährt dem Nutzer ein nicht ausschließliches, nicht übertragbares und nicht unterlizenzierbares Recht zur Nutzung des Dienstes unter der Bedingung der Einhaltung dieser Bedingungen.",
+"a5_c2": "Die Lizenz nach dem vorstehenden Absatz beschränkt sich auf den zur Nutzung des Dienstes erforderlichen Umfang und überträgt dem Nutzer keine Rechte an geistigem Eigentum oder sonstige Rechte am Dienst.",
+"a5_c3": "Die Lizenz nach diesem Artikel endet automatisch mit dem Ablauf oder der Kündigung des Nutzungsvertrags oder der Löschung des Kontos.",
+"a6_title": "Verbotene Handlungen",
+"toc_6": "Verbotene Handlungen",
+"a6_p1": "Bei der Nutzung des Dienstes darf der Nutzer keine der folgenden Handlungen vornehmen:",
+"a6_topb1": "Handlungen, die gegen Gesetze oder die guten Sitten verstoßen.",
+"a6_topb2": "Handlungen im Zusammenhang mit Straftaten.",
+"a6_topb3": "Unbefugter Zugriff oder Versuche hierzu.",
+"a6_topb4": "Handlungen, die den Dienst oder dessen Server übermäßig belasten.",
+"a6_topb5": "Handlungen, die den Betrieb des Dienstes stören.",
+"a6_topb6": "Analyse, Dekompilierung, Disassemblierung oder Reverse Engineering des Dienstes.",
+"a6_topb7": "Vervielfältigung, Änderung, Bearbeitung, Weiterverbreitung oder Verkauf des Dienstes (außer mit ausdrücklicher Genehmigung des Unternehmens).",
+"a6_topb8": "Weitergabe, Weiterverkauf oder unrechtmäßiger Erwerb eines Lizenzschlüssels.",
+"a6_topb9": "Verletzung von Rechten an geistigem Eigentum oder sonstigen Rechten des Unternehmens oder Dritter.",
+"a6_topb10": "Sonstige Handlungen, die das Unternehmen für unangemessen hält.",
+"a7_title": "Änderung, Einschränkung, Aussetzung oder Beendigung des Dienstes",
+"toc_7": "Änderung, Einschränkung, Aussetzung oder Beendigung des Dienstes",
+"a7_c1": "Das Unternehmen kann den Inhalt des Dienstes ändern oder ergänzen. Bei Änderungen, die den Nutzer erheblich betreffen, bemüht sich das Unternehmen, diese mit angemessener Frist im Voraus bekannt zu geben.",
+"a7_c2": "Das Unternehmen kann den Dienst ohne vorherige Ankündigung ganz oder teilweise vorübergehend aussetzen oder unterbrechen, wenn einer der folgenden Fälle vorliegt:",
+"a7_c2b1": "Bei Wartung, Überprüfung oder Aktualisierung des Systems.",
+"a7_c2b2": "Wenn die Bereitstellung des Dienstes durch höhere Gewalt wie Erdbeben, Blitzschlag, Brand, Stromausfall oder Naturkatastrophen erschwert wird.",
+"a7_c2b3": "Wenn das System oder die Kommunikationsleitungen aufgrund eines Störfalls ausfallen.",
+"a7_c2b4": "Wenn das Unternehmen eine Aussetzung oder Unterbrechung anderweitig für erforderlich hält.",
+"a7_c3": "Zur Gewährleistung eines stabilen Betriebs des Dienstes kann das Unternehmen je nach Plan Beschränkungen hinsichtlich der Anzahl der Nutzungen, der Häufigkeit, der Funktionen oder sonstiger Aspekte der Nutzung festlegen.",
+"a7_c4": "Die Lizenzaktivierung kann aufgrund von Wartung, Störungen oder anderen Gründen des für die Lizenzaktivierung des Dienstes verwendeten Servers vorübergehend nicht verfügbar sein. In diesem Fall gilt Absatz 2 entsprechend, und das Unternehmen bemüht sich um eine umgehende Wiederherstellung.",
+"a7_c5": "Beendet das Unternehmen den gesamten Dienst, informiert es die Nutzer grundsätzlich innerhalb einer angemessenen Frist vor dem Beendigungstermin durch Veröffentlichung im Dienst oder auf andere vom Unternehmen für geeignet gehaltene Weise.",
+"a7_c6": "Im Fall des vorstehenden Absatzes gewährt das Unternehmen, sofern ein nicht verbrauchter Teil der bereits gezahlten Gebühren besteht, eine anteilige Erstattung oder eine Ersatzmaßnahme; dies gilt nicht, wenn der Nutzungsvertrag wegen eines Verstoßes des Nutzers gegen diese Bedingungen beendet wird.",
+"a8_title": "Einbindung externer Dienste",
+"toc_8": "Einbindung externer Dienste",
+"a8_c1": "Der Dienst kann in Verbindung mit Firebase, Google Cloud, KI-Diensten und anderen Drittdiensten arbeiten.",
+"a8_c2": "Bei der Nutzung solcher Drittdienste hat der Nutzer die jeweiligen Nutzungsbedingungen und Richtlinien einzuhalten.",
+"a8_c3": "Das Unternehmen haftet nicht, wenn der Dienst ganz oder teilweise infolge von Spezifikationsänderungen, Störungen, Aussetzung oder Beendigung von Drittdiensten nicht verfügbar wird; dies gilt nicht bei Vorsatz oder grober Fahrlässigkeit des Unternehmens.",
+"a8_c4": "Das Unternehmen übernimmt keine Gewähr für die Richtigkeit, Vollständigkeit oder Nützlichkeit der Ausgaben eines in den Dienst eingebundenen KI-Dienstes. Der Nutzer hat die Ausgaben vor der Nutzung in eigener Verantwortung zu überprüfen.",
+"a9_title": "Datenverwaltung",
+"toc_9": "Datenverwaltung",
+"a9_c1": "Der Nutzer verwaltet die über den Dienst bearbeiteten oder gespeicherten Daten (einschließlich der in Firebase, Firestore, Storage usw. gespeicherten Daten) in eigener Verantwortung und erstellt bei Bedarf Sicherungskopien.",
+"a9_c2": "Das Unternehmen gewährleistet weder die dauerhafte Speicherung noch die Integrität der Nutzerdaten.",
+"a9_c3": "Für Beta-Funktionen oder testweise bereitgestellte Funktionen übernimmt das Unternehmen keine Gewähr für die fortgesetzte Bereitstellung, Qualität, Funktion oder Datenerhaltung.",
+"a10_title": "Haftungsausschluss",
+"toc_10": "Haftungsausschluss",
+"a10_c1": "Der Dienst wird „wie besehen“ (as is) bereitgestellt; das Unternehmen übernimmt keinerlei Gewähr für dessen Vollständigkeit, Nützlichkeit, Sicherheit, Richtigkeit, Eignung für einen bestimmten Zweck oder Sonstiges.",
+"a10_c2": "Das Unternehmen haftet nicht für Schäden, die durch Verlust, Beschädigung, Verfälschung, versehentliche Löschung oder unerwartete Änderung von Daten entstehen.",
+"a10_c3": "Das Unternehmen haftet nicht für Schäden, die durch Systemausfälle, Kommunikationsstörungen, unbefugten Zugriff Dritter, Computerviren oder sonstige nicht vom Unternehmen zu vertretende Ursachen entstehen.",
+"a10_c4": "Das Unternehmen haftet nicht für indirekte Schäden, Sonderschäden, entgangenen Gewinn oder sonstige Schäden, die aus der Nutzung oder der Nichtnutzbarkeit des Dienstes entstehen.",
+"a10_c5": "Ungeachtet der vorstehenden Absätze haftet das Unternehmen nach Maßgabe der einschlägigen Gesetze, sofern es vorsätzlich oder grob fahrlässig handelt oder ein Haftungsausschluss nach dem Verbrauchervertragsgesetz oder anderen Gesetzen nicht zulässig ist.",
+"a11_title": "Haftungsbeschränkung",
+"toc_11": "Haftungsbeschränkung",
+"a11_p1": "Auch wenn das Unternehmen dem Nutzer im Zusammenhang mit dem Dienst zum Schadensersatz verpflichtet ist, ist diese Haftung auf den Gesamtbetrag der von diesem Nutzer an das Unternehmen gezahlten Gebühren begrenzt; dies gilt nicht bei Vorsatz oder grober Fahrlässigkeit des Unternehmens oder wenn diese Beschränkung gesetzlich nicht zulässig ist.",
+"a12_title": "Nutzungssperre und Kontolöschung",
+"toc_12": "Nutzungssperre und Kontolöschung",
+"a12_c1": "Das Unternehmen kann die Nutzung des Dienstes ohne vorherige Ankündigung sperren oder das Konto des Nutzers löschen, wenn der Nutzer gegen diese Bedingungen verstößt oder das Unternehmen dies für den Betrieb des Dienstes für erforderlich hält.",
+"a12_c2": "Beruht eine Maßnahme nach dem vorstehenden Absatz nicht auf einem Verstoß des Nutzers gegen diese Bedingungen und besteht ein nicht verbrauchter Teil der bereits gezahlten Gebühren, so gilt Artikel 7 Absatz 6 entsprechend.",
+"a12_c3": "Erleidet das Unternehmen durch einen Verstoß des Nutzers gegen diese Bedingungen einen Schaden, kann es von diesem Nutzer Schadensersatz verlangen.",
+"a13_title": "Rechte an geistigem Eigentum",
+"toc_13": "Rechte an geistigem Eigentum",
+"a13_p1": "Sämtliche Urheberrechte, Markenrechte und sonstigen Rechte an geistigem Eigentum am Dienst sowie an den im Dienst enthaltenen Programmen, Designs, Texten, Bildern und allen sonstigen Inhalten stehen dem Unternehmen oder den berechtigten Rechteinhabern zu. Die Lizenz zur Nutzung des Dienstes nach diesen Bedingungen überträgt keines dieser Rechte auf den Nutzer.",
+"a14_title": "Umgang mit personenbezogenen Daten",
+"toc_14": "Umgang mit personenbezogenen Daten",
+"a14_p1": "Das Unternehmen behandelt die durch die Nutzung des Dienstes erhobenen personenbezogenen Daten der Nutzer ordnungsgemäß gemäß der gesondert vom Unternehmen festgelegten Datenschutzerklärung.",
+"a15_title": "Ausschluss antisozialer Kräfte",
+"toc_15": "Ausschluss antisozialer Kräfte",
+"a15_c1": "Der Nutzer versichert und gewährleistet, dass er keiner organisierten kriminellen Vereinigung (Bōryokudan), deren Mitgliedern, mit ihr verbundenen Unternehmen oder sonstigen antisozialen Kräften (nachfolgend „antisoziale Kräfte“) angehört und in keiner Beziehung zu antisozialen Kräften steht.",
+"a15_c2": "Verstößt der Nutzer gegen den vorstehenden Absatz, kann das Unternehmen den Nutzungsvertrag ohne vorherige Ankündigung kündigen oder die Nutzung des Dienstes sperren. In diesem Fall haftet das Unternehmen nicht für Schäden, die dem Nutzer durch diese Kündigung oder Sperrung entstehen.",
+"a16_title": "Abtretungsverbot von Rechten und Pflichten",
+"toc_16": "Abtretungsverbot von Rechten und Pflichten",
+"a16_p1": "Der Nutzer darf seine Stellung aus dem Nutzungsvertrag oder seine Rechte oder Pflichten aus diesen Bedingungen ohne vorherige schriftliche Zustimmung des Unternehmens weder an Dritte abtreten noch als Sicherheit stellen.",
+"a17_title": "Salvatorische Klausel",
+"toc_17": "Salvatorische Klausel",
+"a17_p1": "Sollte eine Bestimmung dieser Bedingungen oder ein Teil davon nach dem Verbrauchervertragsgesetz oder anderen Gesetzen unwirksam oder undurchsetzbar sein, so bleiben die übrigen Bestimmungen dieser Bedingungen in vollem Umfang wirksam.",
+"a18_title": "Änderung der Bedingungen",
+"toc_18": "Änderung der Bedingungen",
+"a18_c1": "Das Unternehmen kann diese Bedingungen gemäß Artikel 548-4 des japanischen Zivilgesetzbuchs in einem der folgenden Fälle ändern:",
+"a18_c1b1": "Wenn die Änderung dem allgemeinen Interesse der Nutzer entspricht.",
+"a18_c1b2": "Wenn die Änderung dem Zweck des Nutzungsvertrags nicht widerspricht und unter Berücksichtigung der Erforderlichkeit der Änderung, der Angemessenheit des geänderten Inhalts und sonstiger die Änderung betreffender Umstände angemessen ist.",
+"a18_c2": "Bei einer Änderung dieser Bedingungen gibt das Unternehmen den Inhalt der geänderten Bedingungen und den Zeitpunkt ihres Inkrafttretens innerhalb einer angemessenen Frist vor diesem Zeitpunkt durch Veröffentlichung im Dienst oder auf andere vom Unternehmen für geeignet gehaltene Weise bekannt.",
+"a18_c3": "Nutzt der Nutzer den Dienst ab dem Zeitpunkt des Inkrafttretens der geänderten Bedingungen, gilt seine Zustimmung zu den geänderten Bedingungen als erteilt.",
+"a19_title": "Anwendbares Recht und Gerichtsstand",
+"toc_19": "Anwendbares Recht und Gerichtsstand",
+"a19_c1": "Diese Bedingungen unterliegen dem Recht Japans und werden nach diesem ausgelegt.",
+"a19_c2": "Bei Streitigkeiten zwischen dem Nutzer und dem Unternehmen im Zusammenhang mit dem Dienst ist das für den Sitz der Hauptniederlassung des Unternehmens zuständige Distriktgericht (Chihō Saibansho) ausschließlicher Gerichtsstand erster Instanz."
+}
+};
+  function setLang(l){
+    if(!I18N[l]) l = 'ja';
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var k = el.getAttribute('data-i18n');
+      if(I18N[l][k] != null) el.textContent = I18N[l][k];
+    });
+    if(I18N[l]['__title']) document.title = I18N[l]['__title'];
+    document.querySelectorAll('.lang button').forEach(function(b){
+      b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false');
+    });
+    try{ localStorage.setItem('firemaru_terms_lang', l); }catch(e){}
+  }
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.dataset.lang); });
+  });
+  var init = 'ja';
+  try{ init = localStorage.getItem('firemaru_terms_lang') || 'ja'; }catch(e){}
+  setLang(init);
+</script>
+
+</body>
+</html>
