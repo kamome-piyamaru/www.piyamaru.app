@@ -560,6 +560,9 @@
         <button onclick="switchPage('shifter')" id="nav-shifter">
           位置調整
         </button>
+        <button onclick="switchPage('iconmaker')" id="nav-iconmaker">
+          アイコン作成
+        </button>
       </nav>
     </header>
 
@@ -589,6 +592,20 @@
           </div>
 
           <!-- ツール 2 -->
+          <div class="tool-card" onclick="switchPage('iconmaker')">
+            <div>
+              <span class="badge">画像ツール</span>
+              <h3>デスクトップアプリアイコン作成ツール</h3>
+              <p>
+                画像ファイルをアップロードするだけで、macOS用（.icns）、Windows用（.ico）、Linux用（.png）のデスクトップアプリアイコンを一括生成します。
+              </p>
+            </div>
+            <button class="btn-action" style="margin-top: 15px">
+              ツールを開く
+            </button>
+          </div>
+
+          <!-- ツール 3 -->
           <div class="tool-card">
             <div>
               <span class="badge coming-soon">開発予定</span>
@@ -985,6 +1002,82 @@
           </div>
         </div>
       </section>
+
+      <!-- ==================== ツール2：デスクトップアプリアイコン作成画面 ==================== -->
+      <section id="page-iconmaker" class="page">
+        <div class="tool-header">
+          <button class="btn-back" onclick="switchPage('home')">
+            ← メニューに戻る
+          </button>
+          <h2>デスクトップアプリアイコン作成ツール</h2>
+        </div>
+
+        <div class="controls-card">
+          <div class="form-group upload-drop-zone" id="iconUploadDropZone">
+            <p>
+              ここに画像をドラッグ＆ドロップ、またはファイルを選択してください。<br />
+              正方形（推奨: 1024×1024px以上、透過PNG可）の画像を推奨します。
+            </p>
+            <input type="file" id="iconUpload" accept="image/*" />
+          </div>
+
+          <div
+            id="iconPreviewWrap"
+            style="
+              display: none;
+              margin-top: 20px;
+              align-items: center;
+              gap: 20px;
+              flex-wrap: wrap;
+            "
+          >
+            <canvas
+              id="iconPreviewCanvas"
+              width="256"
+              height="256"
+              style="
+                width: 160px;
+                height: 160px;
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                background-image: linear-gradient(45deg, #eee 25%, transparent 25%),
+                  linear-gradient(-45deg, #eee 25%, transparent 25%),
+                  linear-gradient(45deg, transparent 75%, #eee 75%),
+                  linear-gradient(-45deg, transparent 75%, #eee 75%);
+                background-size: 16px 16px;
+                background-position:
+                  0 0,
+                  0 8px,
+                  8px -8px,
+                  -8px 0;
+              "
+            ></canvas>
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                flex: 1;
+                min-width: 220px;
+              "
+            >
+              <button class="btn-action" id="downloadIcnsBtn" type="button">
+                icon.icns を保存（macOS用）
+              </button>
+              <button class="btn-action" id="downloadIcoBtn" type="button">
+                icon.ico を保存（Windows用）
+              </button>
+              <button class="btn-action" id="downloadPngBtn" type="button">
+                icon.png を保存（Linux用）
+              </button>
+            </div>
+          </div>
+
+          <div id="iconFormStatus" class="status-message">
+            準備完了: 画像をアップロードするとアイコンを生成できます。
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer>
@@ -1088,5 +1181,6 @@
     </script>
     <!-- JSファイルの読み込み -->
     <script src="app.js"></script>
+    <script src="icon-maker.js"></script>
   </body>
 </html>
