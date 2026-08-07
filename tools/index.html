@@ -373,6 +373,12 @@
         background-color: #e2e8f0;
       }
 
+      .btn-mini.active {
+        background-color: var(--primary-color);
+        color: #fff;
+        border-color: var(--primary-color);
+      }
+
       .view-mode-controls {
         margin-top: 12px;
         padding: 12px;
@@ -1103,11 +1109,135 @@
               <input type="file" id="tripodBaseUpload" accept="image/*,video/*" />
             </div>
 
-            <div class="form-group upload-drop-zone" id="tripodPatchDropZone" style="flex: 1; min-width: 260px;">
-              <p>
-                ② 真下に合成する<strong>トライポッド用の画像</strong>（ロゴ・パターン）を選択してください。
+            <div style="flex: 1; min-width: 260px; display: flex; flex-direction: column;">
+              <p style="margin-bottom: 8px; font-size: 0.9rem">
+                ② 真下に合成する<strong>トライポッド用パッチ</strong>を用意してください。
               </p>
-              <input type="file" id="tripodPatchUpload" accept="image/*" />
+
+              <div
+                style="
+                  display: flex;
+                  gap: 6px;
+                  margin-bottom: 10px;
+                "
+              >
+                <button
+                  type="button"
+                  class="btn-mini"
+                  id="patchModeUploadBtn"
+                  style="flex: 1"
+                >
+                  画像をアップロード
+                </button>
+                <button
+                  type="button"
+                  class="btn-mini"
+                  id="patchModeEditorBtn"
+                  style="flex: 1"
+                >
+                  円+テキストで作成
+                </button>
+              </div>
+
+              <div class="form-group upload-drop-zone" id="tripodPatchDropZone">
+                <p>
+                  画像ファイルをドラッグ＆ドロップ、または選択してください。
+                </p>
+                <input type="file" id="tripodPatchUpload" accept="image/*" />
+              </div>
+
+              <div
+                id="patchEditorPanel"
+                style="
+                  display: none;
+                  border: 1px solid var(--border-color);
+                  border-radius: 10px;
+                  padding: 14px;
+                  background: var(--bg-color);
+                "
+              >
+                <div
+                  style="
+                    display: flex;
+                    gap: 16px;
+                    flex-wrap: wrap;
+                  "
+                >
+                  <canvas
+                    id="patchEditorCanvas"
+                    width="512"
+                    height="512"
+                    style="
+                      width: 150px;
+                      height: 150px;
+                      border-radius: 50%;
+                      flex-shrink: 0;
+                      background-image: linear-gradient(45deg, #eee 25%, transparent 25%),
+                        linear-gradient(-45deg, #eee 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #eee 75%),
+                        linear-gradient(-45deg, transparent 75%, #eee 75%);
+                      background-size: 16px 16px;
+                      background-position:
+                        0 0,
+                        0 8px,
+                        8px -8px,
+                        -8px 0;
+                    "
+                  ></canvas>
+
+                  <div style="flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 10px;">
+                    <div class="exif-field">
+                      <label for="patchCircleColor">円の色</label>
+                      <input type="color" id="patchCircleColor" value="#4f46e5" />
+                    </div>
+                    <div class="exif-field">
+                      <label for="patchCircleText">入力テキスト</label>
+                      <input
+                        type="text"
+                        id="patchCircleText"
+                        placeholder="例: TRIPOD"
+                        value="TRIPOD"
+                      />
+                    </div>
+                    <div class="exif-field">
+                      <label for="patchTextColor">テキストの色</label>
+                      <input type="color" id="patchTextColor" value="#ffffff" />
+                    </div>
+                    <div class="exif-field">
+                      <label for="patchFontFamily">フォント</label>
+                      <select id="patchFontFamily">
+                        <option value="'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif">
+                          ゴシック体（Hiragino/Yu Gothic）
+                        </option>
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="Verdana, sans-serif">Verdana</option>
+                        <option value="Georgia, serif">Georgia</option>
+                        <option value="'Times New Roman', serif">
+                          Times New Roman
+                        </option>
+                        <option value="'Courier New', monospace">
+                          Courier New
+                        </option>
+                        <option value="Impact, sans-serif">Impact</option>
+                      </select>
+                    </div>
+                    <div class="mini-slider-group" style="margin-top: 0">
+                      <div class="mini-slider-head">
+                        <label for="patchFontSize">フォントサイズ</label>
+                        <strong id="patchFontSizeValue">48px</strong>
+                      </div>
+                      <input
+                        type="range"
+                        id="patchFontSize"
+                        class="mini-slider"
+                        min="16"
+                        max="110"
+                        value="48"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1175,6 +1305,21 @@
             ※
             Equirectangular（360°）形式の画像・動画を想定しています。パッチ画像は正方形（円形デザイン）を推奨します。
           </p>
+
+          <div
+            id="tripodVideoFormatGroup"
+            style="display: none; margin-top: 16px"
+          >
+            <div class="exif-field">
+              <label for="tripodVideoFormatSelect">動画の出力形式</label>
+              <select id="tripodVideoFormatSelect">
+                <option value="auto">元の形式のまま（未選択時の自動）</option>
+                <option value="webm-vp9">WebM (VP9)</option>
+                <option value="webm-vp8">WebM (VP8)</option>
+                <option value="mp4">MP4 (H.264) ※対応ブラウザのみ</option>
+              </select>
+            </div>
+          </div>
 
           <div
             style="
