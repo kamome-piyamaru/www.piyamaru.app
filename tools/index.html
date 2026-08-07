@@ -563,6 +563,9 @@
         <button onclick="switchPage('iconmaker')" id="nav-iconmaker">
           アイコン作成
         </button>
+        <button onclick="switchPage('tripod')" id="nav-tripod">
+          トライポッド
+        </button>
       </nav>
     </header>
 
@@ -606,24 +609,20 @@
           </div>
 
           <!-- ツール 3 -->
-          <div class="tool-card">
+          <div class="tool-card" onclick="switchPage('tripod')">
             <div>
-              <span class="badge coming-soon">開発予定</span>
-              <h3>Nadir Patch (ロゴ/合成)</h3>
+              <span class="badge">画像/動画ツール</span>
+              <h3>トライポッド</h3>
               <p>
-                VR写真の真下（足元・三脚跡）や真上に、独自のウォーターマークやロゴマークを自動補正して合成します。
+                VR写真・VR動画の真下（三脚跡・足元）に、独自のロゴやパターン画像を球面に合わせて自動補正しながら合成します。
               </p>
             </div>
-            <button
-              class="btn-action"
-              style="background: #cbd5e1; cursor: not-allowed"
-              disabled
-            >
-              準備中
+            <button class="btn-action" style="margin-top: 15px">
+              ツールを開く
             </button>
           </div>
 
-          <!-- ツール 3 -->
+          <!-- ツール 4 -->
           <div class="tool-card">
             <div>
               <span class="badge coming-soon">開発予定</span>
@@ -1078,6 +1077,153 @@
           </div>
         </div>
       </section>
+
+      <!-- ==================== ツール3：トライポッド（Nadirパッチ合成）画面 ==================== -->
+      <section id="page-tripod" class="page">
+        <div class="tool-header">
+          <button class="btn-back" onclick="switchPage('home')">
+            ← メニューに戻る
+          </button>
+          <h2>トライポッド（Nadirパッチ合成）ツール</h2>
+        </div>
+
+        <div class="controls-card">
+          <div
+            style="
+              display: flex;
+              gap: 20px;
+              flex-wrap: wrap;
+              margin-bottom: 20px;
+            "
+          >
+            <div class="form-group upload-drop-zone" id="tripodBaseDropZone" style="flex: 1; min-width: 260px;">
+              <p>
+                ① 貼り付け対象の<strong>画像または動画</strong>（360°/VRコンテンツ）をドラッグ＆ドロップ、または選択してください。
+              </p>
+              <input type="file" id="tripodBaseUpload" accept="image/*,video/*" />
+            </div>
+
+            <div class="form-group upload-drop-zone" id="tripodPatchDropZone" style="flex: 1; min-width: 260px;">
+              <p>
+                ② 真下に合成する<strong>トライポッド用の画像</strong>（ロゴ・パターン）を選択してください。
+              </p>
+              <input type="file" id="tripodPatchUpload" accept="image/*" />
+            </div>
+          </div>
+
+          <div class="mini-slider-group">
+            <div class="mini-slider-head">
+              <label for="tripodAngleSlider">パッチ範囲（Nadirからの角度）</label>
+              <strong id="tripodAngleValue">20°</strong>
+            </div>
+            <input
+              type="range"
+              id="tripodAngleSlider"
+              class="mini-slider"
+              min="5"
+              max="89"
+              value="20"
+            />
+          </div>
+
+          <div class="mini-slider-group">
+            <div class="mini-slider-head">
+              <label for="tripodRotationSlider">パッチの回転</label>
+              <strong id="tripodRotationValue">0°</strong>
+            </div>
+            <input
+              type="range"
+              id="tripodRotationSlider"
+              class="mini-slider"
+              min="0"
+              max="359"
+              value="0"
+            />
+          </div>
+
+          <div class="mini-slider-group">
+            <div class="mini-slider-head">
+              <label for="tripodFeatherSlider">境界のぼかし（フェザー）</label>
+              <strong id="tripodFeatherValue">15%</strong>
+            </div>
+            <input
+              type="range"
+              id="tripodFeatherSlider"
+              class="mini-slider"
+              min="0"
+              max="50"
+              value="15"
+            />
+          </div>
+
+          <div class="mini-slider-group">
+            <div class="mini-slider-head">
+              <label for="tripodOpacitySlider">パッチの不透明度</label>
+              <strong id="tripodOpacityValue">100%</strong>
+            </div>
+            <input
+              type="range"
+              id="tripodOpacitySlider"
+              class="mini-slider"
+              min="0"
+              max="100"
+              value="100"
+            />
+          </div>
+
+          <p class="view-mode-note">
+            ※
+            Equirectangular（360°）形式の画像・動画を想定しています。パッチ画像は正方形（円形デザイン）を推奨します。
+          </p>
+
+          <div
+            style="
+              margin-top: 16px;
+              display: flex;
+              gap: 12px;
+              align-items: center;
+              flex-wrap: wrap;
+            "
+          >
+            <button
+              class="btn-action"
+              id="tripodDownloadBtn"
+              type="button"
+              disabled
+            >
+              合成した画像をダウンロード
+            </button>
+            <button
+              class="btn-action btn-secondary"
+              id="tripodPlayPreviewBtn"
+              type="button"
+              style="display: none"
+            >
+              プレビュー再生
+            </button>
+          </div>
+
+          <div id="tripodFormStatus" class="status-message">
+            準備完了: 対象の画像/動画とトライポッド用画像をアップロードしてください。
+          </div>
+        </div>
+
+        <div
+          id="tripodCanvasContainer"
+          style="
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            background: repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%) 50% /
+              20px 20px;
+            border-radius: 12px;
+            overflow: hidden;
+          "
+        >
+          <canvas id="tripodCanvas" style="max-width: 100%; height: auto"></canvas>
+        </div>
+        <video id="tripodVideoEl" style="display: none" muted playsinline></video>
+      </section>
     </main>
 
     <footer>
@@ -1182,5 +1328,6 @@
     <!-- JSファイルの読み込み -->
     <script src="app.js"></script>
     <script src="icon-maker.js"></script>
+    <script src="tripod-patch.js"></script>
   </body>
 </html>
