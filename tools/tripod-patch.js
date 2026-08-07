@@ -647,7 +647,7 @@
   // エンコーダ設定が実際に動作するかを確認する。isTypeSupported()がtrueでも
   // 実行時に失敗するケースがあるため、ここで軽量に弾いておくことで、
   // 動画全体を毎回最初から再生し直す重いリトライを避けられる。
-  async function probeRecorderOptions(recorderOptions, fps) {
+  async function probeRecorderOptions(recorderOptions, fps, audioTracks) {
     return new Promise((resolve) => {
       let settled = false;
       const finish = (ok) => {
@@ -657,6 +657,7 @@
       };
       try {
         const probeStream = canvas.captureStream(fps);
+        (audioTracks || []).forEach((track) => probeStream.addTrack(track));
         const recorder = new MediaRecorder(probeStream, recorderOptions);
         recorder.onerror = () => finish(false);
         recorder.onstop = () => finish(true);
@@ -775,7 +776,7 @@
         ];
 
         for (const options of optionSets) {
-          const ok = await probeRecorderOptions(options, fps);
+          const ok = await probeRecorderOptions(options, fps, audioTracks);
           if (ok) {
             chosenOptions = options;
             mimeType = candidate;
