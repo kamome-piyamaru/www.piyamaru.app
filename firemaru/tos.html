@@ -868,13 +868,13 @@
     document.querySelectorAll('.lang button').forEach(function(b){
       b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false');
     });
-    try{ localStorage.setItem('firemaru_terms_lang', l); }catch(e){}
+      try{ localStorage.setItem('firemaru_lang', l); }catch(e){}
   }
   document.querySelectorAll('.lang button').forEach(function(b){
     b.addEventListener('click', function(){ setLang(b.dataset.lang); });
   });
   var init = 'ja';
-  try{ init = localStorage.getItem('firemaru_terms_lang') || 'ja'; }catch(e){}
+  try{ init = localStorage.getItem('firemaru_lang') || 'ja'; }catch(e){}
   setLang(init);
 </script>
 

@@ -721,11 +721,17 @@ function setLang(lang){
   document.querySelectorAll('.lang button').forEach(btn => {
     btn.setAttribute('aria-pressed', btn.dataset.lang === lang ? 'true' : 'false');
   });
+  try{ localStorage.setItem('firemaru_lang', lang); }catch(e){}
 }
 
 document.querySelectorAll('.lang button').forEach(btn => {
   btn.addEventListener('click', () => setLang(btn.dataset.lang));
 });
+
+/* ページ読み込み時：保存された言語を復元（なければ ja） */
+var initLang = 'ja';
+try{ initLang = localStorage.getItem('firemaru_lang') || 'ja'; }catch(e){}
+setLang(initLang);
 
 /* ── 埋め込み画像(ロゴ・マスコット) ── */
 const LOGO_B64 =
