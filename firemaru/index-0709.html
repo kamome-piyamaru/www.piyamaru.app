@@ -404,6 +404,9 @@
         </div>
       </div>
     </div>
+    <div style="text-align:center;margin-top:40px">
+      <a class="btn btn-ghost" href="manual/index.html" target="_blank" rel="noopener noreferrer" data-i18n="feat_manual">機能詳細を見る</a>
+    </div>
   </div>
 </section>
 
@@ -493,7 +496,7 @@
 <footer>
   <div class="wrap foot">
     <nav class="foot-links" aria-label="footer">
-      <a href="manual/index.html" data-i18n="foot_manual">マニュアル</a>
+      <a href="manual/index.html" data-i18n="foot_manual" target="_blank" rel="noopener noreferrer">マニュアル</a>
       <a href="https://www.piyamaru.com/privacy-piyamaru" data-i18n="foot_privacy">プライバシーポリシー</a>
       <a href="tos.html" data-i18n="foot_terms">利用規約</a>
       <a href="mailto:firemaru@piyamaru.com" data-i18n="foot_contact">お問い合わせ</a>
@@ -538,6 +541,7 @@ const I18N = {
     f3_p: "バケット内のファイルをエクスプローラー感覚でブラウズ。アップロード・ダウンロード・削除もドラッグ操作で直感的に。",
     f4_h: 'Cloud Functions ログ管理 <code>/Cloud Functions</code>',
     f4_p: "デプロイ済み関数の一覧と状態をひと目で確認。どの関数が動いているか、コンソールを開かずに把握できます。",
+    feat_manual: "機能詳細を見る",
     price_title: "料金",
     price_lead: "まずは無料で。気に入ったら、月額か年間かを選ぶだけ。",
     free_name: "FREE TRIAL",
@@ -605,6 +609,7 @@ const I18N = {
     f3_p: "Browse bucket files like a file explorer. Upload, download, and delete with intuitive drag-and-drop.",
     f4_h: 'Cloud Functions log management <code>/Cloud Functions</code>',
     f4_p: "See deployed functions and their status at a glance — know what's running without ever opening the Console.",
+    feat_manual: "See all features",
     price_title: "Pricing",
     price_lead: "Start free. Then pick monthly or yearly.",
     free_name: "FREE TRIAL",
@@ -672,6 +677,7 @@ const I18N = {
     f3_p: "Dateien im Bucket wie im Datei-Explorer durchstöbern. Hochladen, Herunterladen und Löschen per Drag & Drop.",
     f4_h: 'Cloud-Functions-Log-Verwaltung <code>/Cloud Functions</code>',
     f4_p: "Bereitgestellte Funktionen und ihren Status auf einen Blick erfassen — ganz ohne Console.",
+    feat_manual: "Funktionsdetails ansehen",
     price_title: "Preise",
     price_lead: "Kostenlos starten. Danach monatlich oder jährlich.",
     free_name: "FREE TRIAL",
@@ -824,10 +830,11 @@ document.getElementById("mascot-img").src = "data:image/png;base64," + MASCOT_B6
 
 /* ── ダウンロードURL：バージョン更新時はここだけ直せばOK ── */
 const FIREMARU_DOWNLOADS = {
-  "mac-arm64": "https://pub-a9cdd797bae04c95a7f6b89b013b8351.r2.dev/firemaru-1.0.0-mac-arm64.dmg",
-  "mac-x64":   "https://pub-a9cdd797bae04c95a7f6b89b013b8351.r2.dev/firemaru-1.0.0-mac-x64.dmg",
-  "win-x64":   "https://pub-a9cdd797bae04c95a7f6b89b013b8351.r2.dev/firemaru-1.0.0-win-x64.exe"
+  "mac-arm64": "https://download.firemaru.com/firemaru-1.0.3-mac-arm64.dmg",
+  "mac-x64":   "https://download.firemaru.com/firemaru-1.0.3-mac-x64.dmg",
+  "win-x64":   "https://download.firemaru.com/firemaru-1.0.3-win-x64.exe"
 };
+
 document.querySelectorAll('.dl-btn[data-fm-key]').forEach(a => {
   const url = FIREMARU_DOWNLOADS[a.dataset.fmKey];
   if (url) a.setAttribute('href', url);
