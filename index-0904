@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ぴやまるカンパニーのアプリ一覧</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1F8F6; --surface:#FFFFFF; --teal:#12A69B; --teal-deep:#0B5F58; --teal-ink:#093E3A;
+  --muted:#6E8C88; --accent:#FFB43D; --tile:#E5F3F0;
+  --line:rgba(11,95,88,.10); --shadow:0 6px 22px rgba(11,95,88,.10);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:#2A423F;
+  font-family:"Zen Kaku Gothic New",system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+
+/* 左上ロゴ */
+.site-head{padding:20px 18px 4px;}
+.site-head__logo img{width:min(280px,64vw);height:auto;display:inline-block;}
+
+main{max-width:1020px;margin:0 auto;padding:12px 18px 48px;}
+
+/* カテゴリ見出し（シンプル） */
+.cat{margin-top:34px;}
+.cat:first-child{margin-top:8px;}
+.cat__head{display:flex;align-items:center;gap:10px;margin:0 0 16px;}
+.cat__head::before{content:"";width:8px;height:22px;border-radius:6px;background:var(--teal);flex:none;}
+.cat__title{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;
+  font-size:clamp(17px,4.6vw,21px);color:var(--teal-ink);margin:0;}
+
+/* 並べる枠：スマホ2列／タブレット3列／PC4列 */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+@media(min-width:560px){.grid{grid-template-columns:repeat(3,1fr);}}
+@media(min-width:840px){.grid{grid-template-columns:repeat(4,1fr);}}
+
+/* カード */
+.card{background:var(--surface);border:1px solid var(--line);
+  border-radius:20px;box-shadow:var(--shadow);padding:10px 10px 14px;
+  display:flex;flex-direction:column;}
+.card__img{display:block;aspect-ratio:1/1;border-radius:14px;
+  overflow:hidden;background:var(--tile);position:relative;}
+.card__img img{width:100%;height:100%;object-fit:cover;display:block;}
+.card__img:focus-visible{outline:3px solid var(--teal);outline-offset:2px;}
+.card__ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:12px;color:var(--teal-deep);
+  background:radial-gradient(120% 100% at 30% 0%,#EBF6F3 0%,var(--tile) 55%,#D9EEEA 100%);
+  font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:15px;line-height:1.4;}
+.card__name{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;
+  font-size:15px;color:var(--teal-ink);margin:12px 4px 2px;}
+.card__desc{margin:0 4px;font-size:12.5px;color:var(--muted);line-height:1.6;}
+.card__btn{margin-top:12px;display:block;text-align:center;background:var(--teal);color:#fff;
+  font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:14px;
+  padding:10px 12px;border-radius:999px;transition:transform .08s ease,background-color .15s ease;}
+.card__btn:hover{background:var(--teal-deep);}
+.card__btn:active{transform:scale(.97);}
+.card__btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px;}
+
+/* フッター */
+footer{text-align:center;padding:26px 20px 40px;border-top:1px solid var(--line);background:#EAF4F1;}
+.footer__links{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:center;
+  font-size:13px;font-weight:500;color:var(--teal-deep);}
+.footer__links a:hover{color:var(--teal);text-decoration:underline;}
+.footer__copy{margin-top:14px;font-size:12px;color:var(--muted);}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+
+  <header class="site-head">
+    <a class="site-head__logo" href="https://www.piyamaru.com/">
+      <img src="https://www.piyamaru.app/ぴやまる_ロゴ（カラー横キャラあり）.png" alt="ぴやまる">
+    </a>
+  </header>
+
+<main>
+
+  <!-- ===== エンタメ ===== -->
+  <section class="cat">
+    <div class="cat__head"><h2 class="cat__title">エンタメ</h2></div>
+    <div class="grid">
+
+      <div class="card">
+        <a class="card__img" href="#" aria-label="ルーレットアプリの製品ページ"><span class="card__ph">ルーレットアプリ</span></a>
+        <p class="card__name">ルーレットアプリ</p>
+        <p class="card__desc">決めごとを、たのしく。</p>
+        <a class="card__btn" href="#">ダウンロード</a>
+      </div>
+
+      <div class="card">
+        <a class="card__img" href="#" aria-label="xross.clubの製品ページ"><span class="card__ph">xross.club</span></a>
+        <p class="card__name">xross.club</p>
+        <p class="card__desc">地図と360°でつながるSNS。</p>
+        <a class="card__btn" href="#">サイトを見る</a>
+      </div>
+
+      <div class="card">
+        <a class="card__img" href="#" aria-label="旅するペガじろうの製品ページ"><span class="card__ph">旅するペガじろう</span></a>
+        <p class="card__name">旅するペガじろう</p>
+        <p class="card__desc">ペガじろうと旅する360°コンテンツ。</p>
+        <a class="card__btn" href="#">見る</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== 開発 ===== -->
+  <section class="cat">
+    <div class="cat__head"><h2 class="cat__title">開発</h2></div>
+    <div class="grid">
+
+      <div class="card">
+        <a class="card__img" href="#" aria-label="firemaruの製品ページ"><span class="card__ph">firemaru</span></a>
+        <p class="card__name">firemaru</p>
+        <p class="card__desc">Firebaseを触るデスクトップツール。</p>
+        <a class="card__btn" href="#">サイトを見る</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== デザイン ===== -->
+  <section class="cat">
+    <div class="cat__head"><h2 class="cat__title">デザイン</h2></div>
+    <div class="grid">
+
+      <div class="card">
+        <a class="card__img" href="#" aria-label="Adobe Stock素材の製品ページ"><span class="card__ph">Adobe Stock素材</span></a>
+        <p class="card__name">Adobe Stock素材</p>
+        <p class="card__desc">ベクター素材を配布中。</p>
+        <a class="card__btn" href="#">見る</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+  <footer>
+    <nav class="footer__links">
+      <a href="https://www.piyamaru.com/privacy-piyamaru">プライバシーポリシー</a>
+      <a href="https://www.piyamaru.app/support/support.html">お問い合わせ</a>
+    </nav>
+    <p class="footer__copy">© 2025 PIYAMARU Company. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
