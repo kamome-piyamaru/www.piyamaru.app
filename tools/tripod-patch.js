@@ -697,6 +697,11 @@
       recorder.onerror = (event) =>
         reject(event.error || new Error("録画に失敗しました。"));
     });
+    // recorder.onerrorは録画の途中（再生完了より前）で非同期に発火し得るため、
+    // このPromiseがawaitされるまでの間、Chromeが「Uncaught (in promise)」という
+    // 未処理のrejection警告をコンソールに出すことがある。実際にはこの後の
+    // `await finished` で確実に処理しているため、無害な警告を抑止しておく。
+    finished.catch(() => {});
 
     recorder.start();
 
