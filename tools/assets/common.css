@@ -1,0 +1,104 @@
+/* piyamaru.app 共通スタイル */
+:root{
+  --bg:#f3f8f5;
+  --surface:#ffffff;
+  --ink:#1d2b24;
+  --ink-sub:#5d6e66;
+  --line:#dce8e1;
+  --brand:#00ff99;      /* コーポレートカラー：面・ハイライト用 */
+  --brand-ink:#08865a;  /* 文字・リンク用の濃いグリーン */
+  --btn:#1d2b24;
+  --btn-ink:#ffffff;
+  --thumb-a:#e4f5ec;
+  --thumb-b:#d3efe1;
+  --f-display:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#111a16;--surface:#18241f;--ink:#e7f1ec;--ink-sub:#9db0a7;--line:#2a3a33;
+  --brand-ink:#4fe0a6;--btn:#e7f1ec;--btn-ink:#111a16;--thumb-a:#1e3029;--thumb-b:#243a31;
+  color-scheme:dark}}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+img{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--brand-ink);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto}
+
+/* ヘッダー */
+.site-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
+.site-head img{height:40px;width:auto;display:block}
+.site-head nav{display:flex;gap:20px;font-size:14px;white-space:nowrap}
+@media (max-width:480px){.site-head img{height:32px}.site-head nav{gap:14px;font-size:13px}}
+.site-head nav a{text-decoration:none;color:var(--ink-sub)}
+.site-head nav a:hover{color:var(--brand-ink)}
+
+/* 見出しエリア */
+.intro{padding-block:28px 32px;display:grid;gap:8px}
+.intro h1{font-family:var(--f-display);font-weight:900;font-size:clamp(28px,4.4vw,42px);line-height:1.3;margin:0;text-wrap:balance}
+.mark{background:linear-gradient(transparent 62%,var(--brand) 62%,var(--brand) 92%,transparent 92%);padding-inline:2px}
+.intro p{margin:0;color:var(--ink-sub)}
+
+/* カテゴリタブ */
+.tabs{display:flex;gap:8px;padding-bottom:20px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;font:inherit;font-size:14px;font-weight:700;height:38px;padding:0 18px;border-radius:99px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink-sub);cursor:pointer}
+.tabs button:hover{color:var(--ink);border-color:var(--ink-sub)}
+.tabs button[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+.tabs .count{font-weight:500;opacity:.7;margin-left:6px;font-size:12px}
+
+/* 製品一覧 */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding-bottom:56px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.grid{grid-template-columns:1fr;gap:20px}}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;
+  display:grid;grid-template-rows:auto 1fr auto auto;gap:14px;min-width:0;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px -14px rgba(8,80,50,.35)}
+.head{display:flex;gap:14px;align-items:center;min-width:0}
+.app-icon{flex:none;width:64px;height:64px;border-radius:16px;overflow:hidden;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--thumb-a),var(--thumb-b));border:1px solid var(--line)}
+.app-icon img{width:100%;height:100%;object-fit:cover;display:block}
+.app-icon svg{width:52px;height:52px}
+.title{display:grid;gap:4px;min-width:0}
+.title h2{font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1.3;margin:0;overflow-wrap:anywhere}
+.title h2 a{text-decoration:none}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.cat{font-size:12px;color:var(--ink-sub);letter-spacing:.06em}
+.status{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--brand-ink);padding:0 8px;border-radius:99px;border:1px solid var(--line)}
+.desc{margin:0;color:var(--ink-sub);font-size:14px}
+.get{display:flex;flex-wrap:wrap;gap:8px;min-height:38px;align-content:flex-start}
+.get a{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:10px;
+  background:var(--btn);color:var(--btn-ink);text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}
+.get a:hover{opacity:.85}
+.get svg{width:16px;height:16px;flex:none}
+.more{font-size:13px;font-weight:700;color:var(--brand-ink);text-decoration:none;border-top:1px solid var(--line);padding-top:12px}
+.more:hover{text-decoration:underline}
+
+/* 製品LP（/roulette/ など） */
+.lp-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center;padding-block:24px 48px}
+@media (max-width:760px){.lp-hero{grid-template-columns:1fr;gap:24px}}
+.lp-hero > img{width:100%;border-radius:18px;display:block;border:1px solid var(--line)}
+.lp-hero .cat{font-size:13px}
+.lp-hero h1{font-family:var(--f-display);font-weight:900;font-size:clamp(30px,5vw,46px);line-height:1.25;margin:4px 0 12px}
+.lp-hero p{margin:0 0 20px;color:var(--ink-sub)}
+.badges{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.badges img{height:48px;width:auto;display:block}
+.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding-bottom:56px}
+@media (max-width:760px){.features{grid-template-columns:1fr}}
+.features div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.features h3{font-family:var(--f-display);font-size:17px;margin:0 0 6px}
+.features p{margin:0;color:var(--ink-sub);font-size:14px}
+.back{display:inline-block;font-size:13px;color:var(--brand-ink);text-decoration:none;margin-top:8px}
+
+/* フッター */
+.site-foot{border-top:1px solid var(--line);padding-block:24px 32px;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;font-size:13px;color:var(--ink-sub)}
+.site-foot nav{display:flex;gap:20px;flex-wrap:wrap}
+.site-foot a{text-decoration:none}
+.site-foot a:hover{color:var(--brand-ink)}
+
+@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
