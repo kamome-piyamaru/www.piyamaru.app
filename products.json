@@ -39,13 +39,23 @@
       ]
     },
     {
+      "name": "panomaru",
+      "icon": "/assets/img/products/panomaru.png",
+      "categories": ["xr"],
+      "status": "2026年11月リリース予定",
+      "desc": "VR・360°コンテンツを、撮る・編集する・共有する・体験するまでつなぐXR製品シリーズ。",
+      "lp": "/panomaru/",
+      "links": []
+    },
+    {
       "name": "xross.club",
       "icon": "/assets/img/products/xross.png",
       "categories": ["xr"],
       "desc": "地図とつながる360°・VRの投稿SNS。撮った場所ごとに、その場の景色を共有できます。",
       "lp": "https://www.xross.club/",
       "links": [
-        { "type": "web", "url": "https://www.xross.club/" }
+        { "type": "appstore", "url": "https://apps.apple.com/app/id6473825090" },
+        { "type": "googleplay", "url": "https://play.google.com/store/apps/details?id=com.piyamaru.xross_club_app" }
       ]
     }
   ]

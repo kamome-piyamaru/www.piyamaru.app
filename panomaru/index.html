@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>panomaru | 株式会社ぴやまる</title>
+  <meta name="description" content="VRコンテンツを、保管から体験へ。撮る・編集する・共有する・体験するまでをつなぐ、ぴやまるのXR製品シリーズ panomaru。">
+  <meta property="og:title" content="panomaru — VRコンテンツを、保管から体験へ。">
+  <meta property="og:description" content="撮る・編集する・共有する・体験するまでをつなぐ、ぴやまるのXR製品シリーズ。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.piyamaru.app/panomaru/">
+  <meta property="og:image" content="https://www.piyamaru.app/assets/img/panomaru/logo.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="/assets/common.css">
+  <style>
+    /* panomaru LP 専用：サイト共通の部品に、panomaruの紫を重ねる */
+    :root{
+      --pano:#8a6fe0;        /* ロゴの紫 */
+      --pano-ink:#5f47b8;    /* 文字用の濃い紫 */
+      --pano-soft:#efeafc;   /* 面用の淡い紫 */
+      --pano-line:#ddd3f6;
+    }
+    @media (prefers-color-scheme: dark){:root{
+      --pano:#a68cff;--pano-ink:#c3b2ff;--pano-soft:#241f36;--pano-line:#3a3256}}
+
+    .pano-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:48px;align-items:center;padding-block:32px 64px}
+    @media (max-width:760px){.pano-hero{grid-template-columns:1fr;gap:24px;padding-block:16px 48px}}
+    .pano-hero .mark-box{background:var(--pano-soft);border-radius:28px;aspect-ratio:1;max-width:100%;display:grid;place-items:center;gap:8px;align-content:center}
+    @media (max-width:760px){.pano-hero .mark-box{aspect-ratio:auto;padding-block:32px}}
+    .pano-hero .mark-box img{width:46%;height:auto}
+    .pano-hero .wordmark{font-family:var(--f-body);font-weight:400;letter-spacing:.35em;font-size:clamp(22px,3vw,30px);color:var(--pano-ink);margin-right:-.35em}
+    .eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--pano-ink)}
+    .pano-hero h1{font-family:var(--f-display);font-weight:900;font-size:clamp(30px,4.6vw,48px);line-height:1.3;margin:8px 0 16px;text-wrap:balance}
+    .pano-hero .lead{margin:0 0 20px;color:var(--ink-sub);font-size:16px}
+    .release{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--pano-line);border-radius:20px;padding:6px 16px 6px 6px;font-size:14px;font-weight:700}
+    .release b{background:var(--pano);color:#fff;border-radius:99px;padding:2px 12px;font-size:12px}
+
+    .sec{padding-block:48px;border-top:1px solid var(--line);display:grid;gap:24px}
+    .sec h2{font-family:var(--f-display);font-weight:900;font-size:clamp(22px,3vw,30px);line-height:1.4;margin:0;text-wrap:balance}
+    .sec .note{margin:0;color:var(--ink-sub);font-size:13px}
+
+    /* 課題：3ステップ */
+    .flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    @media (max-width:760px){.flow{grid-template-columns:1fr}}
+    .flow div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:6px}
+    .flow h3{font-family:var(--f-display);font-size:18px;margin:0}
+    .flow p{margin:0;color:var(--ink-sub);font-size:14px}
+    .flow div:last-child{border-color:var(--pano-line);background:var(--pano-soft)}
+    .issue{margin:0;font-weight:700;font-size:16px}
+    .issue span{color:var(--pano-ink)}
+
+    /* 活用サイクル */
+    .cycle{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:step}
+    @media (max-width:900px){.cycle{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:480px){.cycle{grid-template-columns:1fr}}
+    .cycle li{list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:grid;gap:4px;counter-increment:step}
+    .cycle li::before{content:"0" counter(step);font-size:12px;font-weight:700;color:var(--pano-ink);letter-spacing:.08em}
+    .cycle h3{font-family:var(--f-display);font-size:17px;margin:0}
+    .cycle p{margin:0;color:var(--ink-sub);font-size:14px}
+    .cycle{padding:0;margin:0}
+
+    /* 製品ラインナップ */
+    .lineup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+    @media (max-width:760px){.lineup{grid-template-columns:1fr}}
+    .prod{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:12px;align-content:start;min-width:0}
+    .prod-head{display:flex;gap:14px;align-items:center}
+    .prod-icon{flex:none;width:60px;height:60px;border-radius:14px;overflow:hidden;background:var(--pano-soft);display:grid;place-items:center}
+    .prod-icon img{width:100%;height:100%;object-fit:cover}
+    .prod-icon.logo img{width:72%;height:72%;object-fit:contain}
+    .prod-head h3{font-family:var(--f-display);font-size:20px;line-height:1.3;margin:0}
+    .prod-head h3 small{font-size:13px;font-weight:500;color:var(--ink-sub)}
+    .prod-head .kind{font-size:12px;color:var(--ink-sub);letter-spacing:.04em}
+    .prod p{margin:0;color:var(--ink-sub);font-size:14px}
+    .prod dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:13px;border-top:1px solid var(--line);padding-top:12px}
+    .prod dt{color:var(--ink-sub)}
+    .prod dd{margin:0;font-weight:700}
+    .prod dd.date{color:var(--pano-ink)}
+
+    /* 技術・エコシステム */
+    .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+    @media (max-width:760px){.two{grid-template-columns:1fr}}
+    .two div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
+    .two h3{font-family:var(--f-display);font-size:18px;margin:0 0 8px}
+    .two ul{margin:0;padding-left:1.2em;color:var(--ink-sub);font-size:14px;display:grid;gap:4px}
+    .eco{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center}
+    @media (max-width:760px){.eco{grid-template-columns:1fr}.eco .arrow{transform:rotate(90deg);justify-self:center}}
+    .eco div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px;text-align:center}
+    .eco div.center{background:var(--pano-soft);border-color:var(--pano-line)}
+    .eco h3{font-family:var(--f-display);font-size:17px;margin:0 0 4px}
+    .eco p{margin:0;color:var(--ink-sub);font-size:13px}
+    .eco .arrow{color:var(--pano-ink);font-weight:700;font-size:20px}
+
+    /* 締め */
+    .closing{background:var(--pano-soft);border-radius:24px;padding:40px 28px;text-align:center;display:grid;gap:10px;margin-block:16px 56px}
+    .closing h2{font-family:var(--f-display);font-weight:900;font-size:clamp(24px,3.4vw,34px);margin:0;line-height:1.4}
+    .closing p{margin:0;color:var(--ink-sub)}
+    .closing .vision{font-size:15px;color:var(--pano-ink);font-weight:700;line-height:1.8}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-head">
+      <a href="/" aria-label="プロダクト一覧へ"><img src="/assets/img/logo.png" alt="株式会社ぴやまる"></a>
+      <nav><a href="/">プロダクト一覧</a><a href="/support/support.html">お問い合わせ</a></nav>
+    </header>
+
+    <section class="pano-hero">
+      <div class="mark-box">
+        <img src="/assets/img/panomaru/logo.png" alt="">
+        <span class="wordmark">panomaru</span>
+      </div>
+      <div>
+        <span class="eyebrow">XR PLATFORM</span>
+        <h1>VRコンテンツを、<br>保管から体験へ。</h1>
+        <p class="lead">撮る。編集する。共有する。<br>panomaruは、VR・360°コンテンツを撮ったあとの「届け方」までをつなぐ、ぴやまるのXR製品シリーズです。</p>
+        <span class="release"><b>2026.11</b>panomaru XR・panomaru Doc リリース予定</span>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>撮ったVRコンテンツが、眠ったままになっていませんか？</h2>
+      <div class="flow">
+        <div><h3>撮る</h3><p>VRカメラで、旅先や思い出を360°の写真・動画として記録。</p></div>
+        <div><h3>保管で止まる</h3><p>公開や共有の手段が限られ、自分だけで楽しむことも多い。</p></div>
+        <div><h3>体験として届かない</h3><p>説明やストーリーを加える仕組みがないと、魅力が伝わりにくい。</p></div>
+      </div>
+      <p class="issue">VRコンテンツを「撮影した人の思い出」から、<span>「誰かが体験できるコンテンツ」</span>へ。</p>
+    </section>
+
+    <section class="sec">
+      <h2>見るだけで終わらない。panomaruがつなぐ活用サイクル</h2>
+      <ol class="cycle">
+        <li><h3>表示する</h3><p>VR写真・動画を、手元のデバイスですぐに楽しむ。</p></li>
+        <li><h3>保管・共有する</h3><p>コンテンツをまとめて、Webで公開・共有する。</p></li>
+        <li><h3>ストーリーを加える</h3><p>マーカーや説明を置いて、体験を編集する。</p></li>
+        <li><h3>体験を届ける</h3><p>つくる人と体験したい人を、コンテンツでつなぐ。</p></li>
+      </ol>
+    </section>
+
+    <section class="sec" id="lineup">
+      <h2>製品ラインナップ</h2>
+      <div class="lineup">
+        <article class="prod">
+          <div class="prod-head">
+            <div class="prod-icon"><img src="/assets/img/panomaru/xr.png" alt=""></div>
+            <div><h3>panomaru XR</h3><span class="kind">XR Viewer ／ デスクトップアプリ</span></div>
+          </div>
+          <p>VR・360°の写真や動画、一般の画像・動画を、ローカルからすぐに閲覧できるビューアー。</p>
+          <dl><dt>リリース</dt><dd class="date">2026年11月予定</dd><dt>料金</dt><dd>無料・アカウント登録不要</dd></dl>
+        </article>
+        <article class="prod">
+          <div class="prod-head">
+            <div class="prod-icon"><img src="/assets/img/panomaru/doc.png" alt=""></div>
+            <div><h3>panomaru Doc</h3><span class="kind">PDF Viewer / Editor ／ デスクトップアプリ</span></div>
+          </div>
+          <p>PDF・Markdownなどを表示・編集。閲覧はすぐに使えて、編集・ページ整理・注釈・フォームはProで使えます。</p>
+          <dl><dt>リリース</dt><dd class="date">2026年11月予定</dd><dt>料金</dt><dd>Free（登録不要）／ Pro（サブスクリプション）</dd></dl>
+        </article>
+        <article class="prod">
+          <div class="prod-head">
+            <div class="prod-icon logo"><img src="/assets/img/panomaru/logo.png" alt=""></div>
+            <div><h3>panomaru Platform <small>（仮称）</small></h3><span class="kind">Webサービス</span></div>
+          </div>
+          <p>VR写真・動画を保管し、Webで公開・共有。PC・スマートフォン、Meta QuestなどWebXR対応デバイスからアクセスできます。</p>
+          <dl><dt>リリース</dt><dd class="date">2027年春予定</dd><dt>利用</dt><dd>アカウント登録制</dd></dl>
+        </article>
+        <article class="prod">
+          <div class="prod-head">
+            <div class="prod-icon logo"><img src="/assets/img/panomaru/logo.png" alt=""></div>
+            <div><h3>panomaru Studio</h3><span class="kind">XR Authoring ／ 編集ツール</span></div>
+          </div>
+          <p>VR空間にマーカーや説明を置き、別のシーンへ切り替えながら進む、ストーリーのある体験をつくれます。</p>
+          <dl><dt>リリース</dt><dd class="date">2027年夏予定</dd><dt>料金</dt><dd>サブスクリプション予定</dd></dl>
+        </article>
+      </div>
+      <p class="note">各製品は単体でも使えて、組み合わせるとさらに便利になります。アカウント登録は、データを保存・管理するときだけ必要です。</p>
+    </section>
+
+    <section class="sec">
+      <h2>WebXRとマーカーで、VR体験に操作と意味を</h2>
+      <div class="two">
+        <div>
+          <h3>空間内マーカー</h3>
+          <ul><li>説明ダイアログの表示</li><li>VRコンテンツの切り替え</li><li>見る人の操作に応じた体験づくり</li></ul>
+        </div>
+        <div>
+          <h3>WebXRベース</h3>
+          <ul><li>Webを入口に、すぐ体験できる</li><li>PC・スマートフォン・対応XR機器で使える</li><li>公開・共有サービスと組み合わせやすい</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>つくる人と、体験したい人をつなぐ</h2>
+      <div class="eco">
+        <div><h3>つくる人</h3><p>VRコンテンツを撮影・制作し、Studioでストーリーを編集</p></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="center"><h3>panomaru</h3><p>保管・公開・発見<br>コンテンツを届ける基盤</p></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div><h3>体験する人</h3><p>コンテンツを閲覧し、体験する</p></div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <h2>XRでもっと楽しい体験を！</h2>
+      <p class="vision">全製品を、共通コアエンジンPIYAMARU XR Insight Lensが支えています。</p>
+    </section>
+
+    <p class="sec note" style="border-top:0;padding-block:0 24px">※ サービス名称・機能・料金・リリース時期は、開発計画に基づく予定です。</p>
+
+    <footer class="site-foot">
+      <span>© 2026 PIYAMARU Company.</span>
+      <nav>
+        <a href="/">プロダクト一覧</a>
+        <a href="https://www.piyamaru.com/privacy-piyamaru">プライバシーポリシー</a>
+        <a href="/support/support.html">お問い合わせ</a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>

@@ -62,7 +62,7 @@ a{color:inherit}
 .head{display:flex;gap:14px;align-items:center;min-width:0}
 .app-icon{flex:none;width:64px;height:64px;border-radius:16px;overflow:hidden;display:grid;place-items:center;
   background:linear-gradient(135deg,var(--thumb-a),var(--thumb-b));border:1px solid var(--line)}
-.app-icon img{width:100%;height:100%;object-fit:cover;display:block}
+.app-icon img{width:100%;height:100%;object-fit:contain;display:block}
 .app-icon svg{width:52px;height:52px}
 .title{display:grid;gap:4px;min-width:0}
 .title h2{font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1.3;margin:0;overflow-wrap:anywhere}
@@ -72,6 +72,7 @@ a{color:inherit}
 .status{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--brand-ink);padding:0 8px;border-radius:99px;border:1px solid var(--line)}
 .desc{margin:0;color:var(--ink-sub);font-size:14px}
 .get{display:flex;flex-wrap:wrap;gap:8px;min-height:38px;align-content:flex-start}
+.get:empty{display:none}
 .get a{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:10px;
   background:var(--btn);color:var(--btn-ink);text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}
 .get a:hover{opacity:.85}
