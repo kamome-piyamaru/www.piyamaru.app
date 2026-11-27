@@ -78,6 +78,13 @@
     .prod dt{color:var(--ink-sub)}
     .prod dd{margin:0;font-weight:700}
     .prod dd.date{color:var(--pano-ink)}
+    .prod-downloads{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:8px}
+    .prod-download{display:grid;gap:2px;align-content:center;min-height:48px;padding:8px 10px;border:1px solid var(--pano-line);border-radius:10px;background:var(--pano-soft);color:var(--pano-ink);text-decoration:none;font-size:13px;font-weight:700;line-height:1.35}
+    .prod-download[href]:hover{border-color:var(--pano-ink)}
+    .prod-download[href]:focus-visible{outline:2px solid var(--pano-ink);outline-offset:2px}
+    .prod-download[aria-disabled="true"]{background:var(--surface);border-color:var(--line);color:var(--ink-sub)}
+    .prod-download small{font-size:11px;font-weight:500}
+
 
     /* 技術・エコシステム */
     .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
@@ -187,6 +194,10 @@
           </div>
           <p>VR・360°の写真や動画、一般の画像・動画を、ローカルからすぐに閲覧できるビューアー。</p>
           <dl><dt>リリース</dt><dd class="date">2026年11月予定</dd><dt>料金</dt><dd>無料・アカウント登録不要</dd></dl>
+          <div class="prod-downloads" data-download-product="panomaru-xr" role="group" aria-label="panomaru XR のダウンロード">
+            <a class="prod-download" data-download-target="macos-arm64" aria-disabled="true"><span>Mac（Apple Silicon）</span><small>準備中</small></a>
+            <a class="prod-download" data-download-target="windows-x64" aria-disabled="true"><span>Windows（x64）</span><small>準備中</small></a>
+          </div>
         </article>
         <article class="prod">
           <div class="prod-head">
@@ -195,6 +206,10 @@
           </div>
           <p>PDF・Markdownなどを表示・編集。閲覧はすぐに使えて、編集・ページ整理・注釈・フォームはProで使えます。</p>
           <dl><dt>リリース</dt><dd class="date">2026年11月予定</dd><dt>料金</dt><dd>無料・アカウント登録不要</dd></dl>
+          <div class="prod-downloads" data-download-product="panomaru-doc" role="group" aria-label="panomaru Doc のダウンロード">
+            <a class="prod-download" data-download-target="macos-arm64" aria-disabled="true"><span>Mac（Apple Silicon）</span><small>準備中</small></a>
+            <a class="prod-download" data-download-target="windows-x64" aria-disabled="true"><span>Windows（x64）</span><small>準備中</small></a>
+          </div>
         </article>
       </div>
     </section>
@@ -226,5 +241,6 @@
       </nav>
     </footer>
   </div>
+  <script src="./download-widget.js" defer></script>
 </body>
 </html>
